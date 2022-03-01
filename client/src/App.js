@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Users from './components/users';
+
+import CheckoutForm from './components/CheckoutForm'
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK, {
+  stripeAccount: 'acct_1KYJMBEPtLNC0ruw'
+});
 
 class App extends Component {
   render() {
@@ -9,9 +16,11 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">React Express Starter</h1>
+          <h1 className="App-title">Bussin Goods</h1>
         </header>
-        <Users />
+        <Elements stripe={stripePromise}>
+          <CheckoutForm/>
+        </Elements>
       </div>
     );
   }
