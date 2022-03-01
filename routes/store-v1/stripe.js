@@ -6,47 +6,56 @@ var router = express.Router();
 
 const stripe = new Stripe(process.env.STRIPE_SK);
 
-// Creates an id on stripe's end for the user
+// TODO: Error Handling - Store already has id
 router.get('/createAccount', async function(req, res, next) {
-    const user = 'test' // will have to pull from the request (authenticated)
+    // CHECK IF THIS USER IS AUTHORIZED
+    const user = 'test' // pull from Req Auth
+
+    const store = await req.db.Store.findById(req.query.storeID)
     const account = await stripe.accounts.create({type: 'standard'});
-    // check if this is a verified business, add that they started to create
-    // their account in the db
-    console.log(account)
+    
+    store.stripe.accountID = account.id
+    await store.save()
+
     res.json({status: 'success'})
 });
 
-// takes an id that has been generated for stripe --> produces a link for the user
-// to create acc 
+// TODO: Error Handling - store does or does not have account id
 router.get('/getOnboardingLink', async function(req,res,next) {
-    let user = 'test' // will have to pull from the request (authenticated)
-    // check if they have an account id yet, check if they've been set up as well
-    // get the user's account id if they have it
-    let accountId = 'acct_1KYEBRPndt2a3xQD'
+    // CHECK IS THIS USER IS AUTHORIZED
+    let user = 'test' // pull from Req Auth
+
+    let store = await req.db.Store.findById(req.query.storeID)
+    let accountID = store.stripe.accountID
+
     const accountLink = await stripe.accountLinks.create({
-        account: accountId,
+        account: accountID,
         refresh_url: 'http://localhost:3000/store/profile/reauth',
         return_url: 'http://localhost:3000/store/profile',
         type: 'account_onboarding',
-      });
+    });
+
     // sends an object with {created: ..., expires_at:..., url:...}
-    console.log(accountLink)
     res.json(accountLink)
 })
 
 router.get('/authenticateAccount', async function(req,res,next) {
-    let user = 'test' // will have to pull from the request (authenticated)
-    // get user stripe acc
-    let accountId = 'acct_1KYJMBEPtLNC0ruw'
-    let account = await stripe.accounts.retrieve(accountId)
+    // CHECK IF THIS USER IS AUTHORIZED
+    let user = 'test' // pull from Req Auth
+
+    let store = await req.db.Store.findById(req.query.storeID)
+    let accountID = store.stripe.accountID
+
+    let account = await stripe.accounts.retrieve(accountID)
     if (!account.charges_enabled) {
-        // have the front end ask for account links again
         res.status(500)
         res.json({status: 'error', message: 'User has not completed Stripe account.'})
         return
     }
-    console.log(account)
-    // store the authentication in our db
+
+    store.stripe.enabled = true
+    await store.save()
+
     res.json({status: 'success'})
 })
 
