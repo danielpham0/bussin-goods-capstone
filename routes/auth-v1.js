@@ -51,11 +51,9 @@ router.post('/login', function(req,res) {
 
   cognitoUser.authenticateUser(authDetails, {
     onSuccess: data => {
-      req.session.token = data.getIdToken().getJwtToken()
-      req.session.userId = data.getIdToken().payload.sub
-      console.log("new", req.session)
+      res.cookie("accessToken", data.getIdToken().getJwtToken(), {httpOnly: true});
       res.type("json")
-      res.send({status: 'success'})
+      res.send({status: "success"});
     },
     onFailure: err => {
       res.type("json")
@@ -66,17 +64,18 @@ router.post('/login', function(req,res) {
 })
 
 router.get('/logout', async function(req,res) {
-  if(req.session.userId){
+  if(req.userId){
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
-      Username: req.session.userId,
+      Username: req.userId,
       Pool: userPool
     })
 
     await cognitoUser.signOut()
-    req.session.userId = null
-    req.session.token = null
+    res.cookie("accessToken", "", {
+      maxAge: 0,
+      httpOnly:true,
+    });
   }
-
   res.type("json")
   res.send({status: "success"})
 })

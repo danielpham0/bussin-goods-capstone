@@ -3,10 +3,11 @@ import cookieParser from 'cookie-parser';
 import db from "./middleware/db.js";
 import cors from 'cors'
 import ngrok from 'ngrok'
-import sessions from 'express-session';
-import MongoStore from 'connect-mongo'
+// import sessions from 'express-session';
+// import MongoStore from 'connect-mongo'
 import 'dotenv/config'
 
+import authJwt from './middleware/authJwt.js'
 import indexRouter from './routes/index.js';
 import paymentV1Router from './routes/payment-v1.js'
 import storeV1Router from './routes/store-v1.js'
@@ -19,22 +20,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors()) // TODO: Add cors options so that it's just for our front-end
 app.use(cookieParser());
 app.use( function (req, res, next) {
+  authJwt(req)
   req.db = db;
   next();
 })
 
-const oneWeek = 1000 * 60 * 60 * 24 * 7;
-app.use(sessions({
-  secret: process.env.SESSIONS_SECRET,
-  saveUninitialized: true,
-  cookie: { maxAge: oneWeek },
-  resave: false,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI,
-    autoRemove: 'native',
-    collectionName: 'Bussing-Goods-Sessions',
-  })
-}))
+// const oneWeek = 1000 * 60 * 60 * 24 * 7;
+// app.use(sessions({
+//   secret: process.env.SESSIONS_SECRET,
+//   saveUninitialized: true,
+//   cookie: { maxAge: oneWeek },
+//   resave: false,
+//   store: MongoStore.create({
+//     mongoUrl: process.env.MONGODB_URI,
+//     autoRemove: 'native',
+//     collectionName: 'Bussing-Goods-Sessions',
+//   })
+// }))
 
 // Exposes the local server so that Stripe can reach Webhook
 const url = await ngrok.connect({
