@@ -3,6 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 
 import CheckoutForm from './components/CheckoutForm'
+import SignUpForm from './components/SignUpForm';
+import LoginForm from './components/LoginForm';
+
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 
@@ -18,6 +21,11 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Bussin Goods</h1>
         </header>
+        <br/>
+        <SignUpForm/>
+        <br/>
+        <LoginForm/>
+        <br/>
         <Elements stripe={stripePromise}>
           <CheckoutForm/>
         </Elements>

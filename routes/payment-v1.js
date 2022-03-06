@@ -52,7 +52,7 @@ router.post('/stripeWebhook', (req,res) => {
   res.json({received: true});
 });
   
-const handleSuccessfulPaymentIntent = (connectedAccountId, paymentIntent) => {
+const handleSuccessfulPaymentIntent = async (connectedAccountId, paymentIntent) => {
   let order = req.db.Order.find({stripePaymentID: paymentIntent.id})
   order.paid = true
   await order.save()

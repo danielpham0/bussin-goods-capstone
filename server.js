@@ -3,10 +3,14 @@ import cookieParser from 'cookie-parser';
 import db from "./middleware/db.js";
 import cors from 'cors'
 import ngrok from 'ngrok'
+import sessions from 'express-session';
+import MongoStore from 'connect-mongo'
+import 'dotenv/config'
 
 import indexRouter from './routes/index.js';
 import paymentV1Router from './routes/payment-v1.js'
 import storeV1Router from './routes/store-v1.js'
+import authV1Router from './routes/auth-v1.js'
 
 var app = express();
 
@@ -18,6 +22,19 @@ app.use( function (req, res, next) {
   req.db = db;
   next();
 })
+
+const oneWeek = 1000 * 60 * 60 * 24 * 7;
+app.use(sessions({
+  secret: process.env.SESSIONS_SECRET,
+  saveUninitialized: true,
+  cookie: { maxAge: oneWeek },
+  resave: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    autoRemove: 'native',
+    collectionName: 'Bussing-Goods-Sessions',
+  })
+}))
 
 // Exposes the local server so that Stripe can reach Webhook
 const url = await ngrok.connect({
@@ -32,6 +49,7 @@ app.use('/', indexRouter);
 // STRIPE DOCUMENTATION: https://stripe.com/docs/payments/handling-payment-events
 app.use(`/api/v1/payment`, paymentV1Router);
 app.use(`/api/v1/store`, storeV1Router);
+app.use(`/api/v1/auth`, authV1Router);
 
 const port = 3001;
 app.listen(port, () => `Server running on port ${port}`);
