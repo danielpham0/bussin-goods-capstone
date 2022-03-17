@@ -10,10 +10,14 @@ const poolData = {
 }
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData)
 
-router.post('/signup', function(req, res, next) {
+router.post('/signup', async function(req, res, next) {
   const email = req.body.email
   const password = req.body.password
   const confirmPassword = req.body.confirm_password
+  
+  const username = req.body.username
+  const first_name = req.body.first_name
+  const last_name = req.body.last_name
 
   if (password !== confirmPassword) {
     res.type("json")
@@ -21,22 +25,35 @@ router.post('/signup', function(req, res, next) {
     res.send({status: 'error', error: 'Passwords are not the same.'})
     return
   }
+  try {
+    const emailAttr = new AmazonCognitoIdentity.CognitoUserAttribute({
+      Name: 'email',
+      Value: email
+    })
+  
+    userPool.signUp(email, password, [emailAttr], null, async (err, data) => {
+      if (err) {
+        res.type("json")
+        res.status(500)
+        res.send({status: 'error', error: err})
+        return
+      }
+      let newUser = new req.db.User({
+        _id: data.userSub,
+        email: email,
+        username: username,
+        first_name: first_name,
+        last_name: last_name,
+        accountType: "Standard"
+      })
+      await newUser.save()
 
-  const emailAttr = new AmazonCognitoIdentity.CognitoUserAttribute({
-    Name: 'email',
-    Value: email
-  })
-
-  userPool.signUp(email, password, [emailAttr], null, (err, data) => {
-    if (err) {
-      res.type("json")
-      res.status(500)
-      res.send({status: 'error', error: err})
-      return
-    }
-    res.type("json")
-    res.send(data.user)
-  })
+      res.json({status: "success", newUser: newUser})
+    })
+  } catch(error) {
+    res.status(500)
+    res.json({status: 'error', error: error.toString()})
+  }
 });
 
 router.post('/login', function(req,res) {
