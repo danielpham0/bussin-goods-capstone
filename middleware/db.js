@@ -22,6 +22,26 @@ async function dbConnect() {
   })
   db.User = mongoose.model('User', userSchema)
 
+  const storeSchema = new mongoose.Schema({
+    name: String,
+    admins: [String], // array of user's cognito ids
+    products: [String], // will become Product ID Array
+    stripe: {
+      accountID: String,
+      enabled: Boolean
+    },
+    type: String, // Starting here could be a part of a store profile
+    cohort: String,
+    about: String,
+    tagLine: String,
+    socialLinks: {
+      socialMedia: String,
+      link: String
+    },
+    private: Boolean
+  })
+  db.Store = mongoose.model('Store', storeSchema)
+
   const productSchema = new mongoose.Schema({
     storeId: String,
     name: String,
@@ -42,36 +62,6 @@ async function dbConnect() {
   })
   db.Product = mongoose.model('Product', productSchema)
 
-  const reviewSchema = new mongoose.Schema({
-    userId: String, // user's cognito id
-    productId: String, // replace with product id
-    rating: Number,
-    comment: String,
-    datePosted: Date
-  })
-
-  db.Review = mongoose.model('Review', reviewSchema)
-
-  const storeSchema = new mongoose.Schema({
-    name: String,
-    admins: [String], // array of user's cognito ids
-    products: [String], // will become Product ID Array
-    stripe: {
-      accountID: String,
-      enabled: Boolean
-    },
-    type: String, // Starting here could be a part of a store profile
-    cohort: String,
-    about: String,
-    tagLine: String,
-    socialLinks: {
-      socialMedia: String,
-      link: String
-    }
-  })
-
-  db.Store = mongoose.model('Store', storeSchema)
-
   const orderSchema = new mongoose.Schema({
     customerID: String, // user cognito id
     storeID: {
@@ -83,8 +73,16 @@ async function dbConnect() {
     products: [String], // will become Product ID Array
     total: Number
   })
-
   db.Order = mongoose.model('Order', orderSchema)
+
+  const reviewSchema = new mongoose.Schema({
+    userId: String, // user's cognito id
+    productId: String, // replace with product id
+    rating: Number,
+    comment: String,
+    datePosted: Date
+  })
+  db.Review = mongoose.model('Review', reviewSchema)
 
   console.log("created db schemas and models")
 }
