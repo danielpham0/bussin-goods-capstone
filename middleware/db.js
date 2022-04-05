@@ -11,7 +11,7 @@ async function dbConnect() {
   console.log("connected to the database!")
 
   const userSchema = new mongoose.Schema({
-    _id: String,
+    _id: String, // equivalent to the cognito ID
     username: String,
     first_name: String,
     last_name: String,
@@ -24,8 +24,14 @@ async function dbConnect() {
 
   const storeSchema = new mongoose.Schema({
     name: String,
-    admins: [String], // array of user's cognito ids
-    products: [String], // will become Product ID Array
+    admins: [{
+      type: mongoose.Schema.Types.ObjectID,
+      ref: 'User'
+    }],
+    products: [{
+      type: mongoose.Schema.Types.ObjectID,
+      ref: 'Product'
+    }],
     stripe: {
       accountID: String,
       enabled: Boolean
@@ -47,6 +53,7 @@ async function dbConnect() {
     name: String,
     tagline: String,
     cost: Number,
+    type: String,
     pictures: [String], // may be an id to GridFs
     options: [{
       title: String,
@@ -63,21 +70,33 @@ async function dbConnect() {
   db.Product = mongoose.model('Product', productSchema)
 
   const orderSchema = new mongoose.Schema({
-    customerID: String, // user cognito id
+    customerID: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: 'User'
+    },
     storeID: {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'Store'
     },
     stripePaymentID: String,
     paid: Boolean,
-    products: [String], // will become Product ID Array
+    products: [{
+      type: mongoose.Schema.Types.ObjectID,
+      ref: 'Product'
+    }],
     total: Number
   })
   db.Order = mongoose.model('Order', orderSchema)
 
   const reviewSchema = new mongoose.Schema({
-    userId: String, // user's cognito id
-    productId: String, // replace with product id
+    userId: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: 'User'
+    },
+    productId: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: 'Product'
+    },
     rating: Number,
     comment: String,
     datePosted: Date
