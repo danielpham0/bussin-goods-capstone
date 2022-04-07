@@ -8,7 +8,13 @@ const stripe = new Stripe(process.env.STRIPE_SK);
 
 // TAKES: storeID, 
 router.post('/createOrder', async function(req, res, next) {
-  // Check if user is logged in
+  if (!req.userID) {
+    res.status(401)
+    res.json({
+      status: 'error',
+      error: 'User must be logged in.'
+    });
+  }
   const user = req.userID
 
   const store = await req.db.Store.findById(req.body.storeID)
@@ -16,7 +22,7 @@ router.post('/createOrder', async function(req, res, next) {
 
   const paymentIntent = await stripe.paymentIntents.create({
       payment_method_types: ['card'],
-      amount: amount,
+      amount: req.body.amount,
       currency: 'usd',
       application_fee_amount: 0,
     }, {

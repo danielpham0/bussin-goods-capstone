@@ -35,7 +35,7 @@ router.post('/signup', async function(req, res, next) {
       if (err) {
         res.type("json")
         res.status(500)
-        res.send({status: 'error', error: err.message})
+        res.send({status: 'error', error: err.toString()})
         return
       }
       let newUser = new req.db.User({
@@ -44,7 +44,7 @@ router.post('/signup', async function(req, res, next) {
         username: username,
         first_name: first_name,
         last_name: last_name,
-        accountType: "Standard"
+        account_type: "Standard"
       })
       await newUser.save()
 
@@ -52,7 +52,7 @@ router.post('/signup', async function(req, res, next) {
     })
   } catch(err) {
     res.status(500)
-    res.json({status: 'error', error: err.message})
+    res.json({status: 'error', error: err.toString()})
   }
 });
 
@@ -75,7 +75,7 @@ router.post('/login', function(req,res) {
     onFailure: err => {
       res.type("json")
       res.status(500)
-      res.send({status: 'error', error: err.message})
+      res.send({status: 'error', error: err.toString()})
     }
   })
 })

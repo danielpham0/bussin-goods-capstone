@@ -15,7 +15,7 @@ async function dbConnect() {
     username: String,
     first_name: String,
     last_name: String,
-    accountType: String, // initially set to Standard
+    account_type: String, // initially set to Standard
     email: String,
     address: String, // not set initially
     profile_picture: String // may be an id to GridFs, not set initially
@@ -40,10 +40,10 @@ async function dbConnect() {
     cohort: String,
     about: String,
     tagLine: String,
-    socialLinks: {
+    socialLinks: [{
       socialMedia: String,
       link: String
-    },
+    }],
     private: Boolean
   })
   db.Store = mongoose.model('Store', storeSchema)

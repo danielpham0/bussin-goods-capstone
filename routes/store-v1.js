@@ -5,17 +5,91 @@ var router = express.Router();
 
 router.use('/stripe', stripeRouter)
 
-// create store -- authorization required for user type, current user is the first admin
-// use case: users that have the account type "Store-Owner" can set up their store with initial info
-// req.body --> name, type, cohort, about, tagline, socials, private
+router.post('/createStore', async function(req,res,next) {
+    try {
+        let user = await req.db.User.findById(req.userID);
+        if (user.account_type != 'Store Owner') {
+            res.status(401)
+            res.json({status: 'error', 
+                error: 'User must be approved as a Store Owner.'})
+            return
+        }
+        let newStore = new req.db.Store({
+            name: req.body.name,
+            admins: [req.userID],
+            products: [],
+            type: req.body.type,
+            cohort: req.body.cohort,
+            about: req.body.about,
+            socialLinks: req.body.socialLinks,
+            tagLine: req.body.tagLine,
+            private: req.body.private
+        })
+        await newStore.save()
+        res.json({status: "success", newStore: newStore})
+    }catch(err) {
+        res.status(500)
+        res.json({status: 'error', error: err.toString()})
+    }
+})
 
-// get store
-// use case: all types of users can view the store, with varying levels of access
+router.get('/getStore', async function(req,res,next) {
+    try {
+        let store = await req.db.Store.findById(req.body.storeID)
+        let userIsAdmin = store.admins.includes(req.userID)
+        if (!userIsAdmin) {
+            store.stripe = null
+            if (store.private) {
+                res.status(401)
+                res.json({status: 'error', 
+                    error: 'User does not have access to this store.'})
+                return
+            }
+        }
+        res.json(store)
+    }catch(error) {
+        res.status(500)
+        res.json({status: 'error', error: error.toString()})
+    }
+})
 
-// update store -- authorization required is user type and admin of the store
-// use case: changing their profile/info, adding another user
+router.post('/updateStore', async function(req,res,next) {
+    try {
+        let store = await req.db.Store.findById(req.body.storeID)
+        let userIsAdmin = store.admins.includes(req.userID)
+        if (!userIsAdmin) {
+            res.status(401)
+            res.json({status: 'error', 
+                error: 'User is not an admin for this store.'})
+            return
+        }
+        await req.db.Store.findByIdAndUpdate(
+            req.body.storeID,
+            req.body.updatedStore
+          )
+        res.json({status: 'success'})
+    }catch(error) {
+        res.status(500)
+        res.json({status: "error", error: error.toString()})
+    }
+})
 
-// delete store -- authorization required is user type and admin of the store
-// use case: if they no longer want the store to be up they can delete it
+router.delete('/deleteStore', async function(req,res,next) {
+    try {
+        let store = await req.db.Store.findById(req.body.storeID)
+        let userIsAdmin = store.admins.includes(req.userID)
+        if (!userIsAdmin) {
+            res.status(401)
+            res.json({status: 'error', 
+                error: 'User is not an admin for this store.'})
+            return
+        }
+        await req.db.CardSet.findByIdAndDelete(req.body.storeID)
+        res.json({status: 'success'})
+    } catch(error) {
+        res.status(500)
+        res.json({status: 'error', error: error})
+    }
+})
 
 export default router;
