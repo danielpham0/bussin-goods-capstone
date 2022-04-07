@@ -9,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SK);
 // TODO: Error Handling - Store already has id
 router.get('/createAccount', async function(req, res, next) {
     // CHECK IF THIS USER IS AUTHORIZED
-    const user = 'test' // pull from Req Auth
+    const user = req.userID
 
     const store = await req.db.Store.findById(req.query.storeID)
     const account = await stripe.accounts.create({type: 'standard'});
@@ -23,7 +23,7 @@ router.get('/createAccount', async function(req, res, next) {
 // TODO: Error Handling - store does or does not have account id
 router.get('/getOnboardingLink', async function(req,res,next) {
     // CHECK IS THIS USER IS AUTHORIZED
-    let user = 'test' // pull from Req Auth
+    let user = req.userID
 
     let store = await req.db.Store.findById(req.query.storeID)
     let accountID = store.stripe.accountID
@@ -41,7 +41,7 @@ router.get('/getOnboardingLink', async function(req,res,next) {
 
 router.get('/authenticateAccount', async function(req,res,next) {
     // CHECK IF THIS USER IS AUTHORIZED
-    let user = 'test' // pull from Req Auth
+    let user = req.userID
 
     let store = await req.db.Store.findById(req.query.storeID)
     let accountID = store.stripe.accountID

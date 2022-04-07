@@ -19,7 +19,7 @@ export default function  CheckoutForm() {
     }
     var response = await fetch(`http://localhost:3001/api/v1/payment/createPayment`, {
       method: "POST",
-      body: JSON.stringify({storeId: '', amount: 200}),
+      body: JSON.stringify({storeID: '', amount: 200}),
       headers: {'Content-Type': 'application/json'}
     })
     var responseJson = await response.json()

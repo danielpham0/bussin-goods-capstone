@@ -49,7 +49,10 @@ async function dbConnect() {
   db.Store = mongoose.model('Store', storeSchema)
 
   const productSchema = new mongoose.Schema({
-    storeId: String,
+    store: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: 'Store'
+    },
     name: String,
     tagline: String,
     cost: Number,
@@ -70,11 +73,11 @@ async function dbConnect() {
   db.Product = mongoose.model('Product', productSchema)
 
   const orderSchema = new mongoose.Schema({
-    customerID: {
+    customer: {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'User'
     },
-    storeID: {
+    store: {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'Store'
     },
@@ -84,16 +87,19 @@ async function dbConnect() {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'Product'
     }],
-    total: Number
+    total: Number,
+    address: String,
+    order_date: Date,
+    order_status: String // WILL REQUIRE AN ENUM LATER
   })
   db.Order = mongoose.model('Order', orderSchema)
 
   const reviewSchema = new mongoose.Schema({
-    userId: {
+    user: {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'User'
     },
-    productId: {
+    product: {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'Product'
     },

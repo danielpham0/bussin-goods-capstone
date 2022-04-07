@@ -35,7 +35,7 @@ router.post('/signup', async function(req, res, next) {
       if (err) {
         res.type("json")
         res.status(500)
-        res.send({status: 'error', error: err})
+        res.send({status: 'error', error: err.message})
         return
       }
       let newUser = new req.db.User({
@@ -50,9 +50,9 @@ router.post('/signup', async function(req, res, next) {
 
       res.json({status: "success", newUser: newUser})
     })
-  } catch(error) {
+  } catch(err) {
     res.status(500)
-    res.json({status: 'error', error: error.toString()})
+    res.json({status: 'error', error: err.message})
   }
 });
 
@@ -75,15 +75,15 @@ router.post('/login', function(req,res) {
     onFailure: err => {
       res.type("json")
       res.status(500)
-      res.send({status: 'error', error: err})
+      res.send({status: 'error', error: err.message})
     }
   })
 })
 
 router.get('/logout', async function(req,res) {
-  if(req.userId){
+  if(req.userID){
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
-      Username: req.userId,
+      Username: req.userID,
       Pool: userPool
     })
 

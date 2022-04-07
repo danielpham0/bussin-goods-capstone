@@ -11,7 +11,7 @@ let authJwt = (req) => {
     if (accessToken) {
         jwt.verify(accessToken, pem, { algorithms: ['RS256'] }, function(err, decodedToken) {
             if(!err) {
-                req.userId = decodedToken.sub;
+                req.userID = decodedToken.sub;
             }
         });
     }

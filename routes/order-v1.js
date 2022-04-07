@@ -1,6 +1,5 @@
 import express from 'express';
 import 'dotenv/config'
-import bodyParser from 'body-parser'
 import Stripe from 'stripe'
 
 var router = express.Router();
@@ -10,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SK);
 // TAKES: storeID, 
 router.post('/createOrder', async function(req, res, next) {
   // Check if user is logged in
-  const user = 'test' // pull from Req Auth
+  const user = req.userID
 
   const store = await req.db.Store.findById(req.body.storeID)
   const storeStripe = store.stripe.accountID
@@ -26,12 +25,15 @@ router.post('/createOrder', async function(req, res, next) {
 
   // Store the order and add a payment intent Id
   const newOrder = new req.db.Order({
-    customerID: user,
-    storeID: req.body.storeID,
+    customer: user,
+    store: req.body.storeID,
     stripePaymentID: paymentIntent.id,
     paid: false,
     products: req.body.products,
-    total: req.body.amount
+    total: req.body.amount,
+    address: req.body.address,
+    order_date: new Date.now(),
+    order_status: "Pending Payment"
   })
   await newOrder.save()
 
@@ -55,6 +57,7 @@ router.post('/stripeWebhook', (req,res) => {
 const handleSuccessfulPaymentIntent = async (connectedAccountId, paymentIntent) => {
   let order = req.db.Order.find({stripePaymentID: paymentIntent.id})
   order.paid = true
+  order.order_status = "Pending Seller Confirmation"
   await order.save()
   // Fulfill the purchase.
   // - EMAIL CONFIRMATION FOR BOTH CUSTOMER AND STORE
