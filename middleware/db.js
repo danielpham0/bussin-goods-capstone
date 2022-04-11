@@ -44,6 +44,7 @@ async function dbConnect() {
       socialMedia: String,
       link: String
     }],
+    email: String,
     private: Boolean
   })
   db.Store = mongoose.model('Store', storeSchema)
@@ -77,6 +78,20 @@ async function dbConnect() {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'User'
     },
+    customer_info: {
+      first_name: String,
+      last_name: String,
+      address: {
+        street_address: String,
+        street_address_2: String,
+        city: String,
+        zip_code: String,
+        state: String,
+        country: String
+      },
+      email: String,
+      phone_number: String
+    },
     store: {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'Store'
@@ -88,8 +103,8 @@ async function dbConnect() {
       ref: 'Product'
     }],
     total: Number,
-    address: String,
     order_date: Date,
+    delivery_option: String, // WILL NEED AN ENUM LATER
     order_status: String // WILL REQUIRE AN ENUM LATER
   })
   db.Order = mongoose.model('Order', orderSchema)

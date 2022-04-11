@@ -23,7 +23,8 @@ router.post('/createStore', async function(req,res,next) {
             about: req.body.about,
             socialLinks: req.body.socialLinks,
             tagLine: req.body.tagLine,
-            private: req.body.private
+            private: req.body.private,
+            email: req.body.email
         })
         await newStore.save()
         res.json({status: "success", newStore: newStore})
@@ -39,6 +40,7 @@ router.get('/getStore', async function(req,res,next) {
         let userIsAdmin = store.admins.includes(req.userID)
         if (!userIsAdmin) {
             store.stripe = null
+            store.email = null
             if (store.private) {
                 res.status(401)
                 res.json({status: 'error', 

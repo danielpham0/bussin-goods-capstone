@@ -6,44 +6,52 @@ var router = express.Router();
 
 const stripe = new Stripe(process.env.STRIPE_SK);
 
-// TAKES: storeID, 
-router.post('/createOrder', async function(req, res, next) {
-  if (!req.userID) {
-    res.status(401)
-    res.json({
-      status: 'error',
-      error: 'User must be logged in.'
-    });
-  }
+// Creates an order under a specific store, taking in storeID,
+//    order information, and an array of product id's
+router.post('/createStoreOrder', async function(req, res, next) {
+  // user may not be logged in
   const user = req.userID
+  try {
+    let store = await req.db.Store.findById(req.body.storeID)
+    const storeStripe = store.stripe.accountID
+    req.body.products.forEach(product => {
+      if(!store.products.contains(product)){
+        res.status(400)
+        res.json({status: 'error', 
+          error: 'Each order must only contain products from a single store.'})
+        return
+      }
+    });
 
-  const store = await req.db.Store.findById(req.body.storeID)
-  const storeStripe = store.stripe.accountID
+    const paymentIntent = await stripe.paymentIntents.create({
+        payment_method_types: ['card'],
+        amount: req.body.amount,
+        currency: 'usd',
+        application_fee_amount: 0,
+      }, {
+        stripeAccount: storeStripe,
+    });
 
-  const paymentIntent = await stripe.paymentIntents.create({
-      payment_method_types: ['card'],
-      amount: req.body.amount,
-      currency: 'usd',
-      application_fee_amount: 0,
-    }, {
-      stripeAccount: storeStripe,
-  });
+    // Store the order and add a payment intent Id
+    const newOrder = new req.db.Order({
+      customer: user,
+      customer_info: req.body.customer_info,
+      store: req.body.storeID,
+      stripePaymentID: paymentIntent.id,
+      paid: false,
+      products: req.body.products,
+      total: req.body.amount,
+      order_date: new Date.now(),
+      delivery_option: req.body.delivery_option,
+      order_status: "Pending Payment"
+    })
+    await newOrder.save()
 
-  // Store the order and add a payment intent Id
-  const newOrder = new req.db.Order({
-    customer: user,
-    store: req.body.storeID,
-    stripePaymentID: paymentIntent.id,
-    paid: false,
-    products: req.body.products,
-    total: req.body.amount,
-    address: req.body.address,
-    order_date: new Date.now(),
-    order_status: "Pending Payment"
-  })
-  await newOrder.save()
-
-  res.json({client_secret: paymentIntent.client_secret});
+    res.json({client_secret: paymentIntent.client_secret});
+  }catch(error) {
+      res.status(500)
+      res.json({status: 'error', error: error.toString()})
+  }
 });
 
 router.post('/stripeWebhook', (req,res) => {
