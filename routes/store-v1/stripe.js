@@ -6,12 +6,19 @@ var router = express.Router();
 
 const stripe = new Stripe(process.env.STRIPE_SK);
 
-// TODO: Error Handling - Store already has id
 router.get('/createAccount', async function(req, res, next) {
-    // CHECK IF THIS USER IS AUTHORIZED
-    const user = req.userID
-
-    const store = await req.db.Store.findById(req.query.storeID)
+    const store = await req.db.Store.findById(req.body.storeID)
+    let userIsAdmin = store.admins.includes(req.userID)
+    if (!userIsAdmin) {
+      res.status(401)
+      res.json({status: 'error', error: 'User does not have access to this store.'})
+      return
+    }
+    if (!store.stripe.accountID) {
+        res.status(400)
+        res.json({status: 'error', error: 'Store already has an accountID, please continue with an onboarding link.'})
+        return
+    }
     const account = await stripe.accounts.create({type: 'standard'});
     
     store.stripe.accountID = account.id
@@ -20,14 +27,20 @@ router.get('/createAccount', async function(req, res, next) {
     res.json({status: 'success'})
 });
 
-// TODO: Error Handling - store does or does not have account id
 router.get('/getOnboardingLink', async function(req,res,next) {
-    // CHECK IS THIS USER IS AUTHORIZED
-    let user = req.userID
-
-    let store = await req.db.Store.findById(req.query.storeID)
+    const store = await req.db.Store.findById(req.body.storeID)
+    let userIsAdmin = store.admins.includes(req.userID)
+    if (!userIsAdmin) {
+      res.status(401)
+      res.json({status: 'error', error: 'User does not have access to this store.'})
+      return
+    }
     let accountID = store.stripe.accountID
-
+    if (!accountID) {
+        res.status(400)
+        res.json({status: 'error', error: 'Cannot get onboarding link, please generate a stripe account ID first.'})
+        return
+    }
     const accountLink = await stripe.accountLinks.create({
         account: accountID,
         refresh_url: 'http://localhost:3000/store/profile/reauth',
@@ -40,16 +53,19 @@ router.get('/getOnboardingLink', async function(req,res,next) {
 })
 
 router.get('/authenticateAccount', async function(req,res,next) {
-    // CHECK IF THIS USER IS AUTHORIZED
-    let user = req.userID
-
-    let store = await req.db.Store.findById(req.query.storeID)
+    const store = await req.db.Store.findById(req.body.storeID)
+    let userIsAdmin = store.admins.includes(req.userID)
+    if (!userIsAdmin) {
+      res.status(401)
+      res.json({status: 'error', error: 'User does not have access to this store.'})
+      return
+    }
     let accountID = store.stripe.accountID
 
     let account = await stripe.accounts.retrieve(accountID)
     if (!account.charges_enabled) {
         res.status(500)
-        res.json({status: 'error', message: 'User has not completed Stripe account.'})
+        res.json({status: 'error', message: 'Store has not completed Stripe account.'})
         return
     }
 
