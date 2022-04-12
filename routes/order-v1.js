@@ -79,4 +79,72 @@ const handleSuccessfulPaymentIntent = async (connectedAccountId, paymentIntent) 
   console.log(JSON.stringify(paymentIntent));
 }
 
+router.get('/getUserOrders', async function(req,res,next) {
+  if (!req.userID) {
+    res.status(401)
+    res.json({status: 'error', error: 'User must be logged in.'})
+    return
+  }
+  try {
+    let orders = await req.db.Order.find({customer: req.userID})
+    res.json(orders)
+  }catch(error) {
+    res.status(500)
+    res.json({status: 'error', error: error.toString()})
+  }
+})
+
+router.get('/getOrder', async function(req,res,next) {
+  try {
+    let order = await req.db.Order.findById(req.body.orderID)
+    let store = await req.db.Store.findById(order.store)
+    let userIsAdmin = store.admins.includes(req.userID)
+    if (!userIsAdmin || order.customer != req.userID) {
+      res.status(401)
+      res.json({status: 'error', error: 'User does not have access to this order.'})
+      return
+    }
+    res.json(order)
+  }catch(error) {
+    res.status(500)
+    res.json({status: 'error', error: error.toString()})
+  }
+})
+
+router.get('/getUserOrders', async function(req,res,next) {
+  if (!req.userID) {
+    res.status(401)
+    res.json({status: 'error', error: 'User must be logged in.'})
+    return
+  }
+  try {
+    let orders = await req.db.Order.find({customer: req.userID})
+    res.json(orders)
+  }catch(error) {
+    res.status(500)
+    res.json({status: 'error', error: error.toString()})
+  }
+})
+
+router.post('/updateOrder', async function(req,res,next) {
+  try {
+    let order = await req.db.Order.findById(req.body.orderID)
+    let store = await req.db.Store.findById(order.store)
+    let userIsAdmin = store.admins.includes(req.userID)
+    if (!userIsAdmin) {
+      res.status(401)
+      res.json({status: 'error', error: 'User does not have access to this order.'})
+      return
+    }
+    await req.db.Order.findByIdAndUpdate(
+      req.body.orderID,
+      req.body.updatedOrder
+    )
+    res.json({status: 'success'})
+  }catch(error) {
+    res.status(500)
+    res.json({status: "error", error: error.toString()})
+  }
+})
+
 export default router;
