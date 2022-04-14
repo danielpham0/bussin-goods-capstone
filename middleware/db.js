@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import constants from '../constants/constants.js'
 import 'dotenv/config'
 
 // Connect to the mongodb database
@@ -15,7 +16,9 @@ async function dbConnect() {
     username: String,
     first_name: String,
     last_name: String,
-    account_type: String, // initially set to Standard
+    account_type: {
+      type: String,
+      enum: constants.ACCOUNT_TYPES}, // initially set to Standard
     email: String,
     address: String, // not set initially
     profile_picture: String // may be an id to GridFs, not set initially
@@ -36,7 +39,9 @@ async function dbConnect() {
       accountID: String,
       enabled: Boolean
     },
-    type: String, // Starting here could be a part of a store profile
+    type: {
+      type: String,
+      enum: constants.STORE_TYPES}, // Starting here could be a part of a store profile
     cohort: String,
     about: String,
     tagLine: String,
@@ -57,13 +62,17 @@ async function dbConnect() {
     name: String,
     tagline: String,
     cost: Number,
-    type: String,
+    type: {
+      type: String,
+      enum: constants.PRODUCT_TYPES},
     pictures: [String], // may be an id to GridFs
     options: [{
       title: String,
       choices: [String],
     }],
-    shipsTo: [String],
+    shipsTo: [{
+      type: String,
+      enum: constants.COUNTRIES}],
     pickupFrom: [String],
     general_description: String,
     additionalInformation: [{
@@ -104,8 +113,12 @@ async function dbConnect() {
     }],
     total: Number,
     order_date: Date,
-    delivery_option: String, // WILL NEED AN ENUM LATER
-    order_status: String // WILL REQUIRE AN ENUM LATER
+    delivery_option: {
+      type: String,
+      enum: constants.DELIVERY_OPTIONS}, // WILL NEED AN ENUM LATER
+    order_status: {
+      type: String,
+      enum: constants.ORDER_STATUS} // WILL REQUIRE AN ENUM LATER
   })
   db.Order = mongoose.model('Order', orderSchema)
 
