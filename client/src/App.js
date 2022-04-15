@@ -36,15 +36,6 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Bussin Goods</h1>
         </header>
-        <SignUpForm />
-        <br />
-        <LoginForm />
-        <br />
-        <Elements stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
-        <br/>
-        <UploadPictureExample/>
       </div>
 
     );

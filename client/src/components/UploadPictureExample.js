@@ -6,23 +6,25 @@ export default function  UploadPictureExample() {
     // which would refresh the page.
     event.preventDefault();
     let file = event.target.file.files[0]
-    const { url } = await fetch("http://localhost:3001/api/v1/s3/getUploadUrl").then(res => res.json())
-    console.log(url)
-
-    var response = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "multipart/form-data"
-        },
-        body: file
-    })
-    var responseJson = await response.json()
-    console.log(responseJson)
-
-    const imageUrl = url.split('?')[0]
-    console.log(imageUrl)
-    // TAKE THIS IMAGE URL AND STORE THIS AND THE REST VIA BACKEND ENDPOINT
-    // FOR EXAMPLE IF THERE IS A PROFILE IMAGE WE STORE THE URL AND OTHER INFO
+    if (file) {
+      const urlResponse = await fetch('http://localhost:3001/api/v1/s3/getUploadUrl')
+      const urlJSON = await urlResponse.json()
+      
+      await fetch(urlJSON.upload_url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "multipart/form-data"
+          },
+          body: file
+      });
+      const imageUrl = urlJSON.upload_url.split('?')[0]
+      console.log(imageUrl)
+      // TAKE THIS IMAGE URL AND STORE THIS AND THE REST VIA BACKEND ENDPOINT
+      // FOR EXAMPLE IF THERE IS A PROFILE IMAGE WE STORE THE URL AND OTHER INFO
+      // <img src=${imageUrl}></img>
+    } else {
+      console.log("No file attached.")
+    }
   };
 
   return (
