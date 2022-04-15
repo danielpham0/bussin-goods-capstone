@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import Product from './pages/Product';
 import Startup from './pages/Startup';
 import Navbar from './components/NavBar';
+import UploadPictureExample from './components/UploadPictureExample';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -42,6 +43,8 @@ class App extends Component {
         <Elements stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
+        <br/>
+        <UploadPictureExample/>
       </div>
 
     );

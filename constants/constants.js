@@ -1,29 +1,29 @@
-exports.ACCOUNT_TYPES = 
+export const ACCOUNT_TYPES = 
 [
     "Standard", "Store Owner", "Admin"
 ];
 
-exports.STORE_TYPES = 
+export const STORE_TYPES = 
 [
     "Food", "Sports", "Home", "Games", "Clothing", "Accessories"
 ];
 
-exports.PRODUCT_TYPES = 
+export const PRODUCT_TYPES = 
 [
     "Food", "Sports", "Home", "Games", "Clothing", "Accessories"
 ];
 
-exports.COUNTRIES = 
+export const COUNTRIES = 
 [
     "United States", "Canada", "Mexico"
 ];
 
-exports.DELIVERY_OPTIONS = 
+export const DELIVERY_OPTIONS = 
 [
     "Pick-up", "Delivery"
 ];
 
-exports.ORDER_STATUS = 
+export const ORDER_STATUS = 
 [
     "Pending Payment", "Pending Seller Confirmation", "Seller Preparing Product", "Available for Pick-up", "Shipped by Seller", "Recieved by Customer"
 ];

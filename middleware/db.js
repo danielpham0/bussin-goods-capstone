@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import constants from '../constants/constants.js'
+import * as constants from '../constants/constants.js'
 import 'dotenv/config'
 
 // Connect to the mongodb database
@@ -20,8 +20,8 @@ async function dbConnect() {
       type: String,
       enum: constants.ACCOUNT_TYPES}, // initially set to Standard
     email: String,
-    address: String, // not set initially
-    profile_picture: String // may be an id to GridFs, not set initially
+    address: String,
+    profile_picture_url: String // AWS S3 URL recieved from front-end
   })
   db.User = mongoose.model('User', userSchema)
 
@@ -50,7 +50,8 @@ async function dbConnect() {
       link: String
     }],
     email: String,
-    private: Boolean
+    private: Boolean,
+    banner_url: String // AWS S3 URL recieved from front-end
   })
   db.Store = mongoose.model('Store', storeSchema)
 
@@ -65,7 +66,10 @@ async function dbConnect() {
     type: {
       type: String,
       enum: constants.PRODUCT_TYPES},
-    pictures: [String], // may be an id to GridFs
+    pictures: [{
+      title: String,
+      url: String
+    }], 
     options: [{
       title: String,
       choices: [String],

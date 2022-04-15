@@ -10,6 +10,7 @@ import indexRouter from './routes/index.js';
 import orderV1Router from './routes/order-v1.js'
 import storeV1Router from './routes/store-v1.js'
 import userV1Router from './routes/user-v1.js'
+import s3V1Router from './routes/s3-v1.js'
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/', indexRouter);
 app.use(`/api/v1/order`, orderV1Router);
 app.use(`/api/v1/store`, storeV1Router);
 app.use(`/api/v1/user`, userV1Router);
+app.use(`/api/v1/s3`, s3V1Router);
 
 const port = 3001;
 app.listen(port, () => `Server running on port ${port}`);
