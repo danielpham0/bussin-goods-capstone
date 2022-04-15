@@ -1,0 +1,28 @@
+.feat-title {
+
+    font-size: 2em;
+    padding-bottom: 1EM;
+}
+
+.card {
+    text-align: left;
+}
+
+.row {
+    padding-bottom: 1em;
+}
+
+.container {
+    margin-bottom: 2em;
+}
+
+
+.feat-head {
+    display: inline;
+    text-align: left;
+}
+.more {
+    display:inline;
+    font-size: 0.5rem;
+
+}
