@@ -40,6 +40,7 @@ app.use('/', indexRouter);
 // STRIPE DOCUMENTATION: https://stripe.com/docs/payments/handling-payment-events
 app.use(`/api/v1/order`, orderV1Router);
 app.use(`/api/v1/store`, storeV1Router);
+app.use(`/api/v1/product`, productV1Router);
 app.use(`/api/v1/user`, userV1Router);
 app.use(`/api/v1/s3`, s3V1Router);
 
