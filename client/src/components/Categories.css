@@ -1,0 +1,19 @@
+.browse {
+    display: inline-block;
+}
+
+.browse-title {
+    margin-right: 1rem;
+}
+
+.cat {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+.container {
+    margin-bottom: 1rem;
+}
+
+.titl {
+    text-align: left;
+}
