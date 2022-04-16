@@ -7,7 +7,7 @@ export default function Featured() {
 
     return (
         <div className='container border border-dark'>
-            <div class="feat">
+            <div className="feat">
             <div className='feat-head'>
                     <h5 className='feat-title'>Featured Startups <p className='more'>More...</p> </h5>
                 </div>

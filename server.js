@@ -10,6 +10,7 @@ import indexRouter from './routes/index.js';
 import orderV1Router from './routes/order-v1.js'
 import storeV1Router from './routes/store-v1.js'
 import userV1Router from './routes/user-v1.js'
+import productV1Router from './routes/product-v1.js'
 import s3V1Router from './routes/s3-v1.js'
 
 var app = express();

@@ -1,7 +1,11 @@
 import React from 'react';
-import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
+import {useStripe, useElements, CardElement, Elements} from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import CardInput from './CardInput';
 
-import CardSection from './CardSection';
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK, {
+  stripeAccount: 'acct_1KYJMBEPtLNC0ruw'
+});
 
 export default function  CheckoutForm() {
   const stripe = useStripe();
@@ -58,9 +62,10 @@ export default function  CheckoutForm() {
     }
   };
 
+  // https://github.com/danielpham0/bussin-goods-capstone/blob/42a1b052b221abd05a58723509382242f83c83a0/client/src/App.js
   return (
     <form onSubmit={handleSubmit}>
-      <CardSection />
+      <CardInput />
       <button disabled={!stripe}>Confirm order</button>
     </form>
   );

@@ -1,0 +1,12 @@
+form {
+    width: 50%;
+    margin: auto;
+    margin-top: 30px;
+    padding: 30px;
+    text-align: left;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+.status {
+    margin-top: 10px;
+}

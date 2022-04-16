@@ -5,17 +5,17 @@ export default function Startups() {
 
     return (
         <div className='container border border-dark'>
-            <div class="cat row no-gutters justify-content-start">
+            <div className="cat row no-gutters justify-content-start">
                 <div className='col-4 titl'>
                     <h5>Startup Categories</h5>
                 </div>
                 <div className='col-auto browse'>
 
-                    <div class="input-group">
+                    <div className="input-group">
                         <h5 className='browse-title'>Browse All
                         </h5>
-                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                        <button type="button" class="btn btn-outline-primary">search</button>
+                        <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                        <button type="button" className="btn btn-outline-primary">search</button>
                     </div>
                 </div>
             </div>
