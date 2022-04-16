@@ -1,25 +1,40 @@
-import React from 'react';
+import {React, useState} from 'react';
+import "./Form.css";
+import { useHistory } from "react-router-dom";
 
 export default function  LoginForm() {
+    let history = useHistory()
+    const [statusMessage, setStatusMessage] = useState('');
     let submitLogin = async (event) => {
         event.preventDefault()
         let formData = {
             email: event.target.email.value,
             password: event.target.password.value
         }
-        let postFormResponse = await fetch(`http://localhost:3001/api/v1/auth/login`,
-            {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json'}}
+        let postFormResponse = await fetch(`http://localhost:3001/api/v1/user/auth/login`,
+            {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json'}, credentials: 'include',}
         )
         let postFormJSON = await postFormResponse.json()
         console.log(postFormJSON)
+        if (postFormJSON.status == 'error') {
+            setStatusMessage(`Error: "${postFormJSON.error}"`)
+        } else {
+            history.push("/")
+        }
     }
     return (
         <div>
-            <h2>User Login</h2>
             <form onSubmit={submitLogin}>
-                <input type='text' name='email' placeholder='Email Address' required/>
-                <input type='password' name='password' placeholder='Password' required/>
-                <button type="submit">Login</button>
+                <div className="mb-3">
+                    <label className="form-label">Email address</label>
+                    <input type="email" className="form-control" name="email" required/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Password</label>
+                    <input type='password' className="form-control" name='password' required/>
+                </div>
+                <button type="submit" className="btn btn-primary">Login</button>
+                {statusMessage && <div className="form-text status"> {statusMessage} </div>}
             </form>
         </div>
     );

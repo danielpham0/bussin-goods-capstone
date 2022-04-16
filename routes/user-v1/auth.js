@@ -92,6 +92,8 @@ router.get('/logout', async function(req,res) {
       maxAge: 0,
       httpOnly:true,
     });
+  } else {
+    console.log("User was not logged in.")
   }
   res.type("json")
   res.send({status: "success"})

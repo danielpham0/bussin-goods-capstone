@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Navbar.css"
 import {  Link } from "react-router-dom";
+import LogoutButton from './user-accounts/LogoutButton';
 const Navbar= () =>{
   return (
   <div className="mid">
@@ -13,6 +14,9 @@ const Navbar= () =>{
       </li>
       <li>
         <Link to="/Startup">Startups</Link>
+      </li>
+      <li>
+        <LogoutButton/>
       </li>
 		</ul>
   </div>

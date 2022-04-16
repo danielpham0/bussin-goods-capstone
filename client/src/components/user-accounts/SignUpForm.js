@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import "./SignUpForm.css";
+import "./Form.css";
 import { useHistory } from "react-router-dom";
 
 export default function  SignUpForm() {
@@ -18,11 +18,9 @@ export default function  SignUpForm() {
             {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json'}}
         )
         let postFormJSON = await postFormResponse.json()
-        console.log(postFormJSON)
         if (postFormJSON.status == 'error') {
             setStatusMessage(`Error: "${postFormJSON.error}"`)
         } else {
-            setStatusMessage(`Successfully created account!`)
             history.push("/")
         }
     }

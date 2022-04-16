@@ -4,7 +4,7 @@ import SignUpForm from '../components/user-accounts/SignUpForm'
 const SignUp = () =>{
   return (
     <div>
-      <h2>User Sign-up</h2>
+      <h2>Sign-up for your account!</h2>
       <SignUpForm />
     </div>
   );
