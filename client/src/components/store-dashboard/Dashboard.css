@@ -3,9 +3,7 @@
     margin: auto;
 }
 .store-select > .list-group {
+    width: 50%;
     padding-top: 15px;
     margin: auto;
-}
-.list-group a {
-    text-decoration: none;
 }

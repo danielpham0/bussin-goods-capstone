@@ -1,16 +1,19 @@
 .console{
+    width: 100%;
     padding: 20px;
 }
 
-.left {
-    padding: 10px;
+.console > .left {
+    margin: 10px;
     width: 20%;
     position: absolute;
-    left: 30px;
+    left: 2%;
+    padding-bottom: 20px;
 }
-.right {
-    padding: 10px;
+.console > .right {
+    margin: 10px;
     position: absolute;
-    right: 30px;
-    width: 80%;
+    right: 3%;
+    width: 70%;
+    padding-bottom: 20px;
 }

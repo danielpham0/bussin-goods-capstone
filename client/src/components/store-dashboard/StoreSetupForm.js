@@ -46,7 +46,7 @@ export default function  StoreSetupForm() {
     }
     return (
         <div>
-            <form onSubmit={submitStoreSetup}>
+            <form className="store-setup" onSubmit={submitStoreSetup}>
                 <h4> Setup your Store! </h4>
                 <h5>General Information </h5>
                 <div className="mb-3">

@@ -24,7 +24,7 @@ export default function  LoginForm() {
     }
     return (
         <div>
-            <form onSubmit={submitLogin}>
+            <form className="sign-in" onSubmit={submitLogin}>
                 <div className="mb-3">
                     <label className="form-label">Email address</label>
                     <input type="email" className="form-control" name="email" required/>

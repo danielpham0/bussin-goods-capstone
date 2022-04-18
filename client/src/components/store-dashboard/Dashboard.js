@@ -6,7 +6,7 @@ export default function  Dashboard(props) {
     let stores = props.stores;
     return (
         <div className='store-select'>
-            {stores.length <= 0 ? <p>Please setup a new store or have your partner add you to an existing store.</p> : null}
+            {stores.length <= 0 ? <p>Please setup a new store or have your partner add you to an existing store.</p> : <p>Select one of your existing stores or create a new store!</p>}
             <ul className="list-group">
                 {stores.length > 0 ? stores.map(store => <Link to={`/StoreDashboard/${store._id}`} key={store._id}> 
                     <li className="list-group-item list-group-item-action">{`${store.name} (${store.cohort}) ` }</li></Link> ) : null}

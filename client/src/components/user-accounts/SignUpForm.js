@@ -26,7 +26,7 @@ export default function  SignUpForm() {
     }
     return (
         <div>
-            <form onSubmit={submitSignUp}>
+            <form className="sign-in" onSubmit={submitSignUp}>
                 <div className="mb-3">
                     <label className="form-label">First Name</label>
                     <input type='text' className="form-control" name='first_name' required/>
