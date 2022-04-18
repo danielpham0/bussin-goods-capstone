@@ -7,6 +7,7 @@ import Product from './pages/Product';
 import Startup from './pages/Startup';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
+import StoreDashboard from './pages/StoreDashboard';
 import Navbar from './components/NavBar';
 
 class App extends Component {
@@ -23,6 +24,8 @@ class App extends Component {
               <Route path='/Startup' component={Startup} />
               <Route path='/SignUp' component={SignUp} />
               <Route path='/Login' component={Login} />
+              <Route path='/Startup' component={Startup} />
+              <Route path='/StoreDashboard' component={StoreDashboard} />
             </Switch>
           </main>
       </div>

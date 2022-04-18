@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose'
 import stripeRouter from './store-v1/stripe.js'
 
 var router = express.Router();
@@ -8,7 +9,7 @@ router.use('/stripe', stripeRouter)
 router.post('/createStore', async function(req,res,next) {
     try {
         let user = await req.db.User.findById(req.userID);
-        if (user.account_type != 'Store Owner') {
+        if (!user || user.account_type != 'Store Owner') {
             res.status(401)
             res.json({status: 'error', 
                 error: 'User must be approved as a Store Owner.'})
@@ -16,7 +17,7 @@ router.post('/createStore', async function(req,res,next) {
         }
         let newStore = new req.db.Store({
             name: req.body.name,
-            admins: [req.userID],
+            admins: req.userID,
             products: [],
             type: req.body.type,
             cohort: req.body.cohort,

@@ -28,7 +28,7 @@ async function dbConnect() {
   const storeSchema = new mongoose.Schema({
     name: String,
     admins: [{
-      type: mongoose.Schema.Types.ObjectID,
+      type: String,
       ref: 'User'
     }],
     products: [{
@@ -46,7 +46,7 @@ async function dbConnect() {
     about: String,
     tagLine: String,
     socialLinks: [{
-      socialMedia: String,
+      socialMedia: constants.SOCIAL_TYPES,
       link: String
     }],
     email: String,
@@ -88,7 +88,7 @@ async function dbConnect() {
 
   const orderSchema = new mongoose.Schema({
     customer: {
-      type: mongoose.Schema.Types.ObjectID,
+      type: String,
       ref: 'User'
     },
     customer_info: {
@@ -128,7 +128,7 @@ async function dbConnect() {
 
   const reviewSchema = new mongoose.Schema({
     user: {
-      type: mongoose.Schema.Types.ObjectID,
+      type: String,
       ref: 'User'
     },
     product: {

@@ -1,0 +1,16 @@
+h4 {
+    padding-bottom: 10px;
+}
+form {
+    width: 85%;
+    margin: auto;
+    margin-top: 30px;
+    padding: 30px;
+    text-align: left;
+}
+.status {
+    margin-top: 10px;
+}
+.list-group {
+    width: 40%;
+}
