@@ -1,0 +1,16 @@
+.console{
+    padding: 20px;
+}
+
+.left {
+    padding: 10px;
+    width: 20%;
+    position: absolute;
+    left: 30px;
+}
+.right {
+    padding: 10px;
+    position: absolute;
+    right: 30px;
+    width: 80%;
+}

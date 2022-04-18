@@ -1,0 +1,11 @@
+.store-select {
+    width: 70%;
+    margin: auto;
+}
+.store-select > .list-group {
+    padding-top: 15px;
+    margin: auto;
+}
+.list-group a {
+    text-decoration: none;
+}

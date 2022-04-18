@@ -27,10 +27,10 @@ router.post('/createProduct', async function(req,res,next) {
             type: req.body.type,
             pictures: [req.body.pictures],
             options: [[]],
-            shipsTo: [req.body.shipsTo],
+            shipsTo: req.body.shipsTo,
             pickupFrom: req.body.pickupFrom,
             generalDesc: req.body.desc,
-            additonalInfo: [req.body.additonalInfo]
+            additonalInfo: req.body.additonalInfo
         })
         await newProduct.save()
         res.json({status: "success", newProduct: newProduct})

@@ -56,6 +56,23 @@ router.get('/getStore', async function(req,res,next) {
     }
 })
 
+router.get('/getUserStores', async function(req,res,next) {
+    try {
+        let user = await req.db.User.findById(req.userID);
+        if (!user || user.account_type != 'Store Owner') {
+            res.status(401)
+            res.json({status: 'error', 
+                error: 'User must be approved as a Store Owner.'})
+            return
+        }
+        let stores = await req.db.Store.find({admins: {$in: req.userID}})
+        res.json(stores)
+    }catch(error) {
+        res.status(500)
+        res.json({status: 'error', error: error.toString()})
+    }
+})
+
 router.post('/updateStore', async function(req,res,next) {
     try {
         let store = await req.db.Store.findById(req.body.storeID)

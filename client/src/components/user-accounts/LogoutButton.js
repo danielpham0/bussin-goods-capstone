@@ -9,7 +9,6 @@ export default function  LogoutButton() {
             {method: "GET", credentials: 'include'}
         )
         let responseJSON = await response.json()
-        console.log(responseJSON)
         history.push("/")
     }
     return (
