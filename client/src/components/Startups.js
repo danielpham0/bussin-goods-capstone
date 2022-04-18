@@ -1,7 +1,25 @@
 import React from 'react';
 import "./Startups.css";
+import { STORE_TYPES } from '../constants/constants';
+import { Link } from "react-router-dom";
 
 export default function Startups() {
+
+    const Card = ({
+        title = "Default"
+    }) => (
+
+        <div className='col-md-3' >
+            <Link to={'/startups/' + title}>
+                <div className='card border-secondary'>
+                    <div className='card-body'>
+                        <h5 className='card-title'> {title}</h5>
+                    </div>
+                </div>
+            </Link>
+        </div>
+
+    )
 
     return (
         <div className='container border border-dark'>
@@ -20,42 +38,12 @@ export default function Startups() {
                 </div>
             </div>
             <div className='row'>
-            <div className='col-md-3'>
-                        <div className='card border-primary'>
-                            <div className='card-body'>
-                            <h5 className='card-title'> Games</h5><br></br>
-                                <p className='card-text'> Amazing food for you to try
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='col-md-3'>
-                        <div className='card border-secondary'>
-                            <div className='card-body'>
-                            <h5 className='card-title'> Sprots</h5><br></br>
-                                <p className='card-text'> Entertainment with sports 
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='col-md-3'>
-                        <div className='card border-success'>
-                            <div className='card-body'>
-                            <h5 className='card-title'> Home</h5><br></br>
-                                <p className='card-text'> Items to improve your home
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='col-md-3'>
-                        <div className='card border-info'>
-                            <div className='card-body'>
-                                <h5 className='card-title'> Games</h5><br></br>
-                                <p className='card-text'> Exciting games 
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+
+                <div className='row'>
+                    {STORE_TYPES.map(function (store, index) {
+                        return <Card title={store} {...index} />
+                    })}
+                </div>
 
             </div>
         </div>
