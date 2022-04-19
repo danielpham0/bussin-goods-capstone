@@ -1,7 +1,7 @@
 import {React, useState, useRef} from 'react';
 import {PRODUCT_TYPES, COUNTRIES} from '../../constants/constants.js'
 
-export default function  AddProduct(props) {
+export default function AddProduct(props) {
     let store = props.store;
 
     const sectionTitleInput = useRef(null);

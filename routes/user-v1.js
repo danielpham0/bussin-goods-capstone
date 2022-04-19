@@ -7,13 +7,30 @@ router.use('/auth', authRouter)
 
 router.get('/getUser', async function(req,res,next) {
     try {
-        let user = await req.db.User.findByID(req.body.userID)
+        let user = await req.db.User.findById(req.body.userID)
         res.json(user)
     }catch(error) {
         res.status(500)
         res.json({status: 'error', error: error.toString()})
     }
 })
+
+router.get('/getUserIdentity', async function(req,res,next) {
+    if (!req.userID) {
+        res.status(401)
+        res.json({status: 'error', 
+            error: 'User must be logged in.'})
+        return
+    }
+    try {
+        let user = await req.db.User.findById(req.userID)
+        res.json(user)
+    }catch(error) {
+        res.status(500)
+        res.json({status: 'error', error: error.toString()})
+    }
+})
+
 
 router.post('/updateUser', async function(req,res,next) {
     try {

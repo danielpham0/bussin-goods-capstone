@@ -20,6 +20,7 @@ export default function  LoginForm() {
             setStatusMessage(`Error: "${postFormJSON.error}"`)
         } else {
             history.push("/")
+            history.go(0)
         }
     }
     return (

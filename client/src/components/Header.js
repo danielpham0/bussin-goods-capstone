@@ -3,7 +3,7 @@ import Navbar from './NavBar';
 import './Header.css';
 import banner from '../imgs/banner.png';
 
-const Header = () => {
+const Header = (props) => {
 
   return (
     <section className="header">
@@ -13,7 +13,7 @@ const Header = () => {
         </section>
         <section className="header-top__navbar">
           <section className="header-top__navigation">
-            <Navbar />
+            <Navbar user={props.user}/>
           </section>
           <hr className="header-top__seperator" />
         </section>

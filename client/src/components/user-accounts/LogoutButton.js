@@ -10,6 +10,7 @@ export default function  LogoutButton() {
         )
         let responseJSON = await response.json()
         history.push("/")
+        history.go(0)
     }
     return (
         <button type="submit" className="btn btn-primary" onClick={(onClick)}>Logout</button>
