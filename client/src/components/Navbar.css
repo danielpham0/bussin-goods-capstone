@@ -1,40 +1,15 @@
-
-.navbar{
- 
-	display:fixed;
-}
-
-.navbar li{
-
-list-style: none;
-display:inline-block;
-
-margin:auto;
-}
-
-.navbar li a{
-text-decoration: none;
-color:black;
-font-size: 18px;
-padding:8px 20px;
-}
-
-.navbar li a:hover{
-color:rgb(151, 7, 247);
-border: darkmagenta;
-border-radius: 2px;
-font-size: 20px;
-}
-
-.navbar li a:active{
-background-color: white;
-border-radius: 5px;
-}
-
-.mid {
-	background-color: transparent;
-	display: inline-flex;
-    top: 0;
-	width: 100%;
-	margin: auto;
-}
+.navbar {
+	display: flex;
+	flex-direction: row;
+  }
+  
+  .navbar-item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 30px;
+	color: inherit;
+	text-decoration: inherit;
+	text-transform: uppercase;
+	outline: none;
+  }

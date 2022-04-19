@@ -8,14 +8,14 @@ import Startup from './pages/Startup';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import StoreDashboard from './pages/StoreDashboard';
-import Navbar from './components/NavBar';
+import Header from './components/Header';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
           <header className="App-header">
-            <Navbar/>
+            <Header/>
           </header>
           <main>
             <Switch>

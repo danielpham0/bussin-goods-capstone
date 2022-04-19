@@ -21,7 +21,7 @@ router.post('/updateUser', async function(req,res,next) {
         if (!user || user.account_type != 'Admin') {
             res.status(401)
             res.json({status: 'error', 
-                error: 'User is does not have permission to edit another User.'})
+                error: 'User does not have permission to edit another User.'})
             return
         }
         await req.db.User.findByIdAndUpdate(
