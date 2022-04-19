@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 export default function Featured() {
 
     return (
-        <div className='container border border-dark'>
+        <div className='container border box'>
             <div className="feat">
             <div className='feat-head'>
                     <h5 className='feat-title'>Featured Startups <p className='more'>More...</p> </h5>
@@ -15,7 +15,7 @@ export default function Featured() {
                     <div className='col-md-3'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'> Dpces Brasilieros</h5>
+                                <h5 className='card-title'> Doces Brasilieros</h5>
                                 <p className='card-text'>Winter 2022 <br></br>
                                     Product: Palha Italiana
                                 </p>
@@ -25,7 +25,7 @@ export default function Featured() {
                     <div className='col-md-3'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'> Dpces Brasilieros</h5>
+                                <h5 className='card-title'> Doces Brasilieros</h5>
                                 <p className='card-text'>Winter 2022 <br></br>
                                     Product: Palha Italiana
                                 </p>
@@ -34,7 +34,7 @@ export default function Featured() {
                     </div> <div className='col-md-3'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'> Dpces Brasilieros</h5>
+                                <h5 className='card-title'> Doces Brasilieros</h5>
                                 <p className='card-text'>Winter 2022 <br></br>
                                     Product: Palha Italiana
                                 </p>
@@ -50,7 +50,7 @@ export default function Featured() {
                     <div className='col-md-3'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'> Dpces Brasilieros</h5>
+                                <h5 className='card-title'> Doces Brasilieros</h5>
                                 <p className='card-text'>Winter 2022 <br></br>
                                     Product: Palha Italiana
                                 </p>
@@ -60,7 +60,7 @@ export default function Featured() {
                     <div className='col-md-3'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'> Dpces Brasilieros</h5>
+                                <h5 className='card-title'> Doces Brasilieros</h5>
                                 <p className='card-text'>Winter 2022 <br></br>
                                     Product: Palha Italiana
                                 </p>
@@ -69,7 +69,7 @@ export default function Featured() {
                     </div> <div className='col-md-3'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'> Dpces Brasilieros</h5>
+                                <h5 className='card-title'> Doces Brasilieros</h5>
                                 <p className='card-text'>Winter 2022 <br></br>
                                     Product: Palha Italiana
                                 </p>

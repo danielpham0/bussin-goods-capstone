@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './NavBar';
 import './Header.css';
 import banner from '../imgs/banner.png';
+import bannerText from '../imgs/banner-text.png'
 
 const Header = () => {
 
@@ -18,7 +19,13 @@ const Header = () => {
           <hr className="header-top__seperator" />
         </section>
       </section>
-      <img src={banner} alt="Logo" />
+      <div className="banner">
+        <img src={banner} alt="Banner"/>
+        <div>
+            <img src={bannerText} alt="Banner Text" className="banner-text"/>
+        </div>
+      </div>
+      
     </section>
   )
 }
