@@ -16,6 +16,7 @@
     justify-content: center;
     align-items: center;
     margin-right: 20px;
+    margin-left: 20px;
   }
   
   .header-logo {
@@ -45,4 +46,16 @@
     flex-direction: row;
     justify-content: flex-end;
     margin-right: 55px;
+  }
+
+  .banner {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .banner-text {
+      width: 45%;
+      position: relative;
+      top: -50px;
+      justify-content: center;
   }
