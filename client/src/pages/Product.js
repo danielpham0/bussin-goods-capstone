@@ -3,7 +3,7 @@ import Categories from '../components/Categories';
 import ProductPage from '../components/product/ProductPage';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-const Product = () =>{
+const Product = (props) =>{
   const { path } = useRouteMatch();
 
   return (
@@ -14,7 +14,7 @@ const Product = () =>{
           <Categories />
         </Route>
         <Route path={`${path}/:productID`}>
-          <ProductPage />
+          <ProductPage addToCart={props.addToCart}/>
         </Route>
       </Switch>
     </div>

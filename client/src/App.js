@@ -12,33 +12,28 @@ import Header from './components/Header';
 import Profile from './pages/Profile';
 
 export default function App() {
-  const [user, setUser] = useState();
-  useEffect(() => {
-      async function fetchUser() {
-          let response = await fetch(`http://localhost:3001/api/v1/user/getUserIdentity`,
-              {method: "GET", credentials: 'include'})
-          let responseJSON = await response.json()
-          if (responseJSON.status != 'error') {
-            setUser(responseJSON)
-          }
-          console.log(responseJSON)
-      }
-      fetchUser()
-    }, [])
+  const [cart, setCart] = useState({})
+  const addToCart = (newProduct) => {
+    const store = newProduct.product.store._id
+    const newArray = cart[store] ? cart[store].concat([newProduct]) : [newProduct]
+    setCart(prev => ({
+      ...prev, [store]: newArray
+    }))
+  } 
   return (
     <div className="App">
         <header className="App-header">
-          <Header user={user}/>
+          <Header/>
         </header>
         <main>
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route path='/Product' component={Product} />
+            <Route path='/Product'>
+              <Product addToCart={addToCart}/>
+            </Route>
             <Route path='/Startup' component={Startup} />
             <Route path='/SignUp' component={SignUp} />
-            <Route path='/Login'>
-              <Login />
-            </Route>
+            <Route path='/Login' component={Login} />
             <Route path='/Startup' component={Startup} />
             <Route path='/StoreDashboard' component={StoreDashboard} />
             <Route path='/Profile' component={Profile} />

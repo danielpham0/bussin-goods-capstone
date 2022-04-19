@@ -1,7 +1,18 @@
-import React from 'react';
+import {React, useState, useEffect} from 'react';
 import "./Navbar.css"
-const Navigation = (props) =>{
-  const user = props.user
+const Navigation = () =>{
+  const [user, setUser] = useState();
+  useEffect(() => {
+      async function fetchUser() {
+          let response = await fetch(`http://localhost:3001/api/v1/user/getUserIdentity`,
+              {method: "GET", credentials: 'include'})
+          let responseJSON = await response.json()
+          if (responseJSON.status != 'error') {
+            setUser(responseJSON)
+          }
+      }
+      fetchUser()
+    }, [])
   return (
     <section className="navbar">
       <a href="/" className="navbar-item">Home</a>

@@ -6,8 +6,7 @@ export default function  ProductOrderForm(props) {
     const addToCart = (event) => {
         event.preventDefault()
         let addedProduct = {'quantity': event.target.quantity.value, 'product': product}
-        console.log(addedProduct)
-        // set cart to update it
+        props.addToCart(addedProduct)
     }
     return (
         <div className='product-order-info'>
