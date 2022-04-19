@@ -32,7 +32,9 @@
     "mongodb": "^4.4.1",
     "mongoose": "^6.2.4",
     "ngrok": "^4.3.0",
+    "react": "^16.2.0",
     "react-bootstrap": "^2.2.3",
+    "react-dom": "^16.2.0",
     "react-router-dom": "^5.2.0",
     "sessions": "^0.0.2-7",
     "stripe": "^8.205.0"

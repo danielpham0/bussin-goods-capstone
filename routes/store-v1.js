@@ -56,6 +56,17 @@ router.get('/getStore', async function(req,res,next) {
     }
 })
 
+router.get('/getAllPublicStores', async function(req, res, next) {
+    try {
+        // change private to false after a
+        let store = await req.db.Store.find({private: true}).select('name cohort type') 
+        res.json(store)
+    } catch (error) {
+        res.status(500)
+        res.json({status: 'error', error: error.toString()})
+    }
+})
+
 router.get('/getUserStores', async function(req,res,next) {
     try {
         let user = await req.db.User.findById(req.userID);
