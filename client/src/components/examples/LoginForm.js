@@ -15,7 +15,7 @@ export default function  LoginForm() {
     }
     return (
         <div>
-            <h2>User Login</h2>
+            <h1>User Login</h1>
             <form onSubmit={submitLogin}>
                 <input type='text' name='email' placeholder='Email Address' required/>
                 <input type='password' name='password' placeholder='Password' required/>

@@ -22,14 +22,14 @@ router.post('/createUser', async function(req,res,next) {
         let newUser = new req.db.Product({
             store: req.storeID,
             name: req.body.name,
-            tagLine: req.body.tagLine,
+            tagline: req.body.tagline,
             cost: req.body.cost,
             type: req.body.type,
             pictures: [req.body.pictures],
             options: [[]],
-            shipsTo: [req.body.shipsTo],
-            pickupFrom: req.body.pickupFrom,
-            generalDesc: req.body.desc,
+            ships_to: [req.body.ships_to],
+            pickup_from: req.body.pickup_from,
+            general_description: req.body.desc,
             additonalInfo: [req.body.additonalInfo]
         })
         await newProduct.save()

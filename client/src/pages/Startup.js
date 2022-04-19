@@ -3,7 +3,7 @@ import Startups from '../components/Startups';
 const Startup = () =>{
   return (
     <div>
-      <h3>Startups</h3>
+      <h1>Startups</h1>
       <Startups />
     </div>
   );

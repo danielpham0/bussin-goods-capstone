@@ -21,8 +21,8 @@ export default function  StoreSetupForm() {
             type: event.target.store_type.value,
             cohort: event.target.cohort.value,
             about: event.target.about.value,
-            socialLinks: socials,
-            tagLine: event.target.tagline.value,
+            social_links: socials,
+            tagline: event.target.tagline.value,
             private: event.target.private.value == 'true' ? true : false, 
             email: event.target.email.value
         }
@@ -41,7 +41,7 @@ export default function  StoreSetupForm() {
         let socialLink = socialLinkInput.current.value
         let socialType = socialTypeInput.current.value
         if (socialLink.length > 0) {
-            setSocials(prevState => [...prevState, {'socialMedia': socialType, 'link': socialLink}])
+            setSocials(prevState => [...prevState, {'social_media': socialType, 'link': socialLink}])
         }
     }
     return (
@@ -106,7 +106,7 @@ export default function  StoreSetupForm() {
                     <label className="form-label"> Added Socials: </label>
                     <ul className="list-group">
                         {socials.length > 0 ? socials.map(social => <li className="list-group-item" 
-                            key={social.link}>{`${social.socialMedia} (${social.link})`}</li>) : 
+                            key={social.link}>{`${social.social_media} (${social.link})`}</li>) : 
                             <li className="list-group-item">Currently no socials have been attached.</li>}
                     </ul>
                 </div>

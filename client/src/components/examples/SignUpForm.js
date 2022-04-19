@@ -16,7 +16,7 @@ export default function  SignUpForm() {
     }
     return (
         <div>
-            <h2>User Sign-up</h2>
+            <h1>User Sign-up</h1>
             <form onSubmit={submitSignUp}>
                 <input type='text' name='email' placeholder='Email Address' required/>
                 <input type='password' name='password' placeholder='Password' required/>
