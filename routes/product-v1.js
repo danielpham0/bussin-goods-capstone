@@ -18,19 +18,18 @@ router.post('/createProduct', async function(req,res,next) {
                 return
             }
         }
-
         let newProduct = new req.db.Product({
-            store: req.storeID,
+            store: req.body.storeID,
             name: req.body.name,
-            tagLine: req.body.tagLine,
+            tagline: req.body.tagline,
             cost: req.body.cost,
             type: req.body.type,
-            pictures: [req.body.pictures],
+            pictures: req.body.pictures,
             options: [[]],
-            shipsTo: req.body.shipsTo,
-            pickupFrom: req.body.pickupFrom,
-            generalDesc: req.body.desc,
-            additonalInfo: req.body.additonalInfo
+            ships_to: req.body.ships_to,
+            pickup_from: req.body.pickup_from,
+            general_description: req.body.general_description,
+            additonal_information: req.body.additonal_information
         })
         await newProduct.save()
         res.json({status: "success", newProduct: newProduct})
@@ -42,10 +41,11 @@ router.post('/createProduct', async function(req,res,next) {
 
 router.get('/getProduct', async function(req,res,next) {
     try {
-        let product = await req.db.Product.findByID(req.body.productID)
+        let product = await req.db.Product.findById(req.query.productID).populate('store')
         let store = product.store
         let userIsAdmin = store.admins.includes(req.userID)
         if (!userIsAdmin) {
+            store.email = null
             store.stripe = null
             if (store.private) {
                 res.status(401)

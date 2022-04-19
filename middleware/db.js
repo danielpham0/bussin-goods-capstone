@@ -44,9 +44,9 @@ async function dbConnect() {
       enum: constants.STORE_TYPES}, // Starting here could be a part of a store profile
     cohort: String,
     about: String,
-    tagLine: String,
-    socialLinks: [{
-      socialMedia: constants.SOCIAL_TYPES,
+    tagline: String,
+    social_links: [{
+      social_media: constants.SOCIAL_TYPES,
       link: String
     }],
     email: String,
@@ -66,20 +66,17 @@ async function dbConnect() {
     type: {
       type: String,
       enum: constants.PRODUCT_TYPES},
-    pictures: [{
-      title: String,
-      url: String
-    }], 
+    pictures: [String], // URL's for image 
     options: [{
       title: String,
       choices: [String],
     }],
-    shipsTo: [{
+    ships_to: [{
       type: String,
       enum: constants.COUNTRIES}],
-    pickupFrom: [String],
+    pickup_from: [String],
     general_description: String,
-    additionalInformation: [{
+    additional_information: [{
       title: String,
       description: String
     }]
@@ -137,7 +134,7 @@ async function dbConnect() {
     },
     rating: Number,
     comment: String,
-    datePosted: Date
+    date_posted: Date
   })
   db.Review = mongoose.model('Review', reviewSchema)
 

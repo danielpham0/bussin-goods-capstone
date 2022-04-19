@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react';
-import { Switch, Route, useRouteMatch, Link, useParams } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import StoreSetupForm from '../components/store-dashboard/StoreSetupForm'
 import Dashboard from '../components/store-dashboard/Dashboard';
 import StoreConsole from '../components/store-dashboard/StoreConsole';
@@ -12,6 +12,7 @@ const StoreDashboard = () =>{
                 {method: "GET", credentials: 'include'})
             let responseJSON = await response.json()
             setStores(responseJSON)
+            console.log(responseJSON)
         }
         fetchStores()
     }, [])
@@ -19,7 +20,7 @@ const StoreDashboard = () =>{
   // Check if user is an admin
   return (
     <div>
-      <h3>Store Dashboard</h3>
+      <h1>Store Dashboard</h1>
       <Switch>
         <Route exact path={`${path}/`}>
           <Dashboard stores={stores}/>

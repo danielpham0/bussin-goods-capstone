@@ -1,19 +1,17 @@
 .console{
     width: 100%;
-    padding: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .console > .left {
-    margin: 10px;
     width: 20%;
-    position: absolute;
-    left: 2%;
-    padding-bottom: 20px;
+    margin: 20px;
 }
 .console > .right {
-    margin: 10px;
-    position: absolute;
-    right: 3%;
     width: 70%;
-    padding-bottom: 20px;
+    margin: 20px;
 }

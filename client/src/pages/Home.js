@@ -4,7 +4,7 @@ import Featured
 const Home = () =>{
   return (
     <div>
-      <h3>Home</h3>
+      <h1>Home</h1>
     <Featured />
     </div>
   );

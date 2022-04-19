@@ -22,8 +22,8 @@ router.post('/createStore', async function(req,res,next) {
             type: req.body.type,
             cohort: req.body.cohort,
             about: req.body.about,
-            socialLinks: req.body.socialLinks,
-            tagLine: req.body.tagLine,
+            social_links: req.body.social_links,
+            tagline: req.body.tagline,
             private: req.body.private,
             email: req.body.email
         })

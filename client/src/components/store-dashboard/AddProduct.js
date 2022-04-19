@@ -15,11 +15,24 @@ export default function  AddProduct(props) {
 
     let submitStoreSetup = async (event) => {
         event.preventDefault()
+        let formData = {
+            storeID: store._id,
+            name: event.target.product_name.value,
+            tagline: event.target.tagline.value,
+            cost: event.target.price.value,
+            type: event.target.product_type.value,
+            ships_to: regions,
+            pickup_from: pickupAreas,
+            general_description: event.target.about.value,
+            additonal_information: sections
+        }
 
-        let imageUrls = []
         let files = event.target.product_pictures.files
+        let fileUrls = []
         if (files && files.length > 0){
-            Array.from(files).forEach(async(file) => {
+            let fileArray = Array.from(files)
+            for (let i = 0; i < fileArray.length; i++) {
+                let file = fileArray[i]
                 const urlResponse = await fetch('http://localhost:3001/api/v1/s3/getUploadUrl')
                 const urlJSON = await urlResponse.json()
                 await fetch(urlJSON.upload_url, {
@@ -30,22 +43,10 @@ export default function  AddProduct(props) {
                     body: file
                 });
                 const imageUrl = urlJSON.upload_url.split('?')[0]
-                imageUrls.push(imageUrl)
-            });
+                fileUrls.push(imageUrl)
+            }
         }
-
-        let formData = {
-            storeID: store._id,
-            name: event.target.product_name.value,
-            tagLine: event.target.tagline.value,
-            cost: event.target.price.value,
-            type: event.target.product_type.value,
-            pictures: imageUrls,
-            shipsTo: regions,
-            pickupFrom: pickupAreas,
-            generalDesc: event.target.about.value,
-            additonalInfo: sections
-        }
+        formData.pictures = fileUrls
         let postFormResponse = await fetch(`http://localhost:3001/api/v1/product/createProduct`,
             {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json', 
             }, credentials: 'include'}
