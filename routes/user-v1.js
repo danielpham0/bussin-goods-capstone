@@ -5,38 +5,50 @@ var router = express.Router();
 
 router.use('/auth', authRouter)
 
-router.post('/createUser', async function(req,res,next) {
+router.get('/getUser', async function(req,res,next) {
     try {
-        let store = await req.db.Store.findById(req.body.storeID)
-        let userIsAdmin = store.admins.includes(req.userID)
-        if (!userIsAdmin) {
-            store.stripe = null
-            if (store.private) {
-                res.status(401)
-                res.json({status: 'error', 
-                    error: 'User does not have access to this store.'})
-                return
-            }
-        }
-
-        let newUser = new req.db.Product({
-            store: req.storeID,
-            name: req.body.name,
-            tagline: req.body.tagline,
-            cost: req.body.cost,
-            type: req.body.type,
-            pictures: [req.body.pictures],
-            options: [[]],
-            ships_to: [req.body.ships_to],
-            pickup_from: req.body.pickup_from,
-            general_description: req.body.desc,
-            additonalInfo: [req.body.additonalInfo]
-        })
-        await newProduct.save()
-        res.json({status: "success", newProduct: newProduct})
-    }catch(err) {
+        let user = await req.db.User.findByID(req.body.userID)
+        res.json(user)
+    }catch(error) {
         res.status(500)
-        res.json({status: 'error', error: err.toString()})
+        res.json({status: 'error', error: error.toString()})
+    }
+})
+
+router.post('/updateUser', async function(req,res,next) {
+    try {
+        let user = await req.db.User.findById(req.userID);
+        if (!user || user.account_type != 'Admin') {
+            res.status(401)
+            res.json({status: 'error', 
+                error: 'User is does not have permission to edit another User.'})
+            return
+        }
+        await req.db.User.findByIdAndUpdate(
+            req.body.userID,
+            req.body.updatedUser
+          )
+        res.json({status: 'success'})
+    }catch(error) {
+        res.status(500)
+        res.json({status: "error", error: error.toString()})
+    }
+})
+
+router.delete('/deleteUser', async function(req,res,next) {
+    try {
+        let user = await req.db.User.findById(req.userID);
+        if (!user || user.account_type != 'Admin') {
+            res.status(401)
+            res.json({status: 'error', 
+                error: 'User must be approved as an Admin.'})
+            return
+        }
+        await req.db.CardSet.findByIdAndDelete(req.body.userID)
+        res.json({status: 'success'})
+    } catch(error) {
+        res.status(500)
+        res.json({status: 'error', error: error})
     }
 })
 
