@@ -1,21 +1,18 @@
-import {React, useState, useEffect} from 'react';
+import {React, useState, useEffect, useContext} from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import StoreSetupForm from '../components/store-dashboard/StoreSetupForm'
 import Dashboard from '../components/store-dashboard/Dashboard';
 import StoreConsole from '../components/store-dashboard/StoreConsole';
+import { UserContext } from '../App';
 
-const StoreDashboard = (props) =>{
+const StoreDashboard = () =>{
+  const {user} = useContext(UserContext)
+  if (!user || user.account_type != 'Store Owner') {
+    history.push("/")
+  }
+
   const [stores, setStores] = useState([])
   useEffect(() => {
-        async function fetchUser() {
-          let response = await fetch(`http://localhost:3001/api/v1/user/getUserIdentity`,
-              {method: "GET", credentials: 'include'})
-          let responseJSON = await response.json()
-          if (responseJSON.status == 'error' || responseJSON.account_type != 'Store Owner') {
-            history.push("/")
-          }
-        }
-        fetchUser()
         async function fetchStores() {
             let response = await fetch(`http://localhost:3001/api/v1/store/getUserStores`,
                 {method: "GET", credentials: 'include'})
@@ -26,7 +23,6 @@ const StoreDashboard = (props) =>{
         fetchStores()
     }, [])
   const { path } = useRouteMatch();
-  // Check if user is an admin
   return (
     <div>
       <h1>Store Dashboard</h1>

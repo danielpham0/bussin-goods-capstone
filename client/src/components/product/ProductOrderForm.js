@@ -1,12 +1,17 @@
-import {React, useState} from 'react';
+import {React, useState, useContext} from 'react';
+import {CartContext} from '../../App.js'
+
 export default function  ProductOrderForm(props) {
     let product = props.product
     const [statusMessage, setStatusMessage] = useState('');
     
-    const addToCart = (event) => {
+    const {addToCart} = useContext(CartContext); 
+
+    const formatAndAddToCart = (event) => {
         event.preventDefault()
         let addedProduct = {'quantity': event.target.quantity.value, 'product': product}
-        props.addToCart(addedProduct)
+        addToCart(addedProduct)
+        setStatusMessage('Successfully added item to cart!')
     }
     return (
         <div className='product-order-info'>
@@ -15,7 +20,7 @@ export default function  ProductOrderForm(props) {
             <div className='product-price'>{product.cost.toLocaleString('en-US', { 
                 style: 'currency',currency: 'USD'})}
             </div>
-            <form onSubmit={addToCart}>
+            <form onSubmit={formatAndAddToCart}>
                 <div className="mb-3">
                     <label className="form-label">Quantity</label>
                     <input className="form-control" name="quantity" type="number" defaultValue={1} min={1} step={1} required/>

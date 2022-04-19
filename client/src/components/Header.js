@@ -1,19 +1,22 @@
-import React from 'react';
+import {React, useContext} from 'react';
 import Navbar from './NavBar';
 import './Header.css';
 import banner from '../imgs/banner.png';
 import bannerText from '../imgs/banner-text.png'
+import { Link } from "react-router-dom";
+import { UserContext } from '../App';
 
 const Header = () => {
+  const {user} = useContext(UserContext)
   return (
     <section className="header">
       <section className="header-top">
         <section className="header-top__logo">
-          <a href="/" className="header-logo">BUSSIN' GOODS</a>
+          <Link to="/" className="header-logo"> BUSSIN' GOODS </Link>
         </section>
         <section className="header-top__navbar">
           <section className="header-top__navigation">
-            <Navbar />
+            <Navbar user={user}/>
           </section>
           <hr className="header-top__seperator" />
         </section>
@@ -24,7 +27,6 @@ const Header = () => {
             <img src={bannerText} alt="Banner Text" className="banner-text"/>
         </div>
       </div>
-      
     </section>
   )
 }
