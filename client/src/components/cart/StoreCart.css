@@ -1,0 +1,40 @@
+.store-cart {
+    margin: auto;
+    width: 65%;
+    text-align: left;
+}
+
+.total-info {
+    float: right;
+    margin: 20px;
+    padding: 5px;
+}
+
+.total-info .card-body .btn {
+    float: right;
+    color: white;
+    margin-top: 10px;
+}
+
+.store-cart img {
+    min-height: 100%;
+    object-fit: cover;
+}
+
+.store-cart .row {
+    padding-bottom: 0;
+}
+
+.store-cart .item-img {
+    margin-right: 10px
+}
+
+.store-cart .quantity-text {
+    margin: 10px;
+}
+.store-cart .quantity-btn {
+    padding: 5px;
+}
+.store-cart .remove-btn {
+    margin-left: 20px;
+}

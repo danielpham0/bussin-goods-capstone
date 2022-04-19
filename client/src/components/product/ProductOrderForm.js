@@ -9,7 +9,7 @@ export default function  ProductOrderForm(props) {
 
     const formatAndAddToCart = (event) => {
         event.preventDefault()
-        let addedProduct = {'quantity': event.target.quantity.value, 'product': product}
+        let addedProduct = {'quantity': parseInt(event.target.quantity.value), 'product': product}
         addToCart(addedProduct)
         setStatusMessage('Successfully added item to cart!')
     }

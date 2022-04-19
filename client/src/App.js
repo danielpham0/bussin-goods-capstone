@@ -1,7 +1,7 @@
 import {useState, useEffect, createContext } from 'react';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Home from './pages/Home';
 import Product from './pages/Product';
 import Startup from './pages/Startup';
@@ -31,7 +31,7 @@ export default function App() {
 
   const [cart, setCart] = useState({})
 
-  // addToCart + removeFromCartx
+  // addToCart + removeFromCart
   const addToCart = (newProduct) => {
     const store = newProduct.product.store._id
     const newArray = cart[store] ? cart[store].concat([newProduct]) : [newProduct]
@@ -79,6 +79,7 @@ export default function App() {
             <Route path='/Cart'>
               <Cart cart={cart} removeFromCart={removeFromCart} addToCart={addToCart}/>
             </Route>
+            <Redirect to="/" />
           </Switch>
         </main>
     </div>
