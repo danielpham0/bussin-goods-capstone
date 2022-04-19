@@ -1,3 +1,6 @@
 .sign-in, .log-in {
     width: 50%;
 }
+.sign-up-link {
+    margin: 10px;
+}

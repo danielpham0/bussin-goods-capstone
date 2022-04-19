@@ -6,7 +6,7 @@ import AboutProduct from './AboutProduct';
 import StoreCard from '../store/StoreCard';
 import './ProductPage.css'
 
-export default function  ProductPage() {
+export default function  ProductPage(props) {
     let {productID} = useParams()
     const [product, setProduct] = useState()
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function  ProductPage() {
                 <h2>{product.store.name}</h2>
                 <div className='product-section'>
                     <ImageCarousel imageUrls={product.pictures}/>
-                    <ProductOrderForm product={product}/>
+                    <ProductOrderForm product={product} addToCart={props.addToCart}/>
                 </div>
                 <div className='product-section'>
                     <AboutProduct product={product} />

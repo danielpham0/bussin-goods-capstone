@@ -4,9 +4,18 @@ import StoreSetupForm from '../components/store-dashboard/StoreSetupForm'
 import Dashboard from '../components/store-dashboard/Dashboard';
 import StoreConsole from '../components/store-dashboard/StoreConsole';
 
-const StoreDashboard = () =>{
+const StoreDashboard = (props) =>{
   const [stores, setStores] = useState([])
   useEffect(() => {
+        async function fetchUser() {
+          let response = await fetch(`http://localhost:3001/api/v1/user/getUserIdentity`,
+              {method: "GET", credentials: 'include'})
+          let responseJSON = await response.json()
+          if (responseJSON.status == 'error' || responseJSON.account_type != 'Store Owner') {
+            history.push("/")
+          }
+        }
+        fetchUser()
         async function fetchStores() {
             let response = await fetch(`http://localhost:3001/api/v1/store/getUserStores`,
                 {method: "GET", credentials: 'include'})

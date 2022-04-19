@@ -1,5 +1,6 @@
 import {React, useState} from 'react';
 import "./Form.css";
+import {Link} from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 export default function  LoginForm() {
@@ -37,6 +38,7 @@ export default function  LoginForm() {
                 <button type="submit" className="btn btn-primary">Login</button>
                 {statusMessage && <div className="form-text status"> {statusMessage} </div>}
             </form>
+            <div className='sign-up-link'><Link  to='/Signup'>Signup for an account here.</Link> </div>
         </div>
     );
 }

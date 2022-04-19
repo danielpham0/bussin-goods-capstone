@@ -4,8 +4,7 @@ import './Header.css';
 import banner from '../imgs/banner.png';
 import bannerText from '../imgs/banner-text.png'
 
-const Header = (props) => {
-
+const Header = () => {
   return (
     <section className="header">
       <section className="header-top">
@@ -14,7 +13,7 @@ const Header = (props) => {
         </section>
         <section className="header-top__navbar">
           <section className="header-top__navigation">
-            <Navbar user={props.user}/>
+            <Navbar />
           </section>
           <hr className="header-top__seperator" />
         </section>
