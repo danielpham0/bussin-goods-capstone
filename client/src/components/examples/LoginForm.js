@@ -11,7 +11,6 @@ export default function  LoginForm() {
             {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json'}}
         )
         let postFormJSON = await postFormResponse.json()
-        console.log(postFormJSON)
     }
     return (
         <div>

@@ -37,7 +37,8 @@ router.post('/createStore', async function(req,res,next) {
 
 router.get('/getStore', async function(req,res,next) {
     try {
-        let store = await req.db.Store.findById(req.body.storeID)
+        
+        let store = await req.db.Store.findById(req.query.storeID)
         let userIsAdmin = store.admins.includes(req.userID)
         if (!userIsAdmin) {
             store.stripe = null

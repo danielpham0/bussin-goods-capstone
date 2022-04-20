@@ -16,7 +16,6 @@ export default function  LoginForm() {
             {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json'}, credentials: 'include',}
         )
         let postFormJSON = await postFormResponse.json()
-        console.log(postFormJSON)
         if (postFormJSON.status == 'error') {
             setStatusMessage(`Error: "${postFormJSON.error}"`)
         } else {

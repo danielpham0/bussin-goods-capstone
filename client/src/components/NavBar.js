@@ -1,28 +1,18 @@
 import {React, useState, useEffect} from 'react';
 import "./Navbar.css"
-const Navigation = () =>{
-  const [user, setUser] = useState();
-  useEffect(() => {
-      async function fetchUser() {
-          let response = await fetch(`http://localhost:3001/api/v1/user/getUserIdentity`,
-              {method: "GET", credentials: 'include'})
-          let responseJSON = await response.json()
-          if (responseJSON.status != 'error') {
-            setUser(responseJSON)
-          }
-      }
-      fetchUser()
-    }, [])
+import { Link } from "react-router-dom";
+const Navigation = (props) =>{
+  const user = props.user
   return (
     <section className="navbar">
-      <a href="/" className="navbar-item">Home</a>
-      <a href="/Product" className="navbar-item">Products</a>
-      <a href="/Startup" className="navbar-item">Startups</a>
+      <Link to="/" className="navbar-item"> Home </Link>
+      <Link to="/Product" className="navbar-item"> Products </Link>
+      <Link to="/Startup" className="navbar-item"> Startups </Link>
       {user && user.account_type == "Store Owner" ? 
-        <a href="/StoreDashboard" className="navbar-item">Dashboard</a> : ''}
-      {user ? <a href="/Profile" className="navbar-item">Profile</a> : 
-        <a href="/Login" className="navbar-item">Login</a>}
-      <a href="/Cart" className="navbar-item">Cart</a>
+        <Link to="/StoreDashboard" className="navbar-item"> Dashboard </Link> : ''}
+      {user ? <Link to="/Profile" className="navbar-item"> Profile </Link> : 
+        <Link to="/Login" className="navbar-item"> Login </Link>}
+      <Link to="/Cart" className="navbar-item">Cart </Link>
   </section>
   );
 }

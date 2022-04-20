@@ -3,7 +3,7 @@ import "./StoreSetupForm.css";
 import { useHistory } from "react-router-dom";
 import { STORE_TYPES, SOCIAL_TYPES } from '../../constants/constants';
 
-export default function  StoreSetupForm() {
+export default function  StoreSetupForm(props) {
     let curYear = new Date().getFullYear()
 
     const socialLinkInput = useRef(null);
@@ -34,6 +34,7 @@ export default function  StoreSetupForm() {
         if (postFormJSON.status == 'error') {
             setStatusMessage(`Error: "${postFormJSON.error}"`)
         } else {
+            props.updateStores()
             history.push("/StoreDashboard")
         }
     }
