@@ -18,7 +18,6 @@ const StoreDashboard = () =>{
         {method: "GET", credentials: 'include'})
     let responseJSON = await response.json()
     setStores(responseJSON)
-    console.log(responseJSON)
   }
   useEffect(() => {
         fetchStores()

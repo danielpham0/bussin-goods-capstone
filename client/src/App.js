@@ -31,27 +31,65 @@ export default function App() {
 
   const [cart, setCart] = useState({})
 
-  // addToCart + removeFromCart
   const addToCart = (newProduct) => {
     const store = newProduct.product.store._id
-    const newArray = cart[store] ? cart[store].concat([newProduct]) : [newProduct]
+    const curProducts = cart[store]
+    let newProducts = [newProduct]
+    if (curProducts != null) {
+      const existingProduct = curProducts.find((product) => product._id === newProduct._id)
+      if(existingProduct) {
+        newProducts = curProducts.map((product) => product._id === 
+          newProduct._id ? {...existingProduct, quantity: existingProduct.quantity +=1} : product)
+      } else {
+        newProducts = curProducts.concat(newProducts)
+      }
+    }
     setCart(prev => ({
-      ...prev, [store]: newArray
+      ...prev, [store]: newProducts
     }))
-    console.log(cart)
-  } 
-  const removeFromCart = (newProduct) => {
-    const store = newProduct.product.store._id
-    const newArray = cart[store] ? cart[store].concat([newProduct]) : [newProduct]
+  }
+
+  const removeFromCart = (removedProduct) => {
+    const store = removedProduct.store._id
+    let newProducts = cart[store]
+    const existingProduct = newProducts.find((product) => product.product._id === removedProduct._id)
+    if (!existingProduct) { return }
+
+    if(existingProduct.quantity <= 1) {
+      if (newProducts.length <= 1) {
+        let curStores = {...cart}
+        delete curStores[store]
+        setCart(curStores)
+        return
+      }
+      newProducts = newProducts.filter((product) => product.product._id !== removedProduct._id)
+    } else {
+      newProducts = newProducts.map((product) => product.product._id === removedProduct._id 
+        ? {...existingProduct, quantity: existingProduct.quantity-1} : product)
+    }
+
     setCart(prev => ({
-      ...prev, [store]: newArray
+      ...prev, [store]: newProducts
     }))
-    console.log(cart)
-  } 
+  }
+
+  const deleteFromCart = (deletedProduct) => {
+    const store = deletedProduct.store._id
+    let newProducts = cart[store].filter((product) => product.product._id !== deletedProduct._id)
+    if (newProducts.length <= 0) {
+      let curStores = {...cart}
+      delete curStores[store]
+      setCart(curStores)
+    } else {
+      setCart(prev => ({
+        ...prev, [store]: newProducts
+      }))
+    }
+  }
 
   return (
     <UserContext.Provider value={{user, setUser}}>
-    <CartContext.Provider value={{cart, addToCart, removeFromCart}}>
+    <CartContext.Provider value={{cart, addToCart, removeFromCart, deleteFromCart}}>
     <div className="App">
         <header className="App-header">
           <Header user={user}/>
@@ -77,7 +115,7 @@ export default function App() {
               <Profile user={user}/>
             </Route>
             <Route path='/Cart'>
-              <Cart cart={cart} removeFromCart={removeFromCart} addToCart={addToCart}/>
+              <Cart cart={cart} deleteFromCart={deleteFromCart} removeFromCart={removeFromCart} addToCart={addToCart}/>
             </Route>
             <Redirect to="/" />
           </Switch>

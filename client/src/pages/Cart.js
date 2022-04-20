@@ -4,7 +4,6 @@ import StoreCart from '../components/cart/StoreCart.js';
 
 const Cart = () =>{
     const {cart, addToCart, removeFromCart, deleteFromCart} = useContext(CartContext);
-    console.log(cart)
     return (
         <div>
             <h2>Cart</h2>

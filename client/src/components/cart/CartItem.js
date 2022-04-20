@@ -16,12 +16,10 @@ export default function  CartItem(props) {
                             style: 'currency',currency: 'USD'})}</p>
                         <p className="card-text"><small className="text-muted">{product.general_description}</small></p>
                         <div className='card-text'>
-                            <button className='quantity-btn btn btn-secondary'>-</button>
-                            {/* <button className='quantity-btn btn btn-secondary' onClick={() => props.removeFromCart(product)}>-</button> */}
+                            <button className='quantity-btn btn btn-secondary' onClick={() => props.removeFromCart(product)}>-</button>
                             <span className='quantity-text'>{quantity}</span>
                             <button onClick={() => props.addToCart({quantity: 1, product: product})} className='quantity-btn btn btn-secondary'>+</button>
-                            {/* <button onClick={() => props.deleteFromCart(product)} className='remove-btn btn btn-danger'> Remove Product </button> */}
-                            <button className='remove-btn btn btn-danger'> Remove Product </button>
+                            <button onClick={() => props.deleteFromCart(product)} className='remove-btn btn btn-danger'> Remove Product </button>
                         </div>
                     </div>
                 </div>

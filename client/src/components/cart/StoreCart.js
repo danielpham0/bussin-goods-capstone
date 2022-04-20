@@ -14,7 +14,6 @@ export default function  StoreCart(props) {
                 if (responseJSON.status != 'error'){
                     setStore(responseJSON)
                 }
-                console.log(responseJSON)
             }
             fetchStore()
         }, [])
