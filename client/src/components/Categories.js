@@ -35,7 +35,6 @@ export default function Categories() {
         let h5 = document.createElement('h5')
         h5.className = 'card-title'
         h5.innerHTML = parameter
-
         element.appendChild(ele2)
         ele2.appendChild(ele3)
         ele3.appendChild(h5)
