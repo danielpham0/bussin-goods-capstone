@@ -1,16 +1,23 @@
 import {React, useContext} from 'react';
 import {CartContext} from '../App.js'
-import StoreCart from '../components/cart/StoreCart.js';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import CartPage from '../components/cart/CartPage.js';
+import CheckoutPage from '../components/cart/CheckoutPage.js';
 
 const Cart = () =>{
+    const { path } = useRouteMatch();
     const {cart, addToCart, removeFromCart, deleteFromCart} = useContext(CartContext);
     return (
         <div>
-            <h2>Cart</h2>
-            {cart && Object.keys(cart).length > 0 ? Object.keys(cart).map(function(store){
-                return <StoreCart key={store} store={store} products={cart[store]} addToCart={addToCart}
-                    removeFromCart={removeFromCart} deleteFromCart={deleteFromCart} />
-            }) : <div> To view products for checkout, please add them to your cart. </div>}
+            <Switch>
+                <Route exact path={`${path}/`}>
+                    <CartPage cart={cart} addToCart={addToCart} 
+                        removeFromCart={removeFromCart} deleteFromCart={deleteFromCart}/>
+                </Route>
+                <Route path={`${path}/:storeID`}>
+                    <CheckoutPage cart={cart} deleteFromCart={deleteFromCart} />
+                </Route>
+            </Switch>
         </div>
     );
 }

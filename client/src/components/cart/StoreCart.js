@@ -45,7 +45,7 @@ export default function  StoreCart(props) {
                                     {' ' + (subtotal + tax).toLocaleString('en-US', { 
                                     style: 'currency',currency: 'USD'})}</li>
                             </ul>
-                            <Link className="btn btn-primary" to={`/Order/${storeID}`}> Proceed to checkout </Link>
+                            <Link className="btn btn-primary" to={`/Cart/${storeID}`}> Proceed to checkout </Link>
                         </div>
                     </div>
                 </div>
