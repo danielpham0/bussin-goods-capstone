@@ -13,7 +13,6 @@ const Product = (props) =>{
       <Switch>
         <Route exact path={`${path}/`}>
           <Cats />
-          <Categories />
         </Route>
         <Route path={`${path}/:productID`}>
           <ProductPage addToCart={props.addToCart}/>
