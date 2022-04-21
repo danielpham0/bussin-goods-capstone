@@ -65,7 +65,7 @@ export class Cats extends React.Component {
                     <div className='row cats'>
                         {this.state.test.map((i) => {
                             return (
-                                <div value = {i} onClick={this.findCat} className='col-md-3' >
+                                <div value = {i} onClick={this.findCat} key = {i.id} className='col-md-3' >
                                 <div className='card border-secondary'>
                                     <div className='card-body'>
                                         <h5 className='card-title'> {i}</h5>
@@ -76,7 +76,7 @@ export class Cats extends React.Component {
                         })}
                     </div>
 
-                    {this.state.show && <Results type={this.state.type} />}
+                    {this.state.show && <Results type={this.state.type}/>}
 
                 </div>
 
@@ -103,21 +103,24 @@ class Results extends React.Component {
     }
 
     render() {
+        const {type} = this.state
+        const results = this.state.card.filter(element => element.type = this.state.type);      
 
         return (
-<div>
-            {this.state.card.map((i) => {
+    <div className="row">
+            {results.map((object, i) => {
                 return (
-                    <div  className='col-md-3' >
+                    <div  className='col-md-3' key={i} >
                     <div className='card border-secondary'>
                         <div className='card-body'>
-                            <h5 className='card-title'>{i.type} </h5>
+                            <h5 className='card-title'>{object.type} </h5>
+                            <p>{object.name}</p>
                         </div>
                     </div>
                 </div>
                 )
             })}
-</div>
+    </div>
 
         )
     }
