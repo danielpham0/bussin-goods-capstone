@@ -100,9 +100,6 @@ class Resu extends React.Component {
     }
 
     render() {
-        const { cat } = this.props.cards
-        console.log
-        this.props.cards.filter(e => e.type == "Food").forEach(e => console.log(e))
         return (
 
             <div className="row">
@@ -111,8 +108,9 @@ class Resu extends React.Component {
                         <div className='col-md-3'>
                             <div className='card border-secondary'>
                                 <div className='card-body'>
-                                    <h5 className='card-title'>{object.type}{console.log(object, ' hi')}</h5>
+                                    <h5 className='card-title'>{object.type}</h5>
                                     <p>{object.name}</p>
+                                    <p>{object.cohort}</p>
                                 </div>
                             </div>
                         </div>

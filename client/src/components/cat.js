@@ -24,7 +24,7 @@ export class Cats extends React.Component {
         this.setState({
             items: STORE_TYPES
         })
-        const url = "http://localhost:3001/api/v1/store/getAllPublicStores"
+        const url = "http://localhost:3001/api/v1/product/getAllPublicProducts"
 
         fetch(url)
             .then(response => response.json())
@@ -111,8 +111,15 @@ class Results extends React.Component {
                         <div className='col-md-3'>
                             <div className='card border-secondary'>
                                 <div className='card-body'>
-                                    <h5 className='card-title'>{object.type}{console.log(object, ' hi')}</h5>
-                                    <p>{object.name}</p>
+
+                                    <h5 className='card-title'>{object.name}{console.log(object, ' hi')}</h5>
+                                    
+
+                                    <p>{object.store.name}</p>
+                                    <text>
+                                    <p style={{display: 'inline-block'}}>{object.tagline}</p>
+                                    <p style={{textAlign: 'right'}}>{object.cost}</p>
+                                    </text>
                                 </div>
                             </div>
                         </div>
