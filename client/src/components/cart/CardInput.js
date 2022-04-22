@@ -20,10 +20,9 @@ const CARD_ELEMENT_OPTIONS = {
 };
 function CardSection() {
   return (
-    <label>
-      Card details
+    <div>
       <CardElement options={CARD_ELEMENT_OPTIONS} />
-    </label>
+    </div>
   );
 };
 export default CardSection;

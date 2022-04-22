@@ -1,13 +1,8 @@
 import React from 'react';
-import {useStripe, useElements, CardElement, Elements} from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 import CardInput from './CardInput';
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK, {
-  stripeAccount: 'acct_1KYJMBEPtLNC0ruw'
-});
-
-export default function  CheckoutForm() {
+export default function  PaymentForm() {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -21,7 +16,7 @@ export default function  CheckoutForm() {
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
-    var response = await fetch(`http://localhost:3001/api/v1/payment/createPayment`, {
+    var response = await fetch(`http://localhost:3001/api/v1/order/createStoreOrder`, {
       method: "POST",
       body: JSON.stringify({storeID: '', amount: 200}),
       headers: {'Content-Type': 'application/json'}
@@ -65,8 +60,11 @@ export default function  CheckoutForm() {
   // https://github.com/danielpham0/bussin-goods-capstone/blob/42a1b052b221abd05a58723509382242f83c83a0/client/src/App.js
   return (
     <form onSubmit={handleSubmit}>
-      <CardInput />
-      <button disabled={!stripe}>Confirm order</button>
+      <div className="mb-3">
+          <label className="form-label">Card Details</label>
+          <CardInput className=".card-input" />
+      </div>
+      <button type="submit" className="btn btn-primary" disabled={!stripe}>Confirm order</button>
     </form>
   );
 }
