@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {Startupss} from '../components/Startupss';
+import {StoreCats} from '../components/store/StoreCats';
 const Startup = () =>{
   return (
     <div>
       <h1>Startups</h1>
-      <Startupss/>
+      <StoreCats/>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import AboutProduct from './AboutProduct';
 import StoreCard from '../store/StoreCard';
 import './ProductPage.css'
 
-export default function  ProductPage(props) {
+export default function ProductPage(props) {
     let {productID} = useParams()
     const [product, setProduct] = useState()
     useEffect(() => {

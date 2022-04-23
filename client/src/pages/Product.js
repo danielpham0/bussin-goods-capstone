@@ -1,8 +1,7 @@
 import React from 'react';
-import Categories from '../components/Categories';
 import ProductPage from '../components/product/ProductPage';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import {Cats} from '../components/cat';
+import {ProductCats} from '../components/product/ProductCats';
 
 const Product = (props) =>{
   const { path } = useRouteMatch();
@@ -12,7 +11,7 @@ const Product = (props) =>{
       <h1>Products</h1>
       <Switch>
         <Route exact path={`${path}/`}>
-          <Cats />
+          <ProductCats />
         </Route>
         <Route path={`${path}/:productID`}>
           <ProductPage addToCart={props.addToCart}/>

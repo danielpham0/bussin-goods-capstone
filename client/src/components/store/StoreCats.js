@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import "./Startups.css";
-import { STORE_TYPES } from '../constants/constants';
+import { STORE_TYPES } from '../../constants/constants';
 import { Link } from "react-router-dom";
 import { Component } from 'react';
 
-export class Startupss extends React.Component {
+export class StoreCats extends React.Component {
 
     state = {
         name: '',
@@ -101,7 +101,6 @@ class Resu extends React.Component {
 
     render() {
         return (
-
             <div className="row">
                 {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
                     return (
@@ -109,8 +108,11 @@ class Resu extends React.Component {
                             <div className='card border-secondary'>
                                 <div className='card-body'>
                                     <h5 className='card-title'>{object.type}</h5>
+                                    <text style={{display: 'inline-block'}}>
                                     <p>{object.name}</p>
-                                    <p>{object.cohort}</p>
+                                    <p>Cohort: {object.cohort}</p>
+                                    </text>
+                                    <p>About: {object.about}</p>
                                 </div>
                             </div>
                         </div>
@@ -123,4 +125,4 @@ class Resu extends React.Component {
     }
 }
 
-export default Startupss;
+export default StoreCats;

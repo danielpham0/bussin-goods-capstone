@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import "./Categories.css";
-import { STORE_TYPES } from '../constants/constants';
-import { Link } from "react-router-dom";
+import { STORE_TYPES } from '../../constants/constants.js';
+import { Link, Route, useRouteMatch } from "react-router-dom";
 import { Component } from 'react';
 
-export class Cats extends React.Component {
+export class ProductCats extends React.Component {
 
     state = {
         name: '',
@@ -91,7 +91,7 @@ class Results extends React.Component {
     }
 
     componentDidMount() {
-
+       
         const url = "http://localhost:3001/api/v1/store/getAllPublicStores"
 
         fetch(url)
@@ -110,18 +110,23 @@ class Results extends React.Component {
                     return (
                         <div className='col-md-3'>
                             <div className='card border-secondary'>
+                             <Link to={`/Product/${object._id}`}>
+                                  
+                                
                                 <div className='card-body'>
 
                                     <h5 className='card-title'>{object.name}{console.log(object, ' hi')}</h5>
-                                    
+
 
                                     <p>{object.store.name}</p>
                                     <text>
-                                    <p style={{display: 'inline-block'}}>{object.tagline}</p>
-                                    <p style={{textAlign: 'right'}}>{object.cost}</p>
+                                        <p style={{ display: 'inline-block' }}>{object.tagline}</p>
+                                        <p style={{ textAlign: 'right' }}>${object.cost}</p>
                                     </text>
                                 </div>
+                                </Link>
                             </div>
+                           
                         </div>
 
                     )
@@ -132,4 +137,4 @@ class Results extends React.Component {
     }
 }
 
-export default Cats;
+export default ProductCats;
