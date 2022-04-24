@@ -1,10 +1,11 @@
 import React from 'react';
-import Startups from '../components/Startups';
+
+import {StoreCats} from '../components/store/StoreCats';
 const Startup = () =>{
   return (
     <div>
       <h1>Startups</h1>
-      <Startups />
+      <StoreCats/>
     </div>
   );
 }

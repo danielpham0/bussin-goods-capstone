@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import "./Categories.css";
-import { STORE_TYPES } from '../constants/constants';
+import "./Startups.css";
+import { STORE_TYPES } from '../../constants/constants';
 import { Link } from "react-router-dom";
 import { Component } from 'react';
 
-export class Cats extends React.Component {
+export class StoreCats extends React.Component {
 
     state = {
         name: '',
@@ -38,7 +38,7 @@ export class Cats extends React.Component {
             <div className='container border border-dark'>
                 <div className="cat row no-gutters justify-content-start">
                     <div className='col-4 titl'>
-                        <h5>Product Categories</h5>
+                        <h5>Startup Categories</h5>
                     </div>
 
 
@@ -69,7 +69,7 @@ export class Cats extends React.Component {
                         })}
                     </div>
 
-                    {this.state.show && <Results type={this.state.type} cards={this.state.obj} />}
+                    {this.state.show && <Resu type={this.state.type} cards={this.state.obj} />}
 
                 </div>
 
@@ -80,7 +80,7 @@ export class Cats extends React.Component {
     }
 }
 
-class Results extends React.Component {
+class Resu extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -100,19 +100,19 @@ class Results extends React.Component {
     }
 
     render() {
-        const { cat } = this.props.cards
-        console.log
-        this.props.cards.filter(e => e.type == "Food").forEach(e => console.log(e))
         return (
-
             <div className="row">
                 {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
                     return (
                         <div className='col-md-3'>
                             <div className='card border-secondary'>
                                 <div className='card-body'>
-                                    <h5 className='card-title'>{object.type}{console.log(object, ' hi')}</h5>
+                                    <h5 className='card-title'>{object.type}</h5>
+                                    <text style={{display: 'inline-block'}}>
                                     <p>{object.name}</p>
+                                    <p>Cohort: {object.cohort}</p>
+                                    </text>
+                                    <p>About: {object.about}</p>
                                 </div>
                             </div>
                         </div>
@@ -125,4 +125,4 @@ class Results extends React.Component {
     }
 }
 
-export default Cats;
+export default StoreCats;

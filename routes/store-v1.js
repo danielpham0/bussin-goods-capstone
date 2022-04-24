@@ -60,7 +60,7 @@ router.get('/getStore', async function(req,res,next) {
 router.get('/getAllPublicStores', async function(req, res, next) {
     try {
         // change private to false after a
-        let store = await req.db.Store.find({private: true}).select('name cohort type') 
+        let store = await req.db.Store.find({private: false}).select('name cohort type about tagline') 
         res.json(store)
     } catch (error) {
         res.status(500)
