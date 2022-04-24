@@ -29,13 +29,13 @@ app.use( function (req, res, next) {
 })
 
 // Exposes the local server so that Stripe can reach Webhook
-// const url = await ngrok.connect({
-//   addr: 3001,
-//   authtoken: process.env.NGROK_TOKEN
-// });
+const url = await ngrok.connect({
+  addr: 3001,
+  authtoken: process.env.NGROK_TOKEN
+});
 // When testing payment processing, you must add this endpoint to Stripe
-// console.log('Add Stripe Webhook Endpoint: ' + url + 
-//   '/api/v1/order/stripeWebhook')
+console.log('Add Stripe Webhook Endpoint: ' + url + 
+  '/api/v1/order/stripeWebhook')
 
 app.use('/', indexRouter);
 // STRIPE DOCUMENTATION: https://stripe.com/docs/payments/handling-payment-events

@@ -13,9 +13,15 @@ router.post('/createStoreOrder', async function(req, res, next) {
   const user = req.userID
   try {
     let store = await req.db.Store.findById(req.body.storeID)
+    if (!store.stripe || !store.stripe.enabled) {
+      res.status(400)
+      res.json({status: 'error', 
+        error: 'This store cannot process orders until Stripe is enabled.'})
+      return
+    }
     const storeStripe = store.stripe.accountID
     req.body.products.forEach(product => {
-      if(!store.products.contains(product)){
+      if (product.product.store._id !== req.body.storeID) {
         res.status(400)
         res.json({status: 'error', 
           error: 'Each order must only contain products from a single store.'})
@@ -25,13 +31,12 @@ router.post('/createStoreOrder', async function(req, res, next) {
 
     const paymentIntent = await stripe.paymentIntents.create({
         payment_method_types: ['card'],
-        amount: req.body.amount,
+        amount: req.body.amount*100,
         currency: 'usd',
         application_fee_amount: 0,
       }, {
         stripeAccount: storeStripe,
     });
-
     // Store the order and add a payment intent Id
     const newOrder = new req.db.Order({
       customer: user,
@@ -39,9 +44,9 @@ router.post('/createStoreOrder', async function(req, res, next) {
       store: req.body.storeID,
       stripePaymentID: paymentIntent.id,
       paid: false,
-      products: req.body.products,
+      products: req.body.products.map(prod => ({'product': prod.product._id, 'quantity': prod.quantity})),
       total: req.body.amount,
-      order_date: new Date.now(),
+      order_date: new Date(),
       delivery_option: req.body.delivery_option,
       pickup_from: req.body.pickup_from,
       order_status: "Pending Payment"
@@ -55,30 +60,25 @@ router.post('/createStoreOrder', async function(req, res, next) {
   }
 });
 
-router.post('/stripeWebhook', (req,res) => {
+router.post('/stripeWebhook', async (req,res) => {
   let event = req.body
+  console.log(event)
   switch (event.type) {
-    case 'payment_intent.succeeded':
+    case 'payment_intent.succeeded' || '':
       const paymentIntent = event.data.object;
       const connectedAccountId = event.account;
-      handleSuccessfulPaymentIntent(connectedAccountId, paymentIntent);
+      await req.db.Order.findOneAndUpdate({stripePaymentID: paymentIntent.id}, {paid: true,
+        order_status: "Pending Seller Confirmation"})
+      // Fulfill the purchase.
+      // - EMAIL CONFIRMATION FOR BOTH CUSTOMER AND STORE
+      console.log('Connected account ID: ' + connectedAccountId);
+      console.log(JSON.stringify(paymentIntent));
       break;
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
   res.json({received: true});
 });
-  
-const handleSuccessfulPaymentIntent = async (connectedAccountId, paymentIntent) => {
-  let order = req.db.Order.find({stripePaymentID: paymentIntent.id})
-  order.paid = true
-  order.order_status = "Pending Seller Confirmation"
-  await order.save()
-  // Fulfill the purchase.
-  // - EMAIL CONFIRMATION FOR BOTH CUSTOMER AND STORE
-  console.log('Connected account ID: ' + connectedAccountId);
-  console.log(JSON.stringify(paymentIntent));
-}
 
 router.get('/getUserOrders', async function(req,res,next) {
   if (!req.userID) {

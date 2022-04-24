@@ -32,8 +32,8 @@ async function dbConnect() {
       ref: 'User'
     }],
     products: [{
-      type: mongoose.Schema.Types.ObjectID,
-      ref: 'Product'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
     }],
     stripe: {
       accountID: String,
@@ -61,7 +61,7 @@ async function dbConnect() {
 
   const productSchema = new mongoose.Schema({
     store: {
-      type: mongoose.Schema.Types.ObjectID,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Store'
     },
     name: String,
@@ -103,14 +103,17 @@ async function dbConnect() {
       phone_number: String
     },
     store: {
-      type: mongoose.Schema.Types.ObjectID,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Store'
     },
     stripePaymentID: String,
     paid: Boolean,
     products: [{
-      type: mongoose.Schema.Types.ObjectID,
-      ref: 'Product'
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+      },
+      quantity: Number
     }],
     total: Number,
     order_date: Date,
@@ -130,7 +133,7 @@ async function dbConnect() {
       ref: 'User'
     },
     product: {
-      type: mongoose.Schema.Types.ObjectID,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Product'
     },
     rating: Number,

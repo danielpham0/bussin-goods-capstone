@@ -34,7 +34,7 @@ const StoreDashboard = () =>{
           <StoreSetupForm updateStores={fetchStores}/>
         </Route>
         <Route path={`${path}/:storeID`}>
-          <StoreConsole stores={stores}/>
+          <StoreConsole />
         </Route>
       </Switch>
     </div>

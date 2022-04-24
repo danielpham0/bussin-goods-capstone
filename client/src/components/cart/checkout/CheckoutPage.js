@@ -18,10 +18,10 @@ export default function  CheckoutPage(props) {
                 let response = await fetch(`http://localhost:3001/api/v1/store/getStore?storeID=${storeID}`,
                     {method: "GET", credentials: 'include'})
                 let responseJSON = await response.json()
-                if (responseJSON.status != 'error'){
+                if (responseJSON.status != 'error' && responseJSON.stripe && responseJSON.stripe.enabled){
                     setStore(responseJSON)
                     setStripePromise(loadStripe(process.env.REACT_APP_STRIPE_PK, {
-                        stripeAccount: responseJSON.stripe ? responseJSON.stripe.accountID : 'acct_1KYJMBEPtLNC0ruw'
+                        stripeAccount: responseJSON.stripe.accountID
                       }));
                 }
             }
@@ -34,7 +34,7 @@ export default function  CheckoutPage(props) {
     return (
         <div>
             <h1>Checkout</h1>
-            {props.cart[storeID] && props.cart[storeID] > 0 && store && store.stripe.enabled ?
+            {props.cart[storeID] && props.cart[storeID].length > 0 && store && store.stripe && store.stripe.enabled ?
             <Tabs activeKey={curTab} onSelect={(k) => setCurTab(k)} className="mb-3 checkout-box">
                 <Tab eventKey="customer-info" title="Customer Info" className='checkout-panel' disabled={['confirmation'].includes(curTab) ? true:false}>
                     <CustomerInfoForm setOrderInfo={setOrderInfo} setCurTab={setCurTab}/>

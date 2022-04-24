@@ -3,7 +3,7 @@ import { COUNTRIES } from '../../../constants/constants';
 
 export default function  ShippingInfoForm(props) {
     let store = props.store
-    const [shippingCountry, setShippingCountry] = useState('United States');
+    const [shippingCountry, setShippingCountry] = useState('US');
     let handleCountryChange = (event) => {
         setShippingCountry(
             event.target.value

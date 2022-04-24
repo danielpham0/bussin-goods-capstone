@@ -10,13 +10,10 @@ router.post('/createProduct', async function(req,res,next) {
         let store = await req.db.Store.findById(req.body.storeID)
         let userIsAdmin = store.admins.includes(req.userID)
         if (!userIsAdmin) {
-            store.stripe = null
-            if (store.private) {
-                res.status(401)
-                res.json({status: 'error', 
-                    error: 'User does not have access to this store.'})
-                return
-            }
+            res.status(401)
+            res.json({status: 'error', 
+                error: 'User does not have access to this store.'})
+            return
         }
         let newProduct = new req.db.Product({
             store: req.body.storeID,
@@ -44,7 +41,6 @@ router.get('/getProduct', async function(req,res,next) {
         let userIsAdmin = store.admins.includes(req.userID)
         if (!userIsAdmin) {
             store.email = null
-            store.stripe = null
             if (store.private) {
                 res.status(401)
                 res.json({status: 'error', 

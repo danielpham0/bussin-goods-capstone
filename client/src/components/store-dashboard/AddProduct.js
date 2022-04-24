@@ -64,8 +64,8 @@ export default function AddProduct(props) {
     return (
         <div>
             <form onSubmit={submitStoreSetup}>
-                <h4> Add a new Product! </h4>
-                <h5>General Information </h5>
+                <h3> Add a new Product! </h3>
+                <h4>General Information </h4>
                 <div className="mb-3">
                     <label className="form-label">What is the name of the product?</label>
                     <input type='text' className="form-control" name='product_name' required/>
@@ -90,12 +90,12 @@ export default function AddProduct(props) {
                     <label className="form-label">Please attach some photos of your product. </label>
                     <input className="form-control" type="file" name="product_pictures" accept="image/png, image/jpeg, image/jpg" multiple></input>
                 </div>
-                <h5> Pricing </h5>
+                <h4> Pricing </h4>
                 <div className="mb-3">
                     <label className="form-label">What price would you like to list the product at?</label>
                     <input className="form-control" name="price" type="number" defaultValue={0.00} min={0} step={.01} required/>
                 </div>
-                <h5> Additional Information</h5>
+                <h4> Additional Information</h4>
                 <div className="form-text"> Attach any additional information sections you would like for your product. </div>
                 <div className="mb-3">
                     <label className="form-label"> Section Title </label>

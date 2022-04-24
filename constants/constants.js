@@ -15,7 +15,7 @@ export const PRODUCT_TYPES =
 
 export const COUNTRIES = 
 [
-    "United States", "Canada", "Mexico"
+    "US", "CA", "MX"
 ];
 
 export const DELIVERY_OPTIONS = 
