@@ -19,6 +19,8 @@ router.post('/createStore', async function(req,res,next) {
             name: req.body.name,
             admins: req.userID,
             products: [],
+            ships_to: req.body.ships_to,
+            pickup_from: req.body.pickup_from,
             type: req.body.type,
             cohort: req.body.cohort,
             about: req.body.about,
@@ -37,11 +39,9 @@ router.post('/createStore', async function(req,res,next) {
 
 router.get('/getStore', async function(req,res,next) {
     try {
-        
         let store = await req.db.Store.findById(req.query.storeID)
         let userIsAdmin = store.admins.includes(req.userID)
         if (!userIsAdmin) {
-            store.stripe = null
             store.email = null
             if (store.private) {
                 res.status(401)

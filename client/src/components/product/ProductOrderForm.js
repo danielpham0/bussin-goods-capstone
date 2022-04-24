@@ -28,8 +28,8 @@ export default function  ProductOrderForm(props) {
                 <button type="submit" className="btn btn-primary">Add to Cart!</button>
                 {statusMessage && <div className="form-text status"> {statusMessage} </div>}
             </form>
-            <div>{product.ships_to && product.ships_to.length > 0 ? `Available for shipping to: ${product.ships_to.join(", ")}.` : null}</div>
-            <div>{product.pickup_from && product.pickup_from.length > 0 ? `Available for pickup from: ${product.pickup_from.join(", ")}.` : null}</div>
+            <div>{product.store.ships_to && product.store.ships_to.length > 0 ? `Available for shipping to: ${product.store.ships_to.join(", ")}.` : null}</div>
+            <div>{product.store.pickup_from && product.store.pickup_from.length > 0 ? `Available for pickup from: ${product.store.pickup_from.join(", ")}.` : null}</div>
         </div>
     );
 }

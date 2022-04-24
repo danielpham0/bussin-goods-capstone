@@ -1,24 +1,29 @@
 import {React, useRef, useState} from 'react';
 import "./StoreSetupForm.css";
 import { useHistory } from "react-router-dom";
-import { STORE_TYPES, SOCIAL_TYPES } from '../../constants/constants';
+import { STORE_TYPES, SOCIAL_TYPES, COUNTRIES } from '../../constants/constants';
 
 export default function  StoreSetupForm(props) {
     let curYear = new Date().getFullYear()
 
     const socialLinkInput = useRef(null);
     const socialTypeInput = useRef(null);
+    const pickupAreaInput = useRef(null);
 
     let history = useHistory()
 
     const [statusMessage, setStatusMessage] = useState('');
     const [socials, setSocials] = useState([]);
+    const [pickupAreas, setPickupAreas] = useState([]);
+    const [regions, setRegions] = useState([]);
 
     let submitStoreSetup = async (event) => {
         event.preventDefault()
         let formData = {
             name: event.target.store_name.value,
             type: event.target.store_type.value,
+            ships_to: regions,
+            pickup_from: pickupAreas,
             cohort: event.target.cohort.value,
             about: event.target.about.value,
             social_links: socials,
@@ -43,6 +48,12 @@ export default function  StoreSetupForm(props) {
         let socialType = socialTypeInput.current.value
         if (socialLink.length > 0) {
             setSocials(prevState => [...prevState, {'social_media': socialType, 'link': socialLink}])
+        }
+    }
+    let addPickupArea = async () => {
+        let pickupArea= pickupAreaInput.current.value
+        if (pickupArea.length > 0) {
+            setPickupAreas(prevState => [...prevState, pickupArea])
         }
     }
     return (
@@ -88,6 +99,40 @@ export default function  StoreSetupForm(props) {
                     <label className="form-label"> What would you like your 'tagline' to be?</label>
                     <textarea className="form-control" name="tagline" placeholder="Your Tagline" required></textarea>
                     <div className="form-text">This is what will appear when your store is mentioned or highlighted somewhere.</div>
+                </div>
+                <h5> Shipping </h5>
+                <div className="mb-3">
+                    <label className="form-label">Which of the following regions are you open to shipping to?</label>
+                    <div className="form-check">
+                        {COUNTRIES.map(country => (
+                            <div key={country}>
+                                <input onChange={(e) => {
+                                    if (e.target.checked) {
+                                        setRegions([...regions, e.target.value])
+                                    } else {
+                                        setRegions(regions.filter(region => region != e.target.value))
+                                    }
+                                }} className="form-check-input" type="checkbox" value={country}/>
+                                <label className="form-check-label">
+                                    {country}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="form-text">If you don't check any, your products will be listed only for pickup. </div>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">What areas will your products be available for pickup?</label>
+                    <input ref={pickupAreaInput} type='text' className="form-control" name='pickup_location'/>
+                </div>
+                <button type="button" onClick={addPickupArea} className="btn btn-secondary mb-3">Add Pickup Area</button>
+                <div className="mb-3">
+                    <label className="form-label"> Added Pickup Areas: </label>
+                    <ul className="list-group">
+                        {pickupAreas.length > 0 ? pickupAreas.map(pickupArea => <li className="list-group-item" 
+                            key={pickupArea}>{`${pickupArea}`}</li>) : 
+                            <li className="list-group-item">Currently no areas have been added.</li>}
+                    </ul>
                 </div>
                 <h5>Social Media </h5>
                 <div className="mb-3">

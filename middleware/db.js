@@ -39,6 +39,10 @@ async function dbConnect() {
       accountID: String,
       enabled: Boolean
     },
+    ships_to: [{
+      type: String,
+      enum: constants.COUNTRIES}],
+    pickup_from: [String],
     type: {
       type: String,
       enum: constants.STORE_TYPES}, // Starting here could be a part of a store profile
@@ -71,10 +75,6 @@ async function dbConnect() {
       title: String,
       choices: [String],
     }],
-    ships_to: [{
-      type: String,
-      enum: constants.COUNTRIES}],
-    pickup_from: [String],
     general_description: String,
     additional_information: [{
       title: String,
@@ -95,7 +95,7 @@ async function dbConnect() {
         street_address: String,
         street_address_2: String,
         city: String,
-        zip_code: String,
+        postal_code: String,
         state: String,
         country: String
       },
@@ -116,7 +116,8 @@ async function dbConnect() {
     order_date: Date,
     delivery_option: {
       type: String,
-      enum: constants.DELIVERY_OPTIONS}, // WILL NEED AN ENUM LATER
+      enum: constants.DELIVERY_OPTIONS},
+    pickup_from: String,
     order_status: {
       type: String,
       enum: constants.ORDER_STATUS} // WILL REQUIRE AN ENUM LATER

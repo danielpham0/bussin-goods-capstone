@@ -43,6 +43,7 @@ router.post('/createStoreOrder', async function(req, res, next) {
       total: req.body.amount,
       order_date: new Date.now(),
       delivery_option: req.body.delivery_option,
+      pickup_from: req.body.pickup_from,
       order_status: "Pending Payment"
     })
     await newOrder.save()

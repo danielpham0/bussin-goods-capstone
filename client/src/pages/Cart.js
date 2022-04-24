@@ -2,7 +2,7 @@ import {React, useContext} from 'react';
 import {CartContext} from '../App.js'
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import CartPage from '../components/cart/CartPage.js';
-import CheckoutPage from '../components/cart/CheckoutPage.js';
+import CheckoutPage from '../components/cart/checkout/CheckoutPage.js';
 
 const Cart = () =>{
     const { path } = useRouteMatch();

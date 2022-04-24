@@ -1,6 +1,5 @@
 import React from 'react';
 import {CardElement} from '@stripe/react-stripe-js';
-import './CardInput.css'
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {

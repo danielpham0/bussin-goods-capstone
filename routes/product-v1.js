@@ -26,8 +26,6 @@ router.post('/createProduct', async function(req,res,next) {
             type: req.body.type,
             pictures: req.body.pictures,
             options: [[]],
-            ships_to: req.body.ships_to,
-            pickup_from: req.body.pickup_from,
             general_description: req.body.general_description,
             additonal_information: req.body.additonal_information
         })
