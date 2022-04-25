@@ -8,7 +8,7 @@
 
 .cat {
     margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 .container {
     margin-bottom: 1rem;
@@ -20,4 +20,13 @@
 
 .card {
     margin-bottom: 2rem;
+}
+
+.row {
+    padding-top: 1rem;
+}
+
+h2 {
+    text-align: left;
+    font-size: 1.5rem;
 }

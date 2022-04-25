@@ -100,12 +100,10 @@ class Results extends React.Component {
     }
 
     render() {
-        const { cat } = this.props.cards
-        console.log
-        this.props.cards.filter(e => e.type == "Food").forEach(e => console.log(e))
         return (
 
             <div className="row">
+                <h2> Showing results for: {this.props.type}</h2>
                 {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
                     return (
                         <div className='col-md-3'>
