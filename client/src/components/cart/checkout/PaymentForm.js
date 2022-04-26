@@ -22,7 +22,7 @@ export default function  PaymentForm(props) {
       return;
     }
     const orderJSON = {...props.orderInfo, products: props.products, amount: tax+subtotal}
-    var response = await fetch(`http://localhost:3001/api/v1/order/createStoreOrder`, {
+    var response = await fetch(`/api/v1/order/createStoreOrder`, {
       method: "POST",
       body: JSON.stringify(orderJSON),
       headers: {'Content-Type': 'application/json'}

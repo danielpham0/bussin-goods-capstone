@@ -11,7 +11,7 @@ export default function  StoreConsole(props) {
 
     useEffect(() => {
       async function fetchStore() {
-        let response = await fetch(`http://localhost:3001/api/v1/store/getStore?storeID=${storeID}`,
+        let response = await fetch(`/api/v1/store/getStore?storeID=${storeID}`,
             {method: "GET", credentials: 'include'})
         let responseJSON = await response.json()
         if (responseJSON.status != 'error'){

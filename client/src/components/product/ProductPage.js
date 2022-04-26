@@ -11,7 +11,7 @@ export default function ProductPage(props) {
     const [product, setProduct] = useState()
     useEffect(() => {
             async function fetchProduct() {
-                let response = await fetch(`http://localhost:3001/api/v1/product/getProduct?productID=${productID}`,
+                let response = await fetch(`/api/v1/product/getProduct?productID=${productID}`,
                     {method: "GET", credentials: 'include'})
                 let responseJSON = await response.json()
                 setProduct(responseJSON)

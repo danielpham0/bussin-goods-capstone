@@ -7,7 +7,7 @@ export default function  UploadPictureExample() {
     event.preventDefault();
     let file = event.target.file.files[0]
     if (file) {
-      const urlResponse = await fetch('http://localhost:3001/api/v1/s3/getUploadUrl')
+      const urlResponse = await fetch('/api/v1/s3/getUploadUrl')
       const urlJSON = await urlResponse.json()
       
       await fetch(urlJSON.upload_url, {

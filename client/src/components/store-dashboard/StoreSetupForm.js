@@ -31,7 +31,7 @@ export default function  StoreSetupForm(props) {
             private: event.target.private.value == 'true' ? true : false, 
             email: event.target.email.value
         }
-        let postFormResponse = await fetch(`http://localhost:3001/api/v1/store/createStore`,
+        let postFormResponse = await fetch(`/api/v1/store/createStore`,
             {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json', 
             }, credentials: 'include'}
         )

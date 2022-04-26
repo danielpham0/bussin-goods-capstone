@@ -14,7 +14,7 @@ export default function  SignUpForm() {
             password: event.target.password.value,
             confirm_password: event.target.confirm_password.value
         }
-        let postFormResponse = await fetch(`http://localhost:3001/api/v1/user/auth/signup`,
+        let postFormResponse = await fetch(`/api/v1/user/auth/signup`,
             {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json'}}
         )
         let postFormJSON = await postFormResponse.json()

@@ -19,7 +19,7 @@ export default function App() {
   const [user, setUser] = useState()
   useEffect(() => {
     async function fetchUser() {
-        let response = await fetch(`http://localhost:3001/api/v1/user/getUserIdentity`,
+        let response = await fetch(`/api/v1/user/getUserIdentity`,
             {method: "GET", credentials: 'include'})
         let responseJSON = await response.json()
         if (responseJSON.status != 'error') {

@@ -24,7 +24,7 @@ export class StoreCats extends React.Component {
         this.setState({
             items: STORE_TYPES
         })
-        const url = "http://localhost:3001/api/v1/store/getAllPublicStores"
+        const url = "/api/v1/store/getAllPublicStores"
 
         fetch(url)
             .then(response => response.json())
@@ -92,7 +92,7 @@ class Resu extends React.Component {
 
     componentDidMount() {
 
-        const url = "http://localhost:3001/api/v1/store/getAllPublicStores"
+        const url = "/api/v1/store/getAllPublicStores"
 
         fetch(url)
             .then(response => response.json())

@@ -28,7 +28,7 @@ export default function AddProduct(props) {
             let fileArray = Array.from(files)
             for (let i = 0; i < fileArray.length; i++) {
                 let file = fileArray[i]
-                const urlResponse = await fetch('http://localhost:3001/api/v1/s3/getUploadUrl')
+                const urlResponse = await fetch('/api/v1/s3/getUploadUrl')
                 const urlJSON = await urlResponse.json()
                 await fetch(urlJSON.upload_url, {
                     method: "PUT",
@@ -42,7 +42,7 @@ export default function AddProduct(props) {
             }
         }
         formData.pictures = fileUrls
-        let postFormResponse = await fetch(`http://localhost:3001/api/v1/product/createProduct`,
+        let postFormResponse = await fetch(`/api/v1/product/createProduct`,
             {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json', 
             }, credentials: 'include'}
         )

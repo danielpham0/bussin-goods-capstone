@@ -14,7 +14,7 @@ const StoreDashboard = () =>{
 
   const [stores, setStores] = useState([])
   async function fetchStores() {
-    let response = await fetch(`http://localhost:3001/api/v1/store/getUserStores`,
+    let response = await fetch(`/api/v1/store/getUserStores`,
         {method: "GET", credentials: 'include'})
     let responseJSON = await response.json()
     setStores(responseJSON)

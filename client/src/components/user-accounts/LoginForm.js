@@ -12,7 +12,7 @@ export default function  LoginForm() {
             email: event.target.email.value,
             password: event.target.password.value
         }
-        let postFormResponse = await fetch(`http://localhost:3001/api/v1/user/auth/login`,
+        let postFormResponse = await fetch(`/api/v1/user/auth/login`,
             {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json'}, credentials: 'include',}
         )
         let postFormJSON = await postFormResponse.json()

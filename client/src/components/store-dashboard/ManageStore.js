@@ -5,7 +5,7 @@ export default function AddProduct(props) {
 
     const [onboardingLink, setOnboardingLink] = useState();
     const getOnboardingLink = async () => {
-        let response = await fetch(`http://localhost:3001/api/v1/store/stripe/getOnboardingLink?storeID=${props.store._id}`,
+        let response = await fetch(`/api/v1/store/stripe/getOnboardingLink?storeID=${props.store._id}`,
             {method: "GET", credentials: 'include'})
         let responseJSON = await response.json()
         if (responseJSON.status != 'error'){
@@ -16,7 +16,7 @@ export default function AddProduct(props) {
         }
     }
     const verifyStripe = async () => {
-        let response = await fetch(`http://localhost:3001/api/v1/store/stripe/authenticateAccount?storeID=${props.store._id}`,
+        let response = await fetch(`/api/v1/store/stripe/authenticateAccount?storeID=${props.store._id}`,
             {method: "GET", credentials: 'include'})
         let responseJSON = await response.json()
         if (responseJSON.status != 'error'){
