@@ -12,6 +12,8 @@ import userV1Router from './routes/user-v1.js'
 import productV1Router from './routes/product-v1.js'
 import s3V1Router from './routes/s3-v1.js'
 
+import path from 'path';
+
 var app = express();
 
 app.use(express.json());
