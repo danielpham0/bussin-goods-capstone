@@ -13,6 +13,7 @@ export default function  CheckoutPage(props) {
     let {storeID} = useParams()
     const [store, setStore] = useState()
     const [stripePromise, setStripePromise] = useState()
+    const STRIPE_PK = 'pk_test_51KrvEdBmd7ejymaHvTLG3XEFVX9TI24JcdizL1LnhzZJGLFkiIrZZOtEWRDOD3sF3Ns0ovlMvM5ivoVnaLiFaTfh00jQKC0sJJ'
     useEffect(() => {
             async function fetchStore() {
                 let response = await fetch(`/api/v1/store/getStore?storeID=${storeID}`,
@@ -20,7 +21,7 @@ export default function  CheckoutPage(props) {
                 let responseJSON = await response.json()
                 if (responseJSON.status != 'error' && responseJSON.stripe && responseJSON.stripe.enabled){
                     setStore(responseJSON)
-                    setStripePromise(loadStripe(process.env.REACT_APP_STRIPE_PK, {
+                    setStripePromise(loadStripe(STRIPE_PK, {
                         stripeAccount: responseJSON.stripe.accountID
                       }));
                 }
