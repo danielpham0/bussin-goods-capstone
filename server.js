@@ -6,7 +6,6 @@ import ngrok from 'ngrok'
 import 'dotenv/config'
 
 import authJwt from './middleware/authJwt.js'
-import indexRouter from './routes/index.js';
 import orderV1Router from './routes/order-v1.js'
 import storeV1Router from './routes/store-v1.js'
 import userV1Router from './routes/user-v1.js'
@@ -19,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
-  origin: ['http://localhost:3000']}))
+  origin: ['http://localhost:3000', 'https://bussin-goods.herokuapp.com/']}))
 
 app.use(cookieParser());
 app.use( function (req, res, next) {
@@ -39,7 +38,6 @@ if (process.env.NODE_ENV !== 'production') {
     '/api/v1/order/stripeWebhook')
 }
 
-app.use('/', indexRouter);
 // STRIPE DOCUMENTATION: https://stripe.com/docs/payments/handling-payment-events
 app.use(`/api/v1/order`, orderV1Router);
 app.use(`/api/v1/store`, storeV1Router);
