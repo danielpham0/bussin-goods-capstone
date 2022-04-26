@@ -12,10 +12,12 @@ import userV1Router from './routes/user-v1.js'
 import productV1Router from './routes/product-v1.js'
 import s3V1Router from './routes/s3-v1.js'
 
-import { dirname } from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 var app = express();
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
