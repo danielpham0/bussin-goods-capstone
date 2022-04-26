@@ -45,5 +45,14 @@ app.use(`/api/v1/product`, productV1Router);
 app.use(`/api/v1/user`, userV1Router);
 app.use(`/api/v1/s3`, s3V1Router);
 
-const port = 3001;
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+const port = process.env.port || 3001;
 app.listen(port, () => `Server running on port ${port}`);
