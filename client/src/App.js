@@ -24,6 +24,8 @@ export default function App() {
         let responseJSON = await response.json()
         if (responseJSON.status != 'error') {
           setUser(responseJSON)
+        } else {
+          setUser(null)
         }
     }
     fetchUser()
@@ -92,7 +94,7 @@ export default function App() {
     <CartContext.Provider value={{cart, addToCart, removeFromCart, deleteFromCart}}>
     <div className="App">
         <header className="App-header">
-          <Header user={user}/>
+          <Header user={user} />
         </header>
         <main>
           <Switch>
@@ -109,10 +111,10 @@ export default function App() {
             </Route>
             <Route path='/Startup' component={Startup} />
             <Route path='/StoreDashboard'>
-              <StoreDashboard user={user}/>
+              <StoreDashboard user={user} setUser={setUser}/>
             </Route>
             <Route path='/Profile'>
-              <Profile user={user}/>
+              <Profile user={user} setUser={setUser}/>
             </Route>
             <Route path='/Cart'>
               <Cart cart={cart} deleteFromCart={deleteFromCart} removeFromCart={removeFromCart} addToCart={addToCart}/>

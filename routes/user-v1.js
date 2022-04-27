@@ -24,9 +24,16 @@ router.get('/getUserIdentity', async function(req,res,next) {
     }
     try {
         let user = await req.db.User.findById(req.userID)
+        if (!user) {
+            res.status(401)
+            res.json({status: 'error', 
+                error: 'Could not find user.'})
+            return
+        }
         res.json(user)
     }catch(error) {
         res.status(500)
+        console.log(error)
         res.json({status: 'error', error: error.toString()})
     }
 })

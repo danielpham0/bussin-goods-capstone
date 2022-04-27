@@ -10,8 +10,9 @@ export default function AddProduct(props) {
     const [statusMessage, setStatusMessage] = useState('');
     const [sections, setSections] = useState([]);
 
-    let submitStoreSetup = async (event) => {
+    let submitAddProduct = async (event) => {
         event.preventDefault()
+        console.log(sections)
         let formData = {
             storeID: store._id,
             name: event.target.product_name.value,
@@ -19,7 +20,7 @@ export default function AddProduct(props) {
             cost: event.target.price.value,
             type: event.target.product_type.value,
             general_description: event.target.about.value,
-            additonal_information: sections
+            additional_information: sections
         }
 
         let files = event.target.product_pictures.files
@@ -30,7 +31,7 @@ export default function AddProduct(props) {
                 let file = fileArray[i]
                 const urlResponse = await fetch('/api/v1/s3/getUploadUrl')
                 const urlJSON = await urlResponse.json()
-                await fetch(urlJSON.upload_url, {
+                const f = await fetch(urlJSON.upload_url, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -63,7 +64,7 @@ export default function AddProduct(props) {
     }
     return (
         <div>
-            <form onSubmit={submitStoreSetup}>
+            <form onSubmit={submitAddProduct}>
                 <h3> Add a new Product! </h3>
                 <h4>General Information </h4>
                 <div className="mb-3">

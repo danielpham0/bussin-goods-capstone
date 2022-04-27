@@ -5,7 +5,7 @@ import Dashboard from '../components/store-dashboard/Dashboard';
 import StoreConsole from '../components/store-dashboard/StoreConsole';
 import { UserContext } from '../App';
 
-const StoreDashboard = () =>{
+const StoreDashboard = (props) =>{
   const history = useHistory()
   const {user} = useContext(UserContext)
   if (!user || user.account_type != 'Store Owner') {
@@ -17,6 +17,9 @@ const StoreDashboard = () =>{
     let response = await fetch(`/api/v1/store/getUserStores`,
         {method: "GET", credentials: 'include'})
     let responseJSON = await response.json()
+    if (responseJSON.status == 'error') {
+      props.setUser(null)
+    }
     setStores(responseJSON)
   }
   useEffect(() => {
