@@ -67,6 +67,28 @@ router.get('/getAllPublicProducts', async function(req, res, next) {
     }
 })
 
+router.get('/getStoreProducts', async function(req,res,next) {
+    try {
+        let products = await req.db.Product.find({store: req.query.storeID}).populate('store')
+        if (products.length > 0) {
+            let store = products[0].store
+            let userIsAdmin = store.admins.includes(req.userID)
+            if (!userIsAdmin) {
+                store.email = null
+                if (store.private) {
+                    res.status(401)
+                    res.json({status: 'error', 
+                        error: 'User does not have access to this store or product.'})
+                    return
+                }
+            }
+        }
+        res.json(products)
+    }catch(error) {
+        res.status(500)
+        res.json({status: 'error', error: error.toString()})
+    }
+})
 
 router.post('/updateProduct', async function(req,res,next) {
     try {

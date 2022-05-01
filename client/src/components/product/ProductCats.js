@@ -102,7 +102,7 @@ class Results extends React.Component {
     render() {
         return (
 
-            <div className="row">
+            <div className="row product-cats">
                 <h2> Showing results for: {this.props.type}</h2>
                 {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
                     return (
