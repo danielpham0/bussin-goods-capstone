@@ -101,16 +101,23 @@ class Resu extends React.Component {
 
     render() {
         return (
-            <div className="row">
+            <div className="row results">
+                <h2> Showing results for: {this.props.type}</h2>
+
+                {this.props.cards.filter(e => e.type == this.props.type).length == 0 &&
+
+                    <p>Sorry, no results were found :/</p>
+
+                }
                 {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
                     return (
                         <div className='col-md-3'>
                             <div className='card border-secondary'>
                                 <div className='card-body'>
                                     <h5 className='card-title'>{object.type}</h5>
-                                    <text style={{display: 'inline-block'}}>
-                                    <p>{object.name}</p>
-                                    <p>Cohort: {object.cohort}</p>
+                                    <text style={{ display: 'inline-block' }}>
+                                        <p>{object.name}</p>
+                                        <p>Cohort: {object.cohort}</p>
                                     </text>
                                     <p>About: {object.about}</p>
                                 </div>
