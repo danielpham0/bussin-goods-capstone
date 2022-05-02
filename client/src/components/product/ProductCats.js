@@ -102,7 +102,11 @@ class Results extends React.Component {
     render() {
         return (
 
+<<<<<<< HEAD
             <div className="row results">
+=======
+            <div className="row product-cats">
+>>>>>>> 5da0644fc43525c0ad0729e02c7d02e16fb145e7
                 <h2> Showing results for: {this.props.type}</h2>
                 {this.props.cards.filter(e => e.type == this.props.type).length == 0 &&
 

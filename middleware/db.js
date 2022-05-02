@@ -31,10 +31,6 @@ async function dbConnect() {
       type: String,
       ref: 'User'
     }],
-    products: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
-    }],
     stripe: {
       accountID: String,
       enabled: Boolean

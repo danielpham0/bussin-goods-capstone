@@ -18,7 +18,6 @@ router.post('/createStore', async function(req,res,next) {
         let newStore = new req.db.Store({
             name: req.body.name,
             admins: req.userID,
-            products: [],
             ships_to: req.body.ships_to,
             pickup_from: req.body.pickup_from,
             type: req.body.type,
@@ -39,7 +38,10 @@ router.post('/createStore', async function(req,res,next) {
 
 router.get('/getStore', async function(req,res,next) {
     try {
-        let store = await req.db.Store.findById(req.query.storeID)
+        let store = await req.db.Store.findById(req.query.storeID).populate('admins')
+        store.admins.forEach(admin => {
+            admin.email = null;
+        });
         let userIsAdmin = store.admins.includes(req.userID)
         if (!userIsAdmin) {
             store.email = null
