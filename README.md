@@ -24,10 +24,10 @@
     - Netlify Hosted Frontend
 
 ## Convert the code repository:
-    The repository is already public at the following link: (https://github.com/danielpham0/bussin-goods-capstone)
+    The repository is already public at the following link: https://github.com/danielpham0/bussin-goods-capstone
     README Document:
     Will be available at the following link:
-        (https://github.com/danielpham0/bussin-goods-capstone/blob/main/README.md)
+        https://github.com/danielpham0/bussin-goods-capstone/blob/main/README.md
 
 # Project Description & Purpose
     Bussin' Goods will be an e-commerce platform that start-ups can use to share their story and products. Our goal is to assist UW Foster's Entrepreneurship Program by building a platform for its student projects.
@@ -99,7 +99,7 @@ The UI was originally created through Figma, drawing inspiration from neighborin
 ## SETTING UP AWS S3 (https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
     Purpose: Helps us store and retrieve files, like images
         1. Create an AWS Account and log into the dashboard
-        2. Navigate to (https://s3.console.aws.amazon.com/s3/get-started?region=us-west-2)
+        2. Navigate to https://s3.console.aws.amazon.com/s3/get-started?region=us-west-2
         3. Create a bucket
         4. Copy the AWS region to your .env file as S3_REGION (most likely just us-west-2), and copy the Bucket Name to your .env file as S3_BUCKET_NAME
         5. Navigate to Permissions and then Bucket policy
@@ -135,26 +135,26 @@ The UI was originally created through Figma, drawing inspiration from neighborin
     Purpose: Gives us a public URL that reflects our localhost, which is necessary for Stripe’s Webhooks
         1. Sign-up for a Ngrok Account and Log in
         2. Verify your account
-        3. Copy the Auth Token here (https://dashboard.ngrok.com/get-started/your-authtoken) and add it to your .env file as NGROK_TOKEN
+        3. Copy the Auth Token here https://dashboard.ngrok.com/get-started/your-authtoken and add it to your .env file as NGROK_TOKEN
 
 ## SETTING UP STRIPE (https://stripe.com/docs/connect)
     Purpose: Handles all payment information
         1. Sign-up for a Stripe Account
-        2. Activate the account (https://dashboard.stripe.com/account/onboarding/)
+        2. Activate the account https://dashboard.stripe.com/account/onboarding/
         3. Navigate to the Connect Tab
         4. Click ’Get Started’ and choose the ‘Marketplace’ option
         5. Complete your Platform Profile
-        6. Navigate to Connect Settings, and select Test Mode (https://dashboard.stripe.com/settings/connect)
+        6. Navigate to Connect Settings, and select Test Mode https://dashboard.stripe.com/settings/connect
         7. Fill in the Branding section of the Connect Settings, and turn on OAuth settings for both types of accounts (Express, Standard)
         8. Add a redirect URI to ‘http://localhost:3000/StoreDashboard’ and your final production URI
-        9. Add the Secret API Key from the following link to your .env file and add the Publishable API Key to the front end as STRIPE_PK in CheckoutPage.js (https://dashboard.stripe.com/test/apikeys)
-        10. Add Webhook for (https://bussin-goods.herokuapp.com/) or the Ngrok URL that is provided when not in production. For this webhook, make sure to check off “Listen to events on Connected accounts”.
+        9. Add the Secret API Key from the following link to your .env file and add the Publishable API Key to the front end as STRIPE_PK in CheckoutPage.js https://dashboard.stripe.com/test/apikeys
+        10. Add Webhook for https://bussin-goods.herokuapp.com/ or the Ngrok URL that is provided when not in production. For this webhook, make sure to check off “Listen to events on Connected accounts”.
         11. Also add the Webhook Key displayed here while setting up.
 
 ## SETTING UP HEROKU (https://devcenter.heroku.com/articles/git)
     Purpose: Hosts both our front-end and back-end, temporary until ready for production deployment
         1. Sign-up for a Heroku Account
-        2. Install the Heroku CLI (https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli)
+        2. Install the Heroku CLI https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli
         3. In your Terminal at the root directory of our repository run:
             a.‘heroku login’
             b.‘heroku create’
