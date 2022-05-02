@@ -24,7 +24,7 @@
     - Netlify Hosted Frontend
 
 ## Convert the code repository:
-    The repository is already public at the following link: https://github.com/danielpham0/bussin-goods-capstone
+    The repository is already public at the following [link:] (https://github.com/danielpham0/bussin-goods-capstone)
     README Document:
     Will be available at the following link:
         https://github.com/danielpham0/bussin-goods-capstone/blob/main/README.md
