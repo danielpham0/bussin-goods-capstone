@@ -36,22 +36,23 @@
 # Research and Design Documentation
     Bussin’ Goods is a MERN Stack Web Application coded completely in React, Javascript, HTML/CSS. Special thanks to Brad Traversy, as our starter code comes from his [React-Express Starter] (https://github.com/bradtraversy/react_express_starter) template which is licensed under the MIT License. We then integrated standard express routing so that our application can be more modular.
 
-## Server runs on http://localhost:3001 and client on http://localhost:3000
+# Server runs on http://localhost:3001 and client on http://localhost:3000
  
-### Install dependencies for server
+# Install dependencies for server
 npm install
  
-### Install dependencies for client
+# Install dependencies for client
 npm run client-install
  
-### Run the Express server only
+# Run the Express server only
 npm run server
  
-### Run the React client only
+# Run the React client only
 npm run client
  
-### Run the client & server with concurrently
+# Run the client & server with concurrently
 npm run dev
+
 
 The UI was originally created through Figma, drawing inspiration from neighboring e-commerce websites including Amazon, Etsy, Croftery, etc. Relevant embedded images and icons are linked within the source code.
     The back-end cloud infrastructure consists of the following:
@@ -63,6 +64,7 @@ The UI was originally created through Figma, drawing inspiration from neighborin
     - Heroku Hosted Backend
     - Netlify Hosted Frontend
     More information regarding setting these up are provided below.
+
     For more information, you can contact us at the following email: daniep7@uw.edu. 
 
 # SETTING UP CLOUD INFRASTRUCTURE/ACCOUNTS
