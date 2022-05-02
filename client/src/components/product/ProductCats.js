@@ -91,7 +91,7 @@ class Results extends React.Component {
     }
 
     componentDidMount() {
-       
+
         const url = "/api/v1/store/getAllPublicStores"
 
         fetch(url)
@@ -102,29 +102,36 @@ class Results extends React.Component {
     render() {
         return (
 
-            <div className="row">
+            <div className="row results">
                 <h2> Showing results for: {this.props.type}</h2>
+                {this.props.cards.filter(e => e.type == this.props.type).length == 0 &&
+
+                    <p>Sorry, no results were found :/</p>
+
+
+                }
                 {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
+
                     return (
                         <div className='col-md-3'>
                             <div className='card border-secondary'>
-                             <Link to={`/Product/${object._id}`}>
-                                  
-                                
-                                <div className='card-body'>
-
-                                    <h5 className='card-title'>{object.name}{console.log(object, ' hi')}</h5>
+                                <Link to={`/Product/${object._id}`}>
 
 
-                                    <p>{object.store.name}</p>
-                                    <text>
-                                        <p style={{ display: 'inline-block' }}>{object.tagline}</p>
-                                        <p style={{ textAlign: 'right' }}>${object.cost}</p>
-                                    </text>
-                                </div>
+                                    <div className='card-body'>
+
+                                        <h5 className='card-title'>{object.name}{console.log(object, ' hi')}</h5>
+
+
+                                        <p>{object.store.name}</p>
+                                        <text>
+                                            <p style={{ display: 'inline-block' }}>{object.tagline}</p>
+                                            <p style={{ textAlign: 'right' }}>${object.cost}</p>
+                                        </text>
+                                    </div>
                                 </Link>
                             </div>
-                           
+
                         </div>
 
                     )
