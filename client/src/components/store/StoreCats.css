@@ -8,7 +8,7 @@
 
 .cat {
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 .container {
     margin-bottom: 1rem;
@@ -16,17 +16,4 @@
 
 .titl {
     text-align: left;
-}
-
-.card {
-    margin-bottom: 2rem;
-}
-
-.row {
-    padding-top: 1rem;
-}
-
-.product-cats h2 {
-    text-align: left;
-    font-size: 1.5rem;
 }

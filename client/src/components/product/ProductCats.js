@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./Categories.css";
+import "./ProductCats.css";
 import { STORE_TYPES } from '../../constants/constants.js';
 import { Link, Route, useRouteMatch } from "react-router-dom";
 import { Component } from 'react';
@@ -102,11 +102,8 @@ class Results extends React.Component {
     render() {
         return (
 
-<<<<<<< HEAD
-            <div className="row results">
-=======
             <div className="row product-cats">
->>>>>>> 5da0644fc43525c0ad0729e02c7d02e16fb145e7
+
                 <h2> Showing results for: {this.props.type}</h2>
                 {this.props.cards.filter(e => e.type == this.props.type).length == 0 &&
 
@@ -121,17 +118,13 @@ class Results extends React.Component {
                             <div className='card border-secondary'>
                                 <Link to={`/Product/${object._id}`}>
 
-
+                                <img className='img-fluid card-img-top' src={object.pictures[0]}/>
                                     <div className='card-body'>
+                                        <h5 className='card-title'>{object.name} <p className="card-price" style={{ textAlign: 'right' }}>${object.cost}</p></h5>
+                                        <h6 className="card-store text-muted">{object.store.name}</h6>
+                                        <p>{object.general_description}</p>
+                                        <p className="card-info" style={{ display: 'inline-block' }}>{object.tagline}</p>
 
-                                        <h5 className='card-title'>{object.name}{console.log(object, ' hi')}</h5>
-
-
-                                        <p>{object.store.name}</p>
-                                        <text>
-                                            <p style={{ display: 'inline-block' }}>{object.tagline}</p>
-                                            <p style={{ textAlign: 'right' }}>${object.cost}</p>
-                                        </text>
                                     </div>
                                 </Link>
                             </div>

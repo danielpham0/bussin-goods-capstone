@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./Startups.css";
+import "./StoreCats.css";
 import { STORE_TYPES } from '../../constants/constants';
 import { Link } from "react-router-dom";
 import { Component } from 'react';
@@ -113,14 +113,15 @@ class Resu extends React.Component {
                     return (
                         <div className='col-md-3'>
                             <div className='card border-secondary'>
-                                <div className='card-body'>
-                                    <h5 className='card-title'>{object.type}</h5>
-                                    <text style={{ display: 'inline-block' }}>
-                                        <p>{object.name}</p>
+                                <Link to={`/Startup/${object._id}`}>
+                                    <div className='card-body'>
+                                        <h5 className='card-title'>{object.name}</h5>
+                                        <h6 className="text-muted">{object.type}</h6>
+
+                                        <p>{object.about}</p>
                                         <p>Cohort: {object.cohort}</p>
-                                    </text>
-                                    <p>About: {object.about}</p>
-                                </div>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
 

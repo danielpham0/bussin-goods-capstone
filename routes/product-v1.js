@@ -59,7 +59,7 @@ router.get('/getAllPublicProducts', async function(req, res, next) {
     try {
         // change private to false after a
         let store = await req.db.Store.find({private: false}).select('_id')
-        let product = await req.db.Product.find({store: store}).populate('store').select('_id name store tagline type cost')
+        let product = await req.db.Product.find({store: store}).populate('store').select('_id name store tagline type cost general_description pictures')
         res.json(product)
     } catch (error) {
         res.status(500)
