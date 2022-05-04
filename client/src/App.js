@@ -38,10 +38,10 @@ export default function App() {
     const curProducts = cart[store]
     let newProducts = [newProduct]
     if (curProducts != null) {
-      const existingProduct = curProducts.find((product) => product._id === newProduct._id)
+      const existingProduct = curProducts.find((product) => product.product._id === newProduct.product._id)
       if(existingProduct) {
-        newProducts = curProducts.map((product) => product._id === 
-          newProduct._id ? {...existingProduct, quantity: existingProduct.quantity +=1} : product)
+        newProducts = curProducts.map((product) => product.product._id === 
+          newProduct.product._id ? {...existingProduct, quantity: existingProduct.quantity +=1} : product)
       } else {
         newProducts = curProducts.concat(newProducts)
       }

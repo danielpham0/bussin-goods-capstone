@@ -8,7 +8,7 @@ export default function  StoreCard(props) {
             <h4> Meet the Startup!</h4>
             <div className="card" style={{'width': '18rem'}}>
                 <div className="card-body">
-                    <Link to={'/Store/' + store._id}>
+                    <Link to={'/Startup/' + store._id}>
                         <h5 className="card-title">{store.name}</h5>
                     </Link>
                     <h6 className="card-subtitle mb-2 text-muted">{store.cohort} Cohort</h6>

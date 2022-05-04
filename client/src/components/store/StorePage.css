@@ -6,3 +6,11 @@
 .store-page .admins {
     margin: 15px 0 15px 0;
 }
+
+.store-page .product-gallery {
+    display: flex;
+    flex-direction: row;
+}
+.store-page .product-gallery .product-card {
+    margin: 10px 30px 10px 0;
+}

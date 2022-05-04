@@ -39,20 +39,16 @@ class ProductCard extends React.Component {
                         <div className='col-md-3'>
                             <div className='card border-secondary'>
                                 <Link to={`/Product/${object._id}`}>
-
                                     <img className='img-fluid card-img-top' src={object.pictures[0]} />
                                     <div className='card-body'>
                                         <h5 className='card-title'>{object.name} <p className="card-price" style={{ textAlign: 'right' }}>${object.cost}</p></h5>
                                         <h6 className="card-store text-muted">{object.store.name}</h6>
                                         <p>{object.general_description}</p>
                                         <p className="card-info" style={{ display: 'inline-block' }}>{object.tagline}</p>
-
                                     </div>
                                 </Link>
                             </div>
-
                         </div>
-
                     )
                 })}
             </div>
