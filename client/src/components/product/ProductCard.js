@@ -7,52 +7,30 @@ class ProductCard extends React.Component {
     }
 
     state = {
-        card: [],
-        type: ''
+        cards: []
     }
 
     componentDidMount() {
-
-        const url = "/api/v1/store/getAllPublicStores"
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => this.setState({ card: data }))
+        this.setState({ cards: this.props })
     }
 
     render() {
         return (
 
 
-            <div className="row product-cats">
-
-                <h2> Showing results for: {this.props.type}</h2>
-                {this.props.cards.filter(e => e.type == this.props.type).length == 0 &&
-
-                    <p>Sorry, no results were found :/</p>
-
-
-                }
-                {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
-
-                    return (
-                        <div className='col-md-3'>
-                            <div className='card border-secondary'>
-                                <Link to={`/Product/${object._id}`}>
-                                    <img className='img-fluid card-img-top' src={object.pictures[0]} />
-                                    <div className='card-body'>
-                                        <h5 className='card-title'>{object.name} <p className="card-price" style={{ textAlign: 'right' }}>${object.cost}</p></h5>
-                                        <h6 className="card-store text-muted">{object.store.name}</h6>
-                                        <p>{object.general_description}</p>
-                                        <p className="card-info" style={{ display: 'inline-block' }}>{object.tagline}</p>
-                                    </div>
-                                </Link>
-                            </div>
+            <div className='col-md-3'>
+                <div className='card border-secondary'>
+                    <Link to={`/Product/${this.props.cards._id}`}>
+                        <img className='img-fluid card-img-top' src={this.props.cards.pictures[0]} />
+                        <div className='card-body'>
+                            <h5 className='card-title'>{this.props.cards.name} <p className="card-price" style={{ textAlign: 'right' }}>${this.props.cards.cost}</p></h5>
+                            <h6 className="card-store text-muted">{this.props.cards.store.name}</h6>
+                            <p>{this.props.cards.general_description}</p>
+                            <p className="card-info" style={{ display: 'inline-block' }}>{this.props.cards.tagline}</p>
                         </div>
-                    )
-                })}
+                    </Link>
+                </div>
             </div>
-
         )
     }
 }

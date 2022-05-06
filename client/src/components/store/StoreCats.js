@@ -3,6 +3,7 @@ import "./StoreCats.css";
 import { STORE_TYPES } from '../../constants/constants';
 import { Link } from "react-router-dom";
 import { Component } from 'react';
+import SCTest from './SCTest.js';
 
 export class StoreCats extends React.Component {
 

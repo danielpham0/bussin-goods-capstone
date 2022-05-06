@@ -4,6 +4,8 @@ import { STORE_TYPES } from '../../constants/constants.js';
 import { Link, Route, useRouteMatch } from "react-router-dom";
 import { Component } from 'react';
 import ProductCard from './ProductCard.js';
+import ProductResults from './ProductResults.js';
+
 export class ProductCats extends React.Component {
 
     state = {
@@ -67,9 +69,7 @@ export class ProductCats extends React.Component {
                             )
                         })}
                     </div>
-
-                    {this.state.show && <ProductCard type={this.state.type} cards={this.state.obj} />}
-
+                    {this.state.show && <ProductResults type={this.state.type} cards={this.state.obj} />}
                 </div>
 
 
