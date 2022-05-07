@@ -31,8 +31,11 @@ export default function ProductPage(props) {
                     <AboutProduct product={product} />
                 </div>
                 <div className='product-section'>
-                    <StoreCard store={product.store} />
-                </div>
+                    <div className='store-info'>
+                        <h4> Meet the Startup!</h4>
+                        <StoreCard store={product.store} />
+                    </div>
+                </div> 
             </div>
         )
     }

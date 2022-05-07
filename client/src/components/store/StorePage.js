@@ -1,6 +1,7 @@
 import {React, useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import ProductCard from '../product/ProductCard';
 import './StorePage.css'
 
 export default function ProductPage(props) {
@@ -57,21 +58,9 @@ export default function ProductPage(props) {
                     )) : ''}
                 </p>
                 <h3>Products</h3>
-                <div className='product-gallery'>
+                <div className='row'>
                     {products.map(product => (
-                        <div className='col-md-3 product-card'>
-                            <div className='card border-secondary'>
-                                <Link to={`/Product/${product._id}`}>
-                                    <img className='img-fluid card-img-top' src={product.pictures[0]} />
-                                    <div className='card-body'>
-                                        <h5 className='card-title'>{product.name} <p className="card-price" style={{ textAlign: 'right' }}>${product.cost}</p></h5>
-                                        <h6 className="card-store text-muted">{product.store.name}</h6>
-                                        <p>{product.general_description}</p>
-                                        <p className="card-info" style={{ display: 'inline-block' }}>{product.tagline}</p>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
+                        <ProductCard key={product._id} cards={product}/>
                     ))}
                 </div>
             </div>

@@ -3,7 +3,7 @@ import "./Featured.css";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import ProductCard from '../product/ProductCard.js';
-import SCTest from '../store/SCTest.js';
+import StoreCard from '../store/StoreCard.js';
 
 export class FeatTest extends React.Component {
 
@@ -51,7 +51,7 @@ export class FeatTest extends React.Component {
                     <div className='row justify-content-center'>
                         {getMultipleRandom(this.state.store,3).map((i) => {
                             return (
-                                <SCTest store={i} />
+                                <StoreCard store={i} />
                             )
                         })}
 

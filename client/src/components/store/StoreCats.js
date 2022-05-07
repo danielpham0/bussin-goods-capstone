@@ -3,7 +3,7 @@ import "./StoreCats.css";
 import { STORE_TYPES } from '../../constants/constants';
 import { Link } from "react-router-dom";
 import { Component } from 'react';
-import SCTest from './SCTest.js';
+import StoreCard from './StoreCard.js';
 
 export class StoreCats extends React.Component {
 
@@ -111,20 +111,7 @@ class Resu extends React.Component {
                 }
                 {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
                     return (
-                        <div className='col-md-3'>
-                            <div className='card border-secondary'>
-                                <Link to={`/Startup/${object._id}`}>
-                                    <div className='card-body'>
-                                        <h5 className='card-title'>{object.name}</h5>
-                                        <h6 className="text-muted">{object.type}</h6>
-
-                                        <p>{object.about}</p>
-                                        <p>Cohort: {object.cohort}</p>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-
+                        <StoreCard store={object}/>
                     )
                 })}
             </div>
