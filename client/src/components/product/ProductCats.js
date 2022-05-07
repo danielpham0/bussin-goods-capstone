@@ -60,8 +60,8 @@ export class ProductCats extends React.Component {
                     <div className='row cats'>
                         {this.state.test.map((i) => {
                             return (
-                                <div className="col-md-3">
-                                    <button value={i} onClick={this.findCat} key={i.id} className='btn btn-sm cat-btn btn-outline-dark btn-lg' >
+                                <div className="col-md-3" key={i}>
+                                    <button value={i} onClick={this.findCat} className='btn btn-sm cat-btn btn-outline-dark btn-lg' >
                                         <h5> {i}</h5>
                                     </button>
                                 </div>

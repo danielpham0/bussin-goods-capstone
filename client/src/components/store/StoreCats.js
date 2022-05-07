@@ -59,8 +59,8 @@ export class StoreCats extends React.Component {
                     <div className='row cats'>
                         {this.state.test.map((i) => {
                             return (
-                                <div className="col-md-3">
-                                    <button value={i} onClick={this.findCat} key={i.id} className='btn btn-sm cat-btn btn-outline-dark btn-lg' >
+                                <div className="col-md-3" key={i}>
+                                    <button value={i} onClick={this.findCat} className='btn btn-sm cat-btn btn-outline-dark btn-lg' >
                                         <h5> {i}</h5>
                                     </button>
                                 </div>
@@ -111,7 +111,7 @@ class Resu extends React.Component {
                 }
                 {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
                     return (
-                        <StoreCard store={object}/>
+                        <StoreCard key={object._id} store={object}/>
                     )
                 })}
             </div>

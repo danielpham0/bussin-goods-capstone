@@ -37,7 +37,7 @@ class ProductResults extends React.Component {
                 {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
 
                     return (
-                        <ProductCard cards={object}/>
+                        <ProductCard cards={object} key={object._id}/>
                     )
                 })}
             </div>
