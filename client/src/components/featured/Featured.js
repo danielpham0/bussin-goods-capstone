@@ -54,7 +54,6 @@ export class FeatTest extends React.Component {
                                 <StoreCard key={i._id} store={i} />
                             )
                         })}
-
                     </div>
 
                     <div className='feat-head'>

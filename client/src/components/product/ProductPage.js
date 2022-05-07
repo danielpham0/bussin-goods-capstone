@@ -23,17 +23,19 @@ export default function ProductPage(props) {
         return (
             <div className="product-page">
                 <h2>{product.store.name}</h2>
-                <div className='product-section'>
+                <div className='product-section section'>
                     <ImageCarousel imageUrls={product.pictures}/>
                     <ProductOrderForm product={product} addToCart={props.addToCart}/>
                 </div>
-                <div className='product-section'>
+                <div className='section'>
                     <AboutProduct product={product} />
                 </div>
-                <div className='product-section'>
+                <div className='section'>
                     <div className='store-info'>
                         <h4> Meet the Startup!</h4>
-                        <StoreCard store={product.store} />
+                        <div className='row justify-content-center'>
+                            <StoreCard store={product.store} />
+                        </div>
                     </div>
                 </div> 
             </div>

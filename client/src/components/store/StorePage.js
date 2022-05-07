@@ -2,6 +2,7 @@ import {React, useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ProductCard from '../product/ProductCard';
+import UserCard from '../user-accounts/UserCard';
 import './StorePage.css'
 
 export default function ProductPage(props) {
@@ -46,9 +47,9 @@ export default function ProductPage(props) {
                 <h3>About</h3>
                 <p>{store.about}</p>
                 <h3>Meet the Team</h3>
-                <div className="admins">
+                <div className="admins row">
                     {store.admins ? store.admins.map(admin => (
-                            <div key={admin._id}> {`${admin.first_name} ${admin.last_name}`}</div>
+                        <UserCard key={admin._id} user={admin}/>
                         )) : ''}
                 </div>
                 <h3>Social Links</h3>

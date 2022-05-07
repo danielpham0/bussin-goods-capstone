@@ -21,7 +21,7 @@ async function dbConnect() {
       enum: constants.ACCOUNT_TYPES}, // initially set to Standard
     email: String,
     address: String,
-    profile_picture_url: String // AWS S3 URL recieved from front-end
+    profile_picture: String // AWS S3 URL recieved from front-end
   })
   db.User = mongoose.model('User', userSchema)
 
@@ -51,7 +51,7 @@ async function dbConnect() {
     }],
     email: String,
     private: Boolean,
-    banner_url: String // AWS S3 URL recieved from front-end
+    banner: String // AWS S3 URL recieved from front-end
   })
   db.Store = mongoose.model('Store', storeSchema)
 

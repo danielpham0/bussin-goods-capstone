@@ -19,6 +19,7 @@ router.post('/createStore', async function(req,res,next) {
             name: req.body.name,
             admins: req.userID,
             ships_to: req.body.ships_to,
+            banner: req.body.banner,
             pickup_from: req.body.pickup_from,
             type: req.body.type,
             cohort: req.body.cohort,
@@ -62,7 +63,7 @@ router.get('/getStore', async function(req,res,next) {
 router.get('/getAllPublicStores', async function(req, res, next) {
     try {
         // change private to false after a
-        let store = await req.db.Store.find({private: false}).select('name cohort type about tagline social_links') 
+        let store = await req.db.Store.find({private: false}).select('name cohort type about tagline social_links banner') 
         res.json(store)
     } catch (error) {
         res.status(500)

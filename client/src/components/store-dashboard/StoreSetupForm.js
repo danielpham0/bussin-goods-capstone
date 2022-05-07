@@ -31,6 +31,21 @@ export default function  StoreSetupForm(props) {
             private: event.target.private.value == 'true' ? true : false, 
             email: event.target.email.value
         }
+
+        let file = event.target.banner.files[0]
+        if (file){
+            const urlResponse = await fetch('/api/v1/s3/getUploadUrl')
+            const urlJSON = await urlResponse.json()
+            const f = await fetch(urlJSON.upload_url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                },
+                body: file
+            });
+            formData.banner = urlJSON.upload_url.split('?')[0]
+        }
+
         let postFormResponse = await fetch(`/api/v1/store/createStore`,
             {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json', 
             }, credentials: 'include'}
@@ -80,6 +95,10 @@ export default function  StoreSetupForm(props) {
                 <div className="mb-3">
                     <label className="form-label">What cohort is your startup?</label>
                     <input className="form-control" name="cohort" type="number" defaultValue={curYear} min={curYear-5} max={curYear} required/>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">What banner would you like to use for your startup? </label>
+                    <input className="form-control" type="file" name="banner" accept="image/png, image/jpeg, image/jpg" single="true"></input>
                 </div>
                 <div className="mb-3">
                     <label className="form-label"> Would you like your store to be private as of now?</label>
