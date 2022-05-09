@@ -1,16 +1,12 @@
 import {React, useState, useEffect, useContext} from 'react';
-import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import StoreSetupForm from '../components/store-dashboard/StoreSetupForm'
 import Dashboard from '../components/store-dashboard/Dashboard';
 import StoreConsole from '../components/store-dashboard/StoreConsole';
 import { UserContext } from '../App';
 
 const StoreDashboard = (props) =>{
-  const history = useHistory()
   const {user} = useContext(UserContext)
-  if (!user || user.account_type != 'Store Owner') {
-    history.push("/")
-  }
 
   const [stores, setStores] = useState([])
   async function fetchStores() {
@@ -29,17 +25,20 @@ const StoreDashboard = (props) =>{
   return (
     <div>
       <h1>Store Dashboard</h1>
-      <Switch>
-        <Route exact path={`${path}/`}>
-          <Dashboard stores={stores}/>
-        </Route>
-        <Route path={`${path}/StoreSetup`}>
-          <StoreSetupForm updateStores={fetchStores}/>
-        </Route>
-        <Route path={`${path}/:storeID`}>
-          <StoreConsole />
-        </Route>
-      </Switch>
+      {!user || user.account_type != 'Store Owner' ? 
+        <p>You do not have access to this page. If you believe this is an error, please attempt to log in again.</p> :
+        <Switch>
+          <Route exact path={`${path}/`}>
+            <Dashboard stores={stores}/>
+          </Route>
+          <Route path={`${path}/StoreSetup`}>
+            <StoreSetupForm updateStores={fetchStores}/>
+          </Route>
+          <Route path={`${path}/:storeID`}>
+            <StoreConsole />
+          </Route>
+        </Switch>
+      }
     </div>
   );
 }

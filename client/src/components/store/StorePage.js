@@ -46,6 +46,7 @@ export default function ProductPage(props) {
                 <h2>{store.name}</h2>
                 <h3>About</h3>
                 <p>{store.about}</p>
+                <br/>
                 <h3>Meet the Team</h3>
                 <div className="admins row">
                     {store.admins ? store.admins.map(admin => (
@@ -53,11 +54,12 @@ export default function ProductPage(props) {
                         )) : ''}
                 </div>
                 <h3>Social Links</h3>
-                <p> 
+                <div> 
                     {store.social_links ? store.social_links.map(social => (
                         <a href={social.link} className="card-link" key={social.link}>{social.social_media}</a>
                     )) : ''}
-                </p>
+                </div>
+                <br/>
                 <h3>Products</h3>
                 <div className='row'>
                     {products.map(product => (

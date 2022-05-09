@@ -1,19 +1,14 @@
 import {React, useContext, useState} from 'react';
 import UserProfile from '../components/user-accounts/UserProfile'
 import UserOrders from '../components/user-accounts/UserOrders'
-import { useHistory } from "react-router-dom";
 import { UserContext } from '../App.js';
 const Profile = () =>{
-  let history = useHistory()
   const {user} = useContext(UserContext)
   const [consoleMode, setConsoleMode] = useState('user-profile')
-  if (!user) {
-    history.push("/")
-  }
 
   const renderSwitch = (param) => {
     if (!user) {
-        return <p> Error loading the profile. </p>
+        return <p> Error loading the profile. You may not be logged in. </p>
     }
     switch(param) {
         case 'user-profile':

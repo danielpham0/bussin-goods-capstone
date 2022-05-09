@@ -1,6 +1,6 @@
 import {React, useEffect, useState} from 'react';
 import "./StoreConsole.css"
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AddProduct from './AddProduct';
 import ManageStore from './ManageStore';
 
