@@ -1,6 +1,6 @@
 export const ACCOUNT_TYPES = 
 [
-    "Standard", "Store Owner", "Admin"
+    "Customer", "Store Owner", "Admin"
 ];
 
 export const STORE_TYPES = 

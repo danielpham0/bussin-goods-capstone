@@ -42,7 +42,7 @@ router.get('/getUserIdentity', async function(req,res,next) {
 router.post('/updateUser', async function(req,res,next) {
     try {
         let user = await req.db.User.findById(req.userID);
-        if (!user || user.account_type != 'Admin') {
+        if (!user || (req.userID != req.body.userID && user.account_type != 'Admin')) {
             res.status(401)
             res.json({status: 'error', 
                 error: 'User does not have permission to edit another User.'})
