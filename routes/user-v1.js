@@ -68,7 +68,7 @@ router.delete('/deleteUser', async function(req,res,next) {
                 error: 'User must be approved as an Admin.'})
             return
         }
-        await req.db.CardSet.findByIdAndDelete(req.body.userID)
+        await req.db.User.findByIdAndDelete(req.body.userID)
         res.json({status: 'success'})
     } catch(error) {
         res.status(500)

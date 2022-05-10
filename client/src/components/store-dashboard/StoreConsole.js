@@ -3,6 +3,7 @@ import "./StoreConsole.css"
 import { useParams } from "react-router-dom";
 import AddProduct from './AddProduct';
 import ManageStore from './ManageStore';
+import ManageProduct from './ManageProduct';
 
 export default function  StoreConsole(props) {
     let {storeID} = useParams()
@@ -30,7 +31,7 @@ export default function  StoreConsole(props) {
             case 'manage-store':
               return <ManageStore store={store}/>;
             case 'manage-product':
-              return <p> Manage Product </p>;
+              return <ManageProduct />;
             case 'add-product':
               return <AddProduct store={store}/>;
             default:

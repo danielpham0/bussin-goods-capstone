@@ -114,7 +114,7 @@ router.post('/updateProduct', async function(req,res,next) {
 
 router.delete('/deleteProduct', async function(req,res,next) {
     try {
-        let product = await req.db.Product.findById(req.body.productID)
+        let product = await req.db.Product.findById(req.query.productID).populate('store')
         let store = product.store
         let userIsAdmin = store.admins.includes(req.userID)
         if (!userIsAdmin) {
@@ -123,7 +123,7 @@ router.delete('/deleteProduct', async function(req,res,next) {
                 error: 'User is not an admin for this store.'})
             return
         }
-        await req.db.CardSet.findByIdAndDelete(req.body.productID)
+        await req.db.Product.findByIdAndDelete(req.query.productID)
         res.json({status: 'success'})
     } catch(error) {
         res.status(500)

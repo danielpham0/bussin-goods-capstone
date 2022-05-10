@@ -65,7 +65,7 @@ export class FeatTest extends React.Component {
                     <div className='row justify-content-center'>
                         {getMultipleRandom(this.state.prods,3).map((i) => {
                             return (
-                                <ProductCard key={i._id} cards={i} />
+                                <ProductCard key={i._id} product={i} />
                             )
                         })}
                     </div>

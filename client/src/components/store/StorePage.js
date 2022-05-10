@@ -63,7 +63,7 @@ export default function ProductPage(props) {
                 <h3>Products</h3>
                 <div className='row'>
                     {products.map(product => (
-                        <ProductCard key={product._id} cards={product}/>
+                        <ProductCard key={product._id} product={product}/>
                     ))}
                 </div>
             </div>
