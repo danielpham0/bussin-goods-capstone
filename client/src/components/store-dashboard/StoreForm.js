@@ -1,9 +1,10 @@
 import {React, useRef, useState} from 'react';
-import "./StoreSetupForm.css";
 import { useHistory } from "react-router-dom";
 import { STORE_TYPES, SOCIAL_TYPES, COUNTRIES } from '../../constants/constants';
 
 export default function  StoreSetupForm(props) {
+    const prevInfo = props.store
+
     let curYear = new Date().getFullYear()
 
     const socialLinkInput = useRef(null);
@@ -13,12 +14,13 @@ export default function  StoreSetupForm(props) {
     let history = useHistory()
 
     const [statusMessage, setStatusMessage] = useState('');
-    const [socials, setSocials] = useState([]);
-    const [pickupAreas, setPickupAreas] = useState([]);
-    const [regions, setRegions] = useState([]);
+    const [socials, setSocials] = useState(prevInfo ? prevInfo.social_links : []);
+    const [pickupAreas, setPickupAreas] = useState(prevInfo ? prevInfo.pickup_from : []);
+    const [regions, setRegions] = useState(prevInfo ? prevInfo.ships_to : []);
 
     let submitStoreSetup = async (event) => {
         event.preventDefault()
+        
         let formData = {
             name: event.target.store_name.value,
             type: event.target.store_type.value,
@@ -45,17 +47,30 @@ export default function  StoreSetupForm(props) {
             });
             formData.banner = urlJSON.upload_url.split('?')[0]
         }
-
-        let postFormResponse = await fetch(`/api/v1/store/createStore`,
-            {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json', 
-            }, credentials: 'include'}
-        )
-        let postFormJSON = await postFormResponse.json()
-        if (postFormJSON.status == 'error') {
-            setStatusMessage(`Error: "${postFormJSON.error}"`)
+        if (prevInfo) {
+            let postFormResponse = await fetch(`/api/v1/store/updateStore`,
+                {method: "POST", body: JSON.stringify({storeID: prevInfo._id, updatedStore: formData}), headers: {'Content-Type': 'application/json', 
+                }, credentials: 'include'}
+            )
+            let postFormJSON = await postFormResponse.json()
+            if (postFormJSON.status == 'error') {
+                setStatusMessage(`Error: "${postFormJSON.error}"`)
+            } else {
+                props.handleClose()
+                history.go(0)
+            }
         } else {
-            props.updateStores()
-            history.push("/StoreDashboard")
+            let postFormResponse = await fetch(`/api/v1/store/createStore`,
+                {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json', 
+                }, credentials: 'include'}
+            )
+            let postFormJSON = await postFormResponse.json()
+            if (postFormJSON.status == 'error') {
+                setStatusMessage(`Error: "${postFormJSON.error}"`)
+            } else {
+                history.push("/StoreDashboard")
+                history.go(0)
+            }
         }
     }
     let addSocialLink = async () => {
@@ -73,20 +88,20 @@ export default function  StoreSetupForm(props) {
     }
     return (
         <div>
-            <form className="store-setup" onSubmit={submitStoreSetup}>
-                <h4> Setup your Store! </h4>
+            <form className={prevInfo ? 'w-100' : 'w-75'} onSubmit={submitStoreSetup}>
+                <h4> {prevInfo ? 'Edit your Store!' : 'Setup your Store!'} </h4>
                 <h5>General Information </h5>
                 <div className="mb-3">
                     <label className="form-label">What is the name of your store?</label>
-                    <input type='text' className="form-control" name='store_name' required/>
+                    <input type='text' className="form-control" name='store_name' defaultValue={prevInfo ? prevInfo.name : undefined} required/>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">What email should we use to send store and order updates?</label>
-                    <input type='email' className="form-control" name='email' required/>
+                    <input type='email' className="form-control" name='email' defaultValue={prevInfo ? prevInfo.email : undefined} required/>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">What type of store is it?</label>
-                    <select name="store_type" className="form-select" required>
+                    <select name="store_type" className="form-select" defaultValue={prevInfo ? prevInfo.type : undefined} required>
                         {STORE_TYPES.map(type => (
                             <option value={type} key={type}>{type}</option>
                         ))}
@@ -94,15 +109,18 @@ export default function  StoreSetupForm(props) {
                 </div>
                 <div className="mb-3">
                     <label className="form-label">What cohort is your startup?</label>
-                    <input className="form-control" name="cohort" type="number" defaultValue={curYear} min={curYear-5} max={curYear} required/>
+                    <input className="form-control" name="cohort" type="number" defaultValue={prevInfo ? prevInfo.cohort : curYear} min={curYear-5} max={curYear} required/>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">What banner would you like to use for your startup? </label>
                     <input className="form-control" type="file" name="banner" accept="image/png, image/jpeg, image/jpg" single="true"></input>
+                    {prevInfo && prevInfo.banner ? <div> <div className="form-text">Current Banner: </div>
+                    <img style={{'objectFit': 'cover', 'height': '8rem'}} className="img-fluid"src={prevInfo.banner}/></div> : null}
                 </div>
+                
                 <div className="mb-3">
                     <label className="form-label"> Would you like your store to be private as of now?</label>
-                    <select name="private" className="form-select" required>
+                    <select name="private" className="form-select" defaultValue={prevInfo ? prevInfo.private : true} required>
                         <option value={true}>Yes</option>
                         <option value={false}>No</option>
                     </select>
@@ -111,12 +129,12 @@ export default function  StoreSetupForm(props) {
                 <h5> About </h5>
                 <div className="mb-3">
                     <label className="form-label">What would you like in your 'About' section?</label>
-                    <textarea className="form-control" rows="4" name="about" placeholder="Your About" required></textarea>
+                    <textarea className="form-control" rows="4" name="about" placeholder="Your About" defaultValue={prevInfo ? prevInfo.about : undefined} required></textarea>
                     <div className="form-text">Don't worry about getting things perfect! You can always edit this later on. </div>
                 </div>
                 <div className="mb-3">
                     <label className="form-label"> What would you like your 'tagline' to be?</label>
-                    <textarea className="form-control" name="tagline" placeholder="Your Tagline" required></textarea>
+                    <textarea className="form-control" name="tagline" placeholder="Your Tagline" defaultValue={prevInfo ? prevInfo.tagline : undefined} required></textarea>
                     <div className="form-text">This is what will appear when your store is mentioned or highlighted somewhere.</div>
                 </div>
                 <h5> Shipping </h5>
@@ -131,7 +149,7 @@ export default function  StoreSetupForm(props) {
                                     } else {
                                         setRegions(regions.filter(region => region != e.target.value))
                                     }
-                                }} className="form-check-input" type="checkbox" value={country}/>
+                                }} className="form-check-input" type="checkbox" value={country} defaultChecked={prevInfo? prevInfo.ships_to.includes(country) : false}/>
                                 <label className="form-check-label">
                                     {country}
                                 </label>
@@ -175,8 +193,8 @@ export default function  StoreSetupForm(props) {
                             <li className="list-group-item">Currently no socials have been attached.</li>}
                     </ul>
                 </div>
-                <button type="submit" className="btn btn-primary">Setup Store</button>
-                {statusMessage && <div className="form-text status"> {statusMessage} </div>}
+                <button type="submit" className="btn btn-primary">{prevInfo ? 'Save Changes' : 'Setup Store'}</button>
+                {statusMessage && <div className="form-text mt-3"> {statusMessage} </div>}
             </form>
         </div>
     );

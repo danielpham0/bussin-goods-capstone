@@ -48,7 +48,7 @@ export default function ProductPage(props) {
                 <p>{store.about}</p>
                 <br/>
                 <h3>Meet the Team</h3>
-                <div className="admins row">
+                <div className="row">
                     {store.admins ? store.admins.map(admin => (
                         <UserCard key={admin._id} user={admin}/>
                         )) : ''}

@@ -26,11 +26,9 @@ export default function  StoreConsole(props) {
         }
         switch(param) {
             case 'analytics':
-              return <p> Analytics </p>;
+              return <div> <h3> Analytics </h3> <p>Work in progress...</p></div>;
             case 'manage-store':
               return <ManageStore store={store}/>;
-            case 'store-page':
-              return <p> Store Page </p>;
             case 'manage-product':
               return <p> Manage Product </p>;
             case 'add-product':
@@ -43,7 +41,6 @@ export default function  StoreConsole(props) {
         <div className='console'>
             <ul className="left">
             <li className={`list-group-item list-group-item-action ${consoleMode == 'manage-store' ? 'active' : ''}`} onClick={() => setConsoleMode('manage-store')}>Manage Store</li>
-              <li className={`list-group-item list-group-item-action ${consoleMode == 'store-page' ? 'active' : ''}`} onClick={() => setConsoleMode('store-page')}>Store Page</li>
               <li className={`list-group-item list-group-item-action ${consoleMode == 'manage-product' ? 'active' : ''}`} onClick={() => setConsoleMode('manage-product')}>Manage Products</li>
               <li className={`list-group-item list-group-item-action ${consoleMode == 'add-product' ? 'active' : ''}`} onClick={() => setConsoleMode('add-product')}>Add a Product</li>
               <li className={`list-group-item list-group-item-action ${consoleMode == 'analytics' ? 'active' : ''}`} onClick={() => setConsoleMode('analytics')}>Store Analytics</li>

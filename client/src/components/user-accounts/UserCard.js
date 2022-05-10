@@ -4,7 +4,7 @@ import profilePlaceholder from "../../imgs/profilePlaceholder.jpg"
 export default function  UserCard(props) {
     const user = props.user
     return (
-        <div className="card mb-3" style={{'maxWidth': '285px'}}>
+        <div className="card mb-3 m-1" style={{'maxWidth': '285px'}}>
         <div className="row g-0" >
             <div className="col-md-4">
             <img className="img-fluid rounded-circle" style={{'width': '100%', 'height':'100%', 'objectFit':'cover'}} src={user.profile_picture ? user.profile_picture : profilePlaceholder}/>
