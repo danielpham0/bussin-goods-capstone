@@ -5,6 +5,7 @@ import ProductOrderForm from './ProductOrderForm';
 import AboutProduct from './AboutProduct';
 import StoreCard from '../store/StoreCard';
 import './ProductPage.css'
+import productPlaceholder from '../../imgs/productPlaceholder.jpg'
 
 export default function ProductPage(props) {
     let {productID} = useParams()
@@ -24,7 +25,7 @@ export default function ProductPage(props) {
             <div className="product-page">
                 <h2>{product.store.name}</h2>
                 <div className='product-section section'>
-                    <ImageCarousel imageUrls={product.pictures}/>
+                    <ImageCarousel imageUrls={product.pictures && product.pictures.length>0 ? product.pictures : [productPlaceholder]}/>
                     <ProductOrderForm product={product} addToCart={props.addToCart}/>
                 </div>
                 <div className='section'>
