@@ -1,20 +1,22 @@
 import {React, useState, useRef} from 'react';
 import {PRODUCT_TYPES} from '../../constants/constants.js'
+import { useHistory } from "react-router-dom";
 
 export default function ProductForm(props) {
+    let history = useHistory();
     let store = props.store;
+    const prevInfo = props.product
 
     const sectionTitleInput = useRef(null);
     const sectionDescriptionInput = useRef(null);
 
     const [statusMessage, setStatusMessage] = useState('');
-    const [sections, setSections] = useState([]);
+    const [sections, setSections] = useState(prevInfo.additional_information);
 
     let submitAddProduct = async (event) => {
         event.preventDefault()
-        console.log(sections)
         let formData = {
-            storeID: store._id,
+            storeID: prevInfo ? prevInfo.store._id : store._id,
             name: event.target.product_name.value,
             tagline: event.target.tagline.value,
             cost: event.target.price.value,
@@ -43,15 +45,30 @@ export default function ProductForm(props) {
             }
         }
         formData.pictures = fileUrls
-        let postFormResponse = await fetch(`/api/v1/product/createProduct`,
-            {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json', 
-            }, credentials: 'include'}
-        )
-        let postFormJSON = await postFormResponse.json()
-        if (postFormJSON.status == 'error') {
-            setStatusMessage(`Error: "${postFormJSON.error}"`)
+
+        if (prevInfo) {
+            let postFormResponse = await fetch(`/api/v1/product/updateProduct`,
+                {method: "POST", body: JSON.stringify({productID: prevInfo._id, updatedProduct: formData}), headers: {'Content-Type': 'application/json', 
+                }, credentials: 'include'}
+            )
+            let postFormJSON = await postFormResponse.json()
+            if (postFormJSON.status == 'error') {
+                setStatusMessage(`Error: "${postFormJSON.error}"`)
+            } else {
+                props.handleClose()
+                history.go(0)
+            }
         } else {
-            setStatusMessage(`Successfully added new product!`)
+            let postFormResponse = await fetch(`/api/v1/product/createProduct`,
+                {method: "POST", body: JSON.stringify(formData), headers: {'Content-Type': 'application/json', 
+                }, credentials: 'include'}
+            )
+            let postFormJSON = await postFormResponse.json()
+            if (postFormJSON.status == 'error') {
+                setStatusMessage(`Error: "${postFormJSON.error}"`)
+            } else {
+                setStatusMessage(`Successfully added new product!`)
+            }
         }
     }
 
@@ -65,15 +82,15 @@ export default function ProductForm(props) {
     return (
         <div>
             <form onSubmit={submitAddProduct}>
-                <h3> Add a new Product! </h3>
+                <h3> {prevInfo ? 'Edit your Product' :'Add a new Product!'} </h3>
                 <h4>General Information </h4>
                 <div className="mb-3">
                     <label className="form-label">What is the name of the product?</label>
-                    <input type='text' className="form-control" name='product_name' required/>
+                    <input type='text' className="form-control" name='product_name' defaultValue={prevInfo.name} required/>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">What type of product is it?</label>
-                    <select name="product_type" className="form-select" required>
+                    <select name="product_type" className="form-select" defaultValue={prevInfo.type} required>
                         {PRODUCT_TYPES.map(type => (
                             <option value={type} key={type}>{type}</option>
                         ))}
@@ -81,20 +98,23 @@ export default function ProductForm(props) {
                 </div>
                 <div className="mb-3">
                     <label className="form-label">What is the general description of your product?</label>
-                    <textarea className="form-control" rows="4" name="about" required></textarea>
+                    <textarea className="form-control" rows="4" name="about" defaultValue={prevInfo.general_description} required></textarea>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">What is the tagline of the product? </label>
-                    <textarea className="form-control" name="tagline" required></textarea>
+                    <textarea className="form-control" name="tagline" defaultValue={prevInfo.tagline} required></textarea>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Please attach some photos of your product. </label>
                     <input className="form-control" type="file" name="product_pictures" accept="image/png, image/jpeg, image/jpg" multiple></input>
+                    {prevInfo && prevInfo.pictures && prevInfo.pictures.length > 0 ? <div> <div className="form-text">Current Photos: </div>
+                    {prevInfo.pictures.map(picture => <img key={picture} style={{'objectFit': 'cover', 'height': '8rem'}} className="img-fluid m-1"src={picture}/>)}
+                    </div> : null}
                 </div>
                 <h4> Pricing </h4>
                 <div className="mb-3">
                     <label className="form-label">What price would you like to list the product at?</label>
-                    <input className="form-control" name="price" type="number" defaultValue={0.00} min={0} step={.01} required/>
+                    <input className="form-control" name="price" type="number" defaultValue={prevInfo.cost} min={0} step={.01} required/>
                 </div>
                 <h4> Additional Information</h4>
                 <div className="form-text"> Attach any additional information sections you would like for your product. </div>
@@ -115,7 +135,7 @@ export default function ProductForm(props) {
                             <li className="list-group-item">Currently no sections have been added.</li>}
                     </ul>
                 </div>
-                <button type="submit" className="btn btn-primary">Add new Product</button>
+                <button type="submit" className="btn btn-primary">{prevInfo ? 'Save Changes':'Add new Product'}</button>
                 {statusMessage && <div className="form-text status"> {statusMessage} </div>}
             </form>
         </div>

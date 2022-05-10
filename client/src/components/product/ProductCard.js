@@ -6,7 +6,7 @@ import ProductForm from '../store-dashboard/ProductForm'
 
 export default function  ProductCard(props) {
     const product = props.product
-
+    
     const [deleteStatus, setDeleteStatus] = useState();
 
     const [showEditForm, setEditShow] = useState(false);

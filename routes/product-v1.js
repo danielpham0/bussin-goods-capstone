@@ -92,7 +92,7 @@ router.get('/getStoreProducts', async function(req,res,next) {
 
 router.post('/updateProduct', async function(req,res,next) {
     try {
-        let product = await req.db.Product.findById(req.body.productID)
+        let product = await req.db.Product.findById(req.body.productID).populate('store')
         let store = product.store
         let userIsAdmin = store.admins.includes(req.userID)
         if (!userIsAdmin) {
