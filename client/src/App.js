@@ -3,6 +3,7 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from './pages/Home';
+import About from './pages/About';
 import Product from './pages/Product';
 import Startup from './pages/Startup';
 import SignUp from './pages/SignUp';
@@ -99,6 +100,7 @@ export default function App() {
         <main>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route exact path='/About' component={About} />
             <Route path='/Product'>
               <Product addToCart={addToCart}/>
             </Route>

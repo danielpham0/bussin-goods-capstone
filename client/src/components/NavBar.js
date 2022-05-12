@@ -6,6 +6,7 @@ const Navigation = (props) =>{
   return (
     <section className="navbar">
       <Link to="/" className="navbar-item"> Home </Link>
+      <Link to="/About" className="navbar-item"> About Us </Link>
       <Link to="/Product" className="navbar-item"> Products </Link>
       <Link to="/Startup" className="navbar-item"> Startups </Link>
       {user && user.account_type == "Store Owner" ? 
