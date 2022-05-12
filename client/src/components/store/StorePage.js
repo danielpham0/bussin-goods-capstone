@@ -44,28 +44,28 @@ export default function ProductPage(props) {
         return (
             <div className="store-page">
                 <h2>{store.name}</h2>
-                <h3>About</h3>
+                <h3>Our Products</h3>
+                <div className='product-cards row'>
+                    {products.map(product => (
+                        <ProductCard key={product._id} product={product}/>
+                    ))}
+                </div>
+                <h3>About Us</h3>
                 <p>{store.about}</p>
                 <br/>
-                <h3>Meet the Team</h3>
-                <div className="row">
+                <h4>Meet the Team</h4>
+                <div className="team-cards row">
                     {store.admins ? store.admins.map(admin => (
                         <UserCard key={admin._id} user={admin}/>
                         )) : ''}
                 </div>
                 <h3>Social Links</h3>
-                <div> 
+                <div className='social-link'> 
                     {store.social_links ? store.social_links.map(social => (
                         <a href={social.link} className="card-link" key={social.link}>{social.social_media}</a>
                     )) : ''}
                 </div>
                 <br/>
-                <h3>Products</h3>
-                <div className='row'>
-                    {products.map(product => (
-                        <ProductCard key={product._id} product={product}/>
-                    ))}
-                </div>
             </div>
         )
     }

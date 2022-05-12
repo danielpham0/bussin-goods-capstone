@@ -3,3 +3,32 @@
     margin: auto;
     text-align: left;
 }
+.store-page > h2 {
+    display: flex;
+    text-decoration: underline;
+}
+.store-page > h3 {
+    text-decoration: underline;
+    text-align: center;
+}
+.store-page > p {
+    text-align: center;
+    text-decoration:#666666;
+}
+.store-page > h4 {
+    text-align: center;
+    text-decoration: underline;
+}
+.team-cards {
+    justify-content: center;
+    margin: auto;
+}
+
+.social-link {
+    text-align: center;
+}
+.product-cards {
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+}
