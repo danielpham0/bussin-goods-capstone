@@ -3,20 +3,23 @@
     margin: auto;
     text-align: left;
 }
-.store-page > h2 {
+.store-banner{
+    width: 100%;
+    padding-bottom: 2rem;
     padding-top: 2rem;
-    display: flex;
+}
+.store-page > h2 {
+    padding-top: 1rem;
     text-decoration: underline;
+    text-align: center;
 }
 .tagline {
-    text-align: left;
-    text-indent: 3rem;
+    text-align: center;
     font-size: large;
 }
 .type{
     text-decoration: underline;
-    text-align: left;
-    text-indent: 1rem;
+    text-align: center;
     font-size: large;
     padding-bottom: 2rem;
 }
