@@ -55,6 +55,7 @@ export default function ProductPage(props) {
                 </div>
                 <h3>About Us</h3>
                 <p>{store.about}</p>
+                <p className='cohort'>Cohort: {store.cohort}</p>
                 <br/>
                 <h4>Meet the Team</h4>
                 <div className="team-cards row">
