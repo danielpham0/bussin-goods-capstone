@@ -4,6 +4,7 @@
     text-align: left;
 }
 .store-page > h2 {
+    padding-top: 2rem;
     display: flex;
     text-decoration: underline;
 }
@@ -11,6 +12,13 @@
     text-align: left;
     text-indent: 3rem;
     font-size: large;
+}
+.type{
+    text-decoration: underline;
+    text-align: left;
+    text-indent: 1rem;
+    font-size: large;
+    padding-bottom: 2rem;
 }
 .store-page > h3 {
     text-decoration: underline;

@@ -44,6 +44,7 @@ export default function ProductPage(props) {
         return (
             <div className="store-page">
                 <h2>{store.name}</h2>
+                <div className='type'><b>Category: {store.type}</b></div>
                 <div className='tagline'>{store.tagline}</div>
                 <h3>Our Products</h3>
                 <div className='product-cards row'>
