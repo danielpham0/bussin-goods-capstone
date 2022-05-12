@@ -10,6 +10,7 @@
 .tagline {
     text-align: left;
     text-indent: 3rem;
+    font-size: large;
 }
 .store-page > h3 {
     text-decoration: underline;
