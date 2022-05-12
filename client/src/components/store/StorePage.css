@@ -7,6 +7,10 @@
     display: flex;
     text-decoration: underline;
 }
+.tagline {
+    text-align: left;
+    text-indent: 3rem;
+}
 .store-page > h3 {
     text-decoration: underline;
     text-align: center;
