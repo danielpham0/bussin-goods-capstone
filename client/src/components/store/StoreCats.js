@@ -10,16 +10,22 @@ export class StoreCats extends React.Component {
     state = {
         name: '',
         obj: '',
-        selectedOption: '',
+        searchOption: '',
         test: STORE_TYPES,
         show: false,
+        btn: false,
         type: '',
         items: []
     };
 
     findCat = (e) => {
-        this.setState({ show: true, type: e.target.innerText })
+        this.setState({ show: true, type: e.target.innerText, btn: true })
     };
+
+    searchCat = (e) => {
+        this.setState({ show: true, type: this.state.searchOption, btn: false })
+    };
+
 
     componentDidMount() {
         this.setState({
@@ -48,8 +54,8 @@ export class StoreCats extends React.Component {
                         <div className="input-group">
                             <h5 className='browse-title'>Browse All
                             </h5>
-                            <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                            <button type="button" className="btn btn-outline-primary">search</button>
+                            <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onInput={e => this.setState({ searchOption: e.target.value })} />
+                            <button type="button" className="btn btn-outline-primary" onClick={this.searchCat}>search</button>
                         </div>
                     </div>
                 </div>
@@ -69,7 +75,7 @@ export class StoreCats extends React.Component {
                         })}
                     </div>
 
-                    {this.state.show && <Resu type={this.state.type} cards={this.state.obj} />}
+                    {this.state.show && <Results type={this.state.type} cards={this.state.obj} btn={this.state.btn} />}
 
                 </div>
 
@@ -80,14 +86,15 @@ export class StoreCats extends React.Component {
     }
 }
 
-class Resu extends React.Component {
+class Results extends React.Component {
     constructor(props) {
         super(props);
     }
 
     state = {
         card: [],
-        type: ''
+        type: '',
+        btn: false
     }
 
     componentDidMount() {
@@ -100,20 +107,42 @@ class Resu extends React.Component {
     }
 
     render() {
+        const bntfiltered = this.props.cards.filter(e => e.type == this.props.type)
+
+        const filtered = this.props.cards.filter(
+            e => {
+            var inp = this.props.type.toLowerCase()
+            return (
+                e.name.toLowerCase().includes(inp) ||
+                e.type.toLowerCase().includes(inp) ||
+                e.tagline.toLowerCase().includes(inp)
+            )
+            }
+        )
+
         return (
             <div className="row results">
                 <h2> Showing results for: {this.props.type}</h2>
-
-                {this.props.cards.filter(e => e.type == this.props.type).length == 0 &&
-
-                    <p>Sorry, no results were found :/</p>
-
+                {this.props.btn == true ? (
+                    bntfiltered.length == 0 ?
+                        <p>Sorry, no results were found :/</p>
+                        : (
+                            bntfiltered.map((object) => {
+                                return (
+                                    <StoreCard key={object._id} store={object} />
+                                )
+                            }))) : (
+                                filtered.length == 0 ?
+                        <p>Sorry, no results were found :/</p>
+                        : (
+                            filtered.map((object) => {
+                                return (
+                                    <StoreCard key={object._id} store={object} />
+                                )
+                            }))
+                )
                 }
-                {this.props.cards.filter(e => e.type == this.props.type).map((object) => {
-                    return (
-                        <StoreCard key={object._id} store={object}/>
-                    )
-                })}
+
             </div>
 
         )

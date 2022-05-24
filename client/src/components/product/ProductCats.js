@@ -3,7 +3,6 @@ import "./ProductCats.css";
 import { STORE_TYPES } from '../../constants/constants.js';
 import { Link, Route, useRouteMatch } from "react-router-dom";
 import { Component } from 'react';
-import ProductCard from './ProductCard.js';
 import ProductResults from './ProductResults.js';
 
 export class ProductCats extends React.Component {
@@ -15,12 +14,18 @@ export class ProductCats extends React.Component {
         test: STORE_TYPES,
         show: false,
         type: '',
+        btn : false,
         items: []
     };
 
     findCat = (e) => {
-        this.setState({ show: true, type: e.target.innerText })
+        this.setState({ show: true, type: e.target.innerText, btn : true})
     };
+    
+    searchCat = (e) => {
+        this.setState({ show: true, type: this.state.searchOption, btn: false })
+    };
+
 
     componentDidMount() {
         this.setState({
@@ -49,8 +54,8 @@ export class ProductCats extends React.Component {
                         <div className="input-group">
                             <h5 className='browse-title'>Browse All
                             </h5>
-                            <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                            <button type="button" className="btn btn-outline-primary">search</button>
+                            <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onInput={e => this.setState({ searchOption: e.target.value })} />
+                            <button type="button" className="btn btn-outline-primary" onClick={this.searchCat}>search</button>
                         </div>
                     </div>
                 </div>
@@ -60,8 +65,8 @@ export class ProductCats extends React.Component {
                     <div className='row cats'>
                         {this.state.test.map((i) => {
                             return (
-                                <div className="col-md-3" key={i}>
-                                    <button value={i} onClick={this.findCat} className='btn btn-sm cat-btn btn-outline-dark btn-lg' >
+                                <div className="col-md-3">
+                                    <button value={i} onClick={this.findCat} key={i.id} className='btn btn-sm cat-btn btn-outline-dark btn-lg' >
                                         <h5> {i}</h5>
                                     </button>
                                 </div>
@@ -69,9 +74,8 @@ export class ProductCats extends React.Component {
                             )
                         })}
                     </div>
-                    {this.state.show && <ProductResults type={this.state.type} cards={this.state.obj} />}
+                    {this.state.show && <ProductResults type={this.state.type} cards={this.state.obj} btn={this.state.btn} />}
                 </div>
-
 
             </div>
 
